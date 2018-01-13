@@ -11,12 +11,14 @@
   ],
   "autoload": {
     "psr-4": {
-      "Krugozor\\Framework\\": "src/"
+      "Krugozor\\Framework\\": "src/",
+      "Krugozor\\Framework\\Module\\": "module/"
     }
   },
   "license": "Apache-2.0",
   "require": {
-    "krugozor/pagination": "dev-master",
-    "krugozor/database": "^1.0"
-  }
+    "krugozor/database": "^1.0",
+    "krugozor/pagination": "dev-master"
+  },
+  "vendor-dir": "vendor"
 }
