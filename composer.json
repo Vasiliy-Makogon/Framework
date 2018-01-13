@@ -9,11 +9,8 @@
       "email": "makogon-vs@yandex.ru"
     }
   ],
-  "autoload": {
-    "psr-4": {
-      "Krugozor\\Framework\\": "src/",
-      "Krugozor\\Framework\\Module\\": "module/"
-    }
+  "psr-4" : {
+    "Krugozor\\Framework\\": "src/"
   },
   "license": "Apache-2.0",
   "require": {

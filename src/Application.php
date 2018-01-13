@@ -1,7 +1,6 @@
 <?php
-namespace Krugozor\Framework;
 
-final class Application
+final class Krugozor_Application
 {
     /**
      * Объект-хранилище, содержащий все "звёздные" объекты системы.
