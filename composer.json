@@ -2,7 +2,6 @@
   "name": "Krugozor/Framework",
   "description": "Framework",
   "minimum-stability": "stable",
-  "license": "proprietary",
   "php": ">=5.3.0",
   "authors": [
     {
@@ -15,5 +14,9 @@
       "Krugozor\\Framework\\": "src/"
     }
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "require": {
+    "krugozor/pagination": "dev-master",
+    "krugozor/database": "^1.0"
+  }
 }
