@@ -10,7 +10,7 @@
     }
   ],
   "psr-4" : {
-    "Krugozor\\Framework\\": "src/"
+    "krugozor\\framework\\": "src/"
   },
   "license": "Apache-2.0",
   "require": {
