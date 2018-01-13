@@ -1,7 +1,8 @@
 <?php
+declare(strict_types=1);
+
 use Krugozor\Framework\Registry;
 
-declare(strict_types=1);
 define('TIME_START', microtime(true));
 error_reporting(E_ALL | E_STRICT);
 
