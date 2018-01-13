@@ -1,5 +1,5 @@
 {
-  "name": "Krugozor/Framework",
+  "name": "krugozor/framework",
   "description": "Framework",
   "minimum-stability": "stable",
   "php": ">=5.3.0",
@@ -10,7 +10,7 @@
     }
   ],
   "psr-4" : {
-    "krugozor\\framework\\": "src/"
+    "Krugozor\\Framework\\": "src/"
   },
   "license": "Apache-2.0",
   "require": {
