@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="<?=($this->category->getKeywords() ? strip_tags($this->category->getKeywords()) : $this->lang['meta']['keywords'])?>" />
+<meta name="description" content="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($this->getHelper('Krugozor_Html_Title')->getLastElement())?>" />
+<meta property="og:title" content="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($this->getHelper('Krugozor_Html_Title')->getLastElement())?>"/>
+<meta property="og:description" content="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($this->getHelper('Krugozor_Html_Title')->getLastElement())?>" />
+<link rel="shortcut icon" sizes="16x16" href="/favicon.ico" />
+<link rel="index" href="<?=$this->region_paths['city']?>/categories/" />
+<link rel="start" href="<?=$this->region_paths['city']?>/categories<?=$this->category->getUrl()?>" />
+<?php if ($this->near_adverts['prev']->getId()): ?>
+    <link rel="prev" title="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($this->near_adverts['prev']->getHeader())?>" href="/advert/<?=$this->near_adverts['prev']->getId()?>.xhtml" />
+<?php endif; ?>
+<?php if ($this->near_adverts['next']->getId()): ?>
+    <link rel="next" title="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($this->near_adverts['next']->getHeader())?>" href="/advert/<?=$this->near_adverts['next']->getId()?>.xhtml" />
+<?php endif; ?>
+
+<?=$this->getHelper('Krugozor_Html_Title')->getHtml()?>
+
+<?=$this->getCss('/http/css/main.css', false)?>
+<?=$this->getCss('/http/css/modules/advert/_adverts-list.css', true)?>
+<?=$this->getPathToCssModule(true)?>
+
+<?=$this->getJs('/http/js/library/krugozor.js', true);?>
+<?=$this->getJs('/http/js/library/krugozor.ajax.js', true);?>
+<?=$this->getJs('/http/js/library/krugozor.ui.popup.image.js', true);?>
+<?=$this->getJs('/http/js/tooltip.js', false)?>
+<?=$this->getJs('/http/js/jquery-1.11.1.min.js', false)?>
+<?=$this->getPathToJsModule(true)?>
+<?=$this->getJs('/http/js/modules/advert/_adverts-list.js', true);?>
+
+</head><body>
+
+<? include $this->getRealTemplatePath('Common/FrontendTop') ?>
+
+<div class="content">
+
+    <h2>
+        <a href="<?=$this->region_paths['city']?>/categories/">Объявления<?php if ($this->city): ?> в <?=$this->city->getNameRu2()?><?php endif; ?></a>
+        <?=$this->getHelper('Krugozor_Module_Category_Helper_BreadCrumbs', $this->path_to_category, $this->region_paths['city'] . '/categories', '/')->lastElementIsLink(true)->getHtml()?>
+    </h2>
+
+    <? include $this->getRealTemplatePath('Common/FrontendNotification')?>
+
+    <?php if (
+            ($this->advert->getActive() or !$this->advert->getActive() && $this->advert->getIdUser() === $this->current_user->getId())
+             and
+            ($this->user->getActive() && !$this->user->isGuest() or $this->user->isGuest())): ?>
+        <?php include_once($this->getRealTemplatePath('Advert/AdvertsList')); ?>
+    <?php endif;?>
+
+
+    <?php if ($this->similar_adverts && $this->similar_adverts->count()): ?>
+        <aside class="carousel">
+            <div class="bheader">Другие объявления из категории &laquo;<?=$this->category->getName()?>&raquo;:</div>
+            <ul>
+                <?php foreach ($this->similar_adverts as $data): ?>
+                    <?php
+                    $advert_text = $advert_text = Krugozor_Helper_Format::getPreviewStr($data['advert']->getText(), 140, '...');
+                    $advert_text = $this->getHelper('Krugozor_Helper_Format')->userDataOutput($advert_text);
+                    ?>
+                    <li class="<?php if($data['advert']->getDenormalizationThumbnailsList()->count()): ?>do_animaton<?php endif; ?> <?php if ($data['advert']->getId() == $this->advert->getId()): ?>selected<? endif; ?>">
+                        <a title="<?=$advert_text?>" href="/advert/<?=$data['advert']->getId()?>.xhtml">
+                            <span class="image_wrap">
+                            <?php if($data['advert']->getDenormalizationThumbnailsList()->count()): ?>
+                                <img src="/i/150x100<?=$data['advert']->getDenormalizationThumbnailsList()->item(0)->getFullHttpPath()?>" alt="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($data['advert']->getHeader())?>" />
+                                <span class="photocamera"><span><?=$data['advert']->getThumbnailCount()?></span></span>
+                            <?php else: ?>
+                                <img class="no_photo" src="/http/image/desing/icon/no_photo.png" alt="" />
+                            <?php endif; ?>
+
+                                <?php if ($data['advert']->getId() != $this->advert->getId()): ?>
+                                    <span class="similar_header">
+                                        <span class="text"><?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($data['advert']->getHeader(), 50)?></span>
+                                    </span>
+                                <?php endif; ?>
+                            </span>
+                        </a>
+                        <a href="/advert/<?=$data['advert']->getId()?>.xhtml">
+                            <span>
+                                <?=Krugozor_Helper_Format::getPreviewStr($data['advert']->getText(), 170, '...')?>
+                            </span>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </aside>
+    <?php endif; ?>
+
+</div>
+
+<? include $this->getRealTemplatePath('Common/FrontendBottom')?>
+
+</body>
+</html>

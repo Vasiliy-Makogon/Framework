@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+    <?= $this->getHelper('Krugozor_Html_Title')->getHtml() ?>
+
+    <?= $this->getCss('/http/css/reset.css', false) ?>
+    <?= $this->getCss('/http/css/tags.css', true) ?>
+    <?= $this->getCss('/http/css/backend.css', true) ?>
+    <?= $this->getPathToCssModule(true) ?>
+
+    <?= $this->getJs('/http/js/library/index.js', true); ?>
+    <?= $this->getJs('/http/js/modules/authorization/login.js', true); ?>
+
+</head>
+<body>
+
+<?php if (!$this->current_user->isGuest()): ?>
+
+    <? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+    <? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+
+<?php else: ?>
+
+    <div id="center_block">
+        <? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+
+        <h3><?= $this->getLang()['title'][1] ?></h3>
+
+        <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['authorization']) ?>
+
+        <form id="auth" onsubmit="if (window.cform) return cform.checkTextFieldsOnEmpty();" method="post"
+              action="<?= $this->getRequest()->getRequestUri()->getEscapeUriValue() ?>">
+            <table>
+                <colgroup>
+                    <col class="col1"/>
+                    <col class="col2"/>
+                </colgroup>
+                <tr>
+                    <td class="compulsory"><?= $this->getLang()['content']['login'] ?>:</td>
+                    <td>
+                        <?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[login]', $this->user->getLogin(), array('class' => 'text', 'maxlength' => 255, 'id' => 'user_login', 'title' => 'Введите логин', 'class' => 'text'))->getHtml() ?>
+                        <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['login']) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="compulsory"><?= $this->getLang()['content']['password'] ?>:</td>
+                    <td>
+                        <?= $this->getHelper('Krugozor_Helper_Form')->inputPassword('user[password]', '', array('class' => 'text', 'maxlength' => 255, 'id' => 'user_password', 'title' => 'Введите пароль', 'class' => 'text'))->getHtml() ?>
+                        <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['password']) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <?= $this->getHelper('Krugozor_Helper_Form')->Label($this->getLang()['content']['remember_password'] . ':', 'autologin')->getHtml() ?>
+                        <?= $this->getHelper('Krugozor_Helper_Form')->inputFullCheckbox('autologin', 1, 0, $this->autologin, array('id' => 'autologin')) ?>
+                        <p id="change_cookie_days"
+                           class="changeCookieDays<? if ($this->autologin): ?> show<? endif; ?>">
+                            <?php
+                            echo Krugozor_Static_String::createMessageFromParams(
+                                $this->getLang()['content']['remember_password_description'],
+                                ['days' => $this->ml_autologin],
+                                false);
+                            ?>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <?= $this->getHelper('Krugozor_Helper_Form')->inputHidden('ml_autologin', $this->ml_autologin, array('id' => 'ml_autologin'))->getHtml() ?>
+                        <?= $this->getHelper('Krugozor_Helper_Form')->inputHidden('referer', $this->referer)->getHtml() ?>
+                        <?= $this->getHelper('Krugozor_Helper_Form')->inputSubmit('submit', $this->getLang()['content']['login_in_panel'])->getHtml() ?>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        try {
+            var cform = new Krugozor.Forms.Checker('auth');
+            cform.putFocus();
+        } catch (e) {
+        }
+    </script>
+
+<?php endif; ?>
+
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+    <?= $this->getHelper('Krugozor_Html_Title')->getHtml() ?>
+
+    <?= $this->getCss('/http/css/reset.css', false) ?>
+    <?= $this->getCss('/http/css/tags.css', true) ?>
+    <?= $this->getCss('/http/css/backend.css', true) ?>
+
+    <?= $this->getJs('/http/js/library/index.js'); ?>
+    <?= $this->getJs('/http/js/library/krugozor.locations.js', true) ?>
+
+</head>
+<body>
+
+<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+
+<form id="form" method="post" action="<?= $this->getRequest()->getRequestUri()->getEscapeUriValue() ?>">
+
+    <table class="datatable edit">
+        <colgroup>
+            <col/>
+            <col/>
+        </colgroup>
+        <tr>
+            <th colspan="2">
+                <? if ($this->user->getId()): ?>
+                    <?php
+                    $str = Krugozor_Static_String::createMessageFromParams(
+                        $this->getLang()['content']['editing_user'],
+                        ['user_name' => $this->user->getFullName()]
+                    );
+                    ?>
+                    <?= $str ?>
+                <? else: ?>
+                    <?= $this->lang['content']['add_user'] ?>
+                <? endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td><strong class="compulsory"><?= $this->lang['content']['user_active'] ?>:</strong></td>
+            <td>
+                <?
+                $select = $this->getHelper('Krugozor_Helper_Form')->inputSelect('user[active]', $this->user->getActive());
+                $select->addOption($this->getHelper('Krugozor_Helper_Form')->inputOption(1, $this->lang['content']['yes']));
+                $select->addOption($this->getHelper('Krugozor_Helper_Form')->inputOption(0, $this->lang['content']['no']));
+                echo $select->getHtml();
+                ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['active']) ?>
+            </td>
+        </tr>
+        <tr>
+            <td><?= $this->lang['content']['user_group'] ?>:</td>
+            <td>
+                <?
+                $select = $this->getHelper('Krugozor_Helper_Form')->inputSelect('user[group]', $this->user->getGroup());
+                $select->addOption($this->getHelper('Krugozor_Helper_Form')->inputOption(0, $this->lang['content']['select_value']));
+                foreach ($this->groups as $group):
+                    $select->addOption($this->getHelper('Krugozor_Helper_Form')->inputOption($group->getId(), $group->getName()));
+                endforeach;
+                echo $select->getHtml();
+                ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['group']) ?></td>
+        </tr>
+
+        <? if ($this->user->getId()): ?>
+            <tr>
+                <td><?= $this->lang['content']['id_user'] ?>:</td>
+                <td><?= $this->user->getId() ?></td>
+            </tr>
+        <? endif; ?>
+
+        <? if ($this->user->getUniqueCookieId()): ?>
+            <tr>
+                <td>UID:</td>
+                <td>
+                    <?= $this->user->getUniqueCookieId() ?>
+                    <?= $this->getHelper('Krugozor_Helper_Form')->inputHidden('user[unique_cookie_id]', $this->user->getUniqueCookieId())->getHtml() ?>
+                </td>
+            </tr>
+        <? endif; ?>
+
+        <? if ($this->user->getIp()): ?>
+            <tr>
+                <td><?= $this->lang['content']['user_ip'] ?>:</td>
+                <td><?= $this->user->getIp() ?></td>
+            </tr>
+        <? endif; ?>
+
+        <? if ($this->user->getRegdate()): ?>
+            <tr>
+                <td><?= $this->lang['content']['user_regdate'] ?>:</td>
+                <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[regdate]', $this->user->getRegdate()->formatAsMysqlDatetime(), ['readonly' => 'readonly'])->getHtml() ?>
+                </td>
+            </tr>
+        <? endif; ?>
+
+        <? if ($this->user->getVisitdate()): ?>
+            <tr>
+                <td><?= $this->lang['content']['user_visitdate'] ?>:</td>
+                <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[visitdate]', $this->user->getVisitdate()->formatAsMysqlDatetime(), ['readonly' => 'readonly'])->getHtml() ?></td>
+            </tr>
+        <? endif; ?>
+
+        <tr>
+            <td><strong class="compulsory"><?= $this->lang['content']['user_login'] ?>:</strong></td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[login]', $this->user->getLogin(), array('maxlength' => 255, 'class' => 'textSmall'))->getHtml() ?>
+                <? if ($this->user->getId()): ?>
+                    <div class="after_field_text"><?= $this->lang['content']['attention_change_user_login'] ?></div>
+                <? endif; ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['login']) ?></td>
+        </tr>
+
+        <tr>
+            <td><strong class="compulsory"><?= $this->lang['content']['user_password_1'] ?>:</strong></td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[password_1]', $this->password_1, array('maxlength' => 255, 'class' => 'textSmall', 'id' => 'user_password_1'))->getHtml() ?>
+                <a href="#" onclick="return Krugozor.Forms.hidePassChars('user_password_1, user_password_2', this)">скрыть
+                    пароль</a>
+                <? if ($this->user->id): ?>
+                    <div class="after_field_text"><?= $this->lang['content']['attention_change_user_password'] ?>
+                        <br/><br/><?= $this->lang['content']['do_not_fill_this_field'] ?></div>
+                <? endif; ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['password_1']) ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong class="compulsory"><?= $this->lang['content']['user_password_2'] ?>:</strong></td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[password_2]', $this->password_2, array('maxlength' => 255, 'class' => 'textSmall', 'id' => 'user_password_2'))->getHtml() ?>
+                <? if ($this->user->id): ?>
+                    <div class="after_field_text"><?= $this->lang['content']['do_not_fill_this_field'] ?></div>
+                <? endif; ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['password_2']) ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['password']) ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong class="compulsory"><?= $this->lang['content']['user_mail'] ?>:</strong></td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[email]', $this->user->getEmail()->getValue(), array('maxlength' => 255, 'class' => 'textSmall'))->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['email']) ?></td>
+        </tr>
+
+        <tr>
+            <td><strong class="compulsory"><?= $this->lang['content']['user_first_name'] ?>:</strong></td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[first_name]', $this->user->getFirstName(), array('maxlength' => 30,
+                    'class' => 'textSmall',
+                    'onkeyup' => 'this.value = Krugozor.Helper.String.ucfirst(this.value)'
+                ))->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['first_name']) ?></td>
+        </tr>
+
+        <tr>
+            <td><?= $this->lang['content']['user_last_name'] ?>:</td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[last_name]', $this->user->getLastName(), array('maxlength' => 30,
+                    'class' => 'medium',
+                    'onkeyup' => 'this.value = Krugozor.Helper.String.ucfirst(this.value)'
+                ))->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['last_name']) ?></td>
+        </tr>
+
+        <tr>
+            <td><strong class="compulsory"><?= $this->lang['content']['user_age'] ?>:</strong></td>
+            <td>
+                <?= $this->getHelper('Krugozor_Helper_Form')->inputSelectIntegerValues('user[age_day]', 1, 31, $this->user->getAgeDay(), ['class' => 'width_auto'])->getHtml() ?>
+                <? $select = $this->getHelper('Krugozor_Helper_Form')->inputSelect('user[age_month]', $this->user->getAgeMonth(), ['class' => 'width_auto']);
+                $select->addOption($this->getHelper('Krugozor_Helper_Form')->inputOption(0, ''));
+                foreach ($this->lang['content']['date']['months_genitive'] as $key => $value):
+                    $select->addOption($this->getHelper('Krugozor_Helper_Form')->inputOption($key, $value));
+                endforeach;
+                ?>
+                <?= $select->getHtml(); ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->inputSelectYears('user[age_year]', $this->user->getAgeYear(), ['class' => 'width_auto'])->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['age']) ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td><strong class="compulsory"><?= $this->lang['content']['user_sex'] ?>:</strong></td>
+            <td>
+                <?php foreach (Krugozor_Module_User_Type_Sex::getTypes() as $sex_key => $sex_value): ?>
+                    <?= $this->getHelper('Krugozor_Helper_Form')->inputRadio('user[sex]', $sex_key, $this->user->getSex()->getValue(), array('id' => 'user_sex_' . $sex_key))->getHtml() ?><!--
+                --><?= $this->getHelper('Krugozor_Helper_Form')->Label($sex_value, 'user_sex_' . $sex_key)->getHtml() ?>
+                    &nbsp;
+                <?php endforeach; ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['sex']) ?>
+            </td>
+        </tr>
+
+        <tr>
+            <td><?= $this->lang['content']['locations'] ?></td>
+            <td>
+                <p>
+                    <span id="js_country_select_wrap"></span>
+                    <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['country']) ?>
+                </p>
+
+                <p>
+                    <span id="js_region_select_wrap"></span>
+                    <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['region']) ?>
+                </p>
+
+                <p>
+                    <span id="js_city_select_wrap"></span>
+                    <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['city']) ?>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>Телефон:</td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[phone]', $this->user->getPhone(), array('maxlength' => 255, 'class' => 'textSmall'))->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['phone']) ?></td>
+        </tr>
+        <tr>
+            <td><?= $this->lang['content']['user_icq'] ?>:</td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[icq]', $this->user->getIcq(), array('maxlength' => 10,
+                    'onkeyup' => 'Krugozor.Forms.filterDigit(this)',
+                    'class' => 'textSmall'))->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['icq']) ?></td>
+        </tr>
+        <tr>
+            <td><?= $this->lang['content']['user_url'] ?>:</td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[url]', $this->user->getUrl()->getValue(), array('maxlength' => 255, 'class' => 'textSmall'))->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['url']) ?></td>
+        </tr>
+        <tr>
+            <td>Skype:</td>
+            <td><?= $this->getHelper('Krugozor_Helper_Form')->inputText('user[skype]', $this->user->getSkype(), array('maxlength' => 32, 'class' => 'textSmall'))->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['skype']) ?></td>
+        </tr>
+        <tr align="center">
+            <td colspan="2">
+                <?= $this->getHelper('Krugozor_Helper_Form')->inputHidden('user[id]', $this->user->getId())->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->inputHidden('user[ip]', $this->user->getIp())->getHtml() ?>
+                <?= $this->getHelper('Krugozor_Helper_Form')->inputSubmit('submit', $this->lang['content']['save_changes'])->getHtml() ?>
+                &nbsp;&nbsp;&nbsp;
+                <?= $this->getHelper('Krugozor_Helper_Form')->inputFullCheckbox('return_on_page', 1, 0, $this->return_on_page, array('id' => 'label_return_on_page')) ?>
+                &nbsp;<?= $this->getHelper('Krugozor_Helper_Form')->Label($this->lang['content']['return_to_this_page'], 'label_return_on_page')->getHtml() ?>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script type="text/javascript">
+    try {
+        var cform = new Krugozor.Forms.Checker('form');
+        cform.putFocus();
+    } catch (e) {
+    }
+</script>
+
+<script type="text/javascript">
+    Krugozor.Location.addCheckedUserLocation(1, '<?=$this->user->getCountry()?>');
+    Krugozor.Location.addCheckedUserLocation(2, '<?=$this->user->getRegion()?>');
+    Krugozor.Location.addCheckedUserLocation(3, '<?=$this->user->getCity()?>');
+
+    var select_country_attributes = {
+        name: 'user[country]',
+        value: '<?=$this->user->getCountry()?>'
+    };
+    var selectCountryObj = Krugozor.Location.createLocation(select_country_attributes, 'Выберите страну проживания');
+    document.getElementById('js_country_select_wrap').appendChild(selectCountryObj.SelectElement);
+
+    var select_region_attributes = {
+        name: 'user[region]',
+        value: '<?=$this->user->getRegion()?>'
+    };
+    var selectRegionObj = Krugozor.Location.createLocation(select_region_attributes, 'Выберите регион проживания');
+    document.getElementById('js_region_select_wrap').appendChild(selectRegionObj.SelectElement);
+
+    var select_city_attributes = {
+        name: 'user[city]',
+        value: '<?=$this->user->getCity()?>'
+    };
+    var selectCityObj = Krugozor.Location.createLocation(select_city_attributes, 'Выберите город проживания');
+    document.getElementById('js_city_select_wrap').appendChild(selectCityObj.SelectElement);
+
+    selectCountryObj.create(1, 0);
+    selectRegionObj.create(2, <?=(int)$this->user->getCountry()?>);
+    selectCityObj.create(3, <?=(int)$this->user->getRegion()?>);
+</script>
+
+</body>
+</html>

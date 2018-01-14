@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="<?=$this->lang['meta']['keywords']?>" />
+<meta name="description" content="<?=$this->lang['meta']['description']?>" />
+<link rel="shortcut icon" sizes="16x16" href="/favicon.ico" />
+
+<?=$this->getHelper('Krugozor_Html_Title')->getHtml()?>
+
+<?=$this->getCss('/http/css/main.css', false)?>
+<?=$this->getPathToCssModule(true)?>
+
+<?=$this->getJs('/http/js/jquery-1.8.3.min.js');?>
+<?=$this->getJs('/http/js/library/index.js');?>
+<?=$this->getJs('/http/js/tooltip.js');?>
+<?=$this->getJs('/http/js/modules/authorization/login.js', true);?>
+
+</head><body>
+<? include $this->getRealTemplatePath('Common/FrontendTop') ?>
+
+<div id="<?=$this->getPageId()?>" class="content">
+
+<h2><?=$this->getHelper('Krugozor_Html_Title')->getByIndex(1)?></h2>
+
+<? include $this->getRealTemplatePath('Common/FrontendNotification') ?>
+
+<?php if (!$this->current_user->isGuest()): ?>
+
+    <div class="two_column login">
+        <div class="left_column">
+            <ul id="my_actions">
+                <li class="adverts">
+                    <a href="/my/adverts/edit/">Подать новое объявление</a>
+                </li>
+                <li class="new">
+                    <a href="/my/adverts/">Управлять моими объявлениями</a>
+                </li>
+                <li class="userinfo">
+                    <a href="/my/info/">Мои личные данные</a>
+                </li>
+                <li class="logout">
+                    <a onclick="return confirm('Вы действительно хотите завершить работу с сайтом?')" href="/logout/?referer=<?=$this->getRequest()->getRequestUri()->getUrlencodeUriValue(true)?>">Выйти</a>
+                </li>
+            </ul>
+        </div>
+        <div class="right_column">
+            <script type="text/javascript" src="//vk.com/js/api/openapi.js?121"></script>
+            <!-- VK Widget -->
+            <div id="vk_groups"></div>
+            <script type="text/javascript">
+            VK.Widgets.Group("vk_groups", {mode: 2, width: "500"}, 120400274);
+            </script>
+        </div>
+    </div>
+
+<?php else: ?>
+
+    <form id="auth" onsubmit="if (window.cform) return cform.checkTextFieldsOnEmpty();" method="post" action="<?=$this->getRequest()->getRequestUri()->getEscapeUriValue()?>">
+        <fieldset><legend>Авторизация</legend>
+
+        <div class="two_column logout">
+            <div class="left_column">
+                <div class="left_column_content">
+
+                    <?php if ($this->err['authorization']): ?>
+                    <div class="field_row_fake">
+                        <div></div>
+                        <div class="group">
+                            <?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['authorization'])?>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                    <div class="field_row">
+                        <label class="compulsory" for="user_login"><span class="red_star">*</span> Логин:</label>
+                        <div class="group">
+                            <?=$this->getHelper('Krugozor_Helper_Form')->inputText('user[login]', $this->user->getLogin(), array('class'=>'text', 'maxlength'=>255, 'id'=>'user_login', 'class'=>'text'))->getHtml()?>
+                            <?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['login'])?>
+                        </div>
+                    </div>
+                    <div class="field_row">
+                        <label class="compulsory" for="user_password"><span class="red_star">*</span> Пароль:</label>
+                        <div class="group">
+                            <?=$this->getHelper('Krugozor_Helper_Form')->inputPassword('user[password]', '', array('class'=>'text', 'maxlength'=>255, 'id'=>'user_password', 'class'=>'text'))->getHtml()?>
+                            <?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['password'])?>
+                        </div>
+                    </div>
+                    <div class="field_row">
+                        <label id="for_autologin" for="autologin">Запомнить пароль:</label>
+                        <div class="group">
+                            <?=$this->getHelper('Krugozor_Helper_Form')->inputFullCheckbox('autologin', 1, 0, $this->autologin, array('id'=>'autologin'))?>
+                            <div class="animate_field_description animate_field_description_remember_password">
+                                <div class="animate_field_content">
+                                    <div class="description_before_fields">
+                                        <p>Включать данную опцию следует лишь в том случае, когда Вы твёрдо убеждены, что к данному компьютеру нет доступа посторонних лиц,
+                                            способных несанкционированно изменить или удалить Ваши данные.</p>
+                                    </div>
+                                </div>
+                                <div class="triangle-right-border"></div>
+                                <div class="triangle-right"></div>
+                            </div>
+                            <div id="change_cookie_days"<? if($this->autologin): ?> style="display:block"<? endif; ?>>Запомнить пароль на <a title="изменить количество дней" id='CookieDays'><?=$this->ml_autologin?></a> дней</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="right_column">
+                <div class="right_column_content">
+                    <ul class="information">
+                        <li>
+                            <p>Если Вы забыли свой пароль, то воспользуйтесь <a title="Восстановить забытый пароль" href="/getpassword/">системой восстановления пароля</a>.</p>
+                        </li>
+                        <li>
+                            <p>Если Вы не зарегистрированы на сайте, то <a title="Регистрация" href="/registration.xhtml">это можно сделать прямо сейчас</a>.</p>
+                        </li>
+                        <li>
+                            <p>Подавать объявления на сайт можно <a href="/my/adverts/edit/">без регистрации</a>.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        </fieldset>
+
+        <div class="submit_block">
+            <?=$this->getHelper('Krugozor_Helper_Form')->inputHidden('ml_autologin', $this->ml_autologin, array('id'=>'ml_autologin'))->getHtml()?>
+            <?=$this->getHelper('Krugozor_Helper_Form')->inputHidden('referer', $this->referer)->getHtml()?>
+            <?=$this->getHelper('Krugozor_Helper_Form')->inputSubmit('submit', 'Войти в личный кабинет')->getHtml()?>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+    try {
+        var cform = new Krugozor.Forms.Checker('auth');
+        cform.putFocus();
+    } catch (e) {}
+    </script>
+
+<?php endif; ?>
+
+</div>
+
+<? include $this->getRealTemplatePath('Common/FrontendBottom') ?>
+</body></html>

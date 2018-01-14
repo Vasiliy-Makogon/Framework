@@ -1,0 +1,24 @@
+<? if($this->notification && !$this->notification->getHidden()): ?>
+    <div id="notification_<?=$this->notification->getType()?>" class="notification_<?=$this->notification->getType()?>">
+        <h3>
+           <?php if ($this->notification->getHeader()) : ?>
+                <?=$this->notification->getHeader()?>
+           <?php else: ?>
+                <?php
+                switch ($this->notification->getType()) {
+                    case Krugozor_Notification::TYPE_ALERT:
+                        echo $this->getLang()['notification']['header']['action_failed'];
+                        break;
+                    case Krugozor_Notification::TYPE_WARNING:
+                        echo $this->getLang()['notification']['header']['action_warning'];
+                        break;
+                    case Krugozor_Notification::TYPE_NORMAL:
+                    default:
+                        echo $this->getLang()['notification']['header']['action_complete'];
+                }
+                ?>
+           <?php endif; ?>
+        </h3>
+        <?=$this->notification->getMessage()?>
+    </div>
+<? endif; ?>

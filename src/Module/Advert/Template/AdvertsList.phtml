@@ -1,0 +1,335 @@
+<?php
+$counter = 0;
+if ($this->adverts && $this->adverts->count()): ?>
+
+    <?php foreach ($this->adverts as $row): $counter++; ?>
+
+        <div id="advert<?=$row->advert->getId()?>" class="advert<?php if ($row->advert->getIsVip() && $this->getRequest()->getControllerName()->getCamelCaseStyle() != 'View'): ?> vip<?php endif;?>">
+            <article>
+
+                <?php if ($this->getRequest()->getControllerName()->getCamelCaseStyle() == 'View'): ?>
+                    <div class="left<?php if (!$this->advert->getThumbnailsList()->count()): ?> no_photo<? endif; ?><? if ($this->advert->getThumbnailsList()->count() > 1):?> double<? endif; ?>">
+                        <?php if ($this->advert->getThumbnailsList()->count()): ?>
+                            <?php foreach ($this->advert->getThumbnailsList() as $thumbnail): ?>
+                                <a class="thumbnails" href="/i/800x800<?=$thumbnail->getFullHttpPath()?>">
+                                    <img alt="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($this->advert->getHeader())?>" src="/i/150x100<?=$thumbnail->getFullHttpPath()?>" />
+                                </a>
+                            <?php endforeach; ?>
+                            <script type="text/javascript">
+                                Krugozor.UI.popup.image.loadImagesBySelector('.thumbnails');
+                            </script>
+                        <? else: ?>
+                            <div></div>
+                        <?php endif; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="left<?php if (!$row->advert->getDenormalizationThumbnailsList()->count()): ?> no_photo<? endif; ?>">
+                        <?php if ($row->advert->getDenormalizationThumbnailsList()->count()): ?>
+                            <a href="/advert/<?=$row->advert->getId()?>.xhtml">
+                                <img alt="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($row->advert->getHeader())?>" src="/i/150x100<?=$row->advert->getDenormalizationThumbnailsList()->item(0)->getFullHttpPath()?>" />
+                                <span><span><?=$row->advert->getThumbnailCount()?></span></span>
+                            </a>
+                        <?php else: ?>
+                            <div></div>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
+
+                <div class="center">
+                    <div class="price">
+                        <?php if ($row->advert->getFree()): ?>
+                            <?php if ($row->advert->getType()->getValue() == 'sale'): ?>
+                                Отдам даром
+                            <?php else: ?>
+                                Приму в дар
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <?php if (!$row->advert->getPrice()): ?>
+                                Договорная цена
+                            <?php else: ?>
+                                <strong><?=number_format($row->advert->getPrice(),0,"."," ")?></strong> <?=$row->advert->getPriceType()->getAsSymbol()?>
+                            <?php endif;?>
+                        <?php endif; ?>
+                    </div>
+
+                    <header>
+                        <?php if ($this->getRequest()->getControllerName()->getCamelCaseStyle() == 'View'): ?>
+                            <h3><?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($row->advert->getHeader())?></h3>
+                        <?php else: ?>
+                            <h3 class="<?php if ($row->advert->getIsVip()): ?>add_star_header_icon add_star_header_icon_to_advert<?php endif;?>">
+                                <a href="/advert/<?=$row->advert->getId()?>.xhtml"><?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($row->advert->getHeader())?></a>
+                            </h3>
+                        <?php endif; ?>
+                    </header>
+
+                    <table>
+                        <tbody>
+                            <?php if ($row->category->getUrl() !== $this->category_url): ?>
+                                <tr>
+                                    <td><!--noindex-->Категория:<!--/noindex--></td>
+                                    <td><!--noindex-->
+                                        <a rel="nofollow" title="Показать все объявления в категории &laquo;<?=$row->category->getName()?>&raquo;" href="/<?=$row->country->getNameEn()?>/<?=$row->region->getNameEn()?>/<?=$row->city->getNameEn()?>/categories<?=$row->category->getUrl()?>"><?=$row->category->getName()?></a>
+                                        <!--/noindex-->
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                            <tr>
+                                <td><!--noindex-->Регион:<!--/noindex--></td>
+                                <td><!--noindex-->
+                                    <?php if ($row->city->getId() && $row->region->getId() && $row->country->getId()): ?>
+                                        <? if ($row->city->getId()): ?><a rel="nofollow" title="Показать все объявления в категории &laquo;<?=$row->category->getName()?>&raquo; в регионе <?=$row->city->getNameRu()?>, <?=$row->region->getNameRu()?>, <?=$row->country->getNameRu()?>" href="/<?=$row->country->getNameEn()?>/<?=$row->region->getNameEn()?>/<?=$row->city->getNameEn()?>/categories<?=$row->category->getUrl()?>"><?=$row->city->getNameRu()?></a>,<?php endif; ?>
+                                        <? if ($row->region->getId()): ?><a rel="nofollow" title="Показать все объявления в категории &laquo;<?=$row->category->getName()?>&raquo; в регионе <?=$row->region->getNameRu()?>, <?=$row->country->getNameRu()?>" href="/<?=$row->country->getNameEn()?>/<?=$row->region->getNameEn()?>/categories<?=$row->category->getUrl()?>"><?=$row->region->getNameRu()?></a>,<?php endif; ?>
+                                        <? if ($row->country->getId()): ?><a rel="nofollow" title="Показать все объявления в категории &laquo;<?=$row->category->getName()?>&raquo; в регионе <?=$row->country->getNameRu()?>" href="/<?=$row->country->getNameEn()?>/categories<?=$row->category->getUrl()?>"><?=$row->country->getNameRu()?></a><?php endif; ?>
+                                    <!--/noindex--><?php endif; ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>
+                        <?php
+                        $advert_text = $row->advert->getText();
+                        if ($this->getRequest()->getControllerName()->getCamelCaseStyle() == 'View'):
+                            //$advert_text = Krugozor_Helper_Format::getPreviewStr($advert_text, Krugozor_Registry::getInstance()->SITE['MAX_LENGTH_PREVIEW_ADVERT_TEXT_INDEX'], '...');
+                            echo $this->getHelper('Krugozor_Helper_Format')->userDataOutput($advert_text);
+                        endif;
+                        ?>
+                    </p>
+
+                    <?php if ($this->getRequest()->getControllerName()->getCamelCaseStyle() == 'View'): ?>
+                        <table class="contacts">
+                            <tbody>
+                            <?php if($this->advert->getMainUserName() && $this->user->getFullName()): ?>
+                                <tr>
+                                    <td class="user">Контактное лицо:</td>
+                                    <td>
+                                        <?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($this->user->getFullName())?>
+                                        <?php if ($this->advert->getUserType()->getValue()): ?>
+                                            (<?=$this->advert->getUserType()->getAsText()?>)
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php elseif(!$this->advert->getMainUserName() && $this->advert->getUserName()): ?>
+                                <tr>
+                                    <td class="user">Контактное лицо:</td>
+                                    <td>
+                                        <?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($this->advert->getUserName())?>
+                                        <?php if ($this->advert->getUserType()->getValue()): ?>
+                                            (<?=$this->advert->getUserType()->getAsText()?>)
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+
+                            <?php if($this->advert->getMainPhone() && $this->user->getPhone()): ?>
+                                <tr>
+                                    <td class="phone">Телефон:</td>
+                                    <td><span class="imitation_link" onclick="return viewAdvertPhone(this, <?=$this->advert->getId()?>)">Показать</span></td>
+                                </tr>
+                            <?php elseif(!$this->advert->getMainPhone() && $this->advert->getPhone()): ?>
+                                <tr>
+                                    <td class="phone">Телефон:</td>
+                                    <td><span class="imitation_link" onclick="return viewAdvertPhone(this, <?=$this->advert->getId()?>)">Показать</span></td>
+                                </tr>
+                            <?php endif; ?>
+
+                            <?php if($this->advert->getMainEmail() && $this->user->getEmail()->getValue()): ?>
+                                <tr>
+                                    <td class="email">Email-адрес:</td>
+                                    <td><span class="imitation_link" onclick="return viewAdvertEmail(this, <?=$this->advert->getId()?>, '<?=$this->user->getEmail()->getMailHashForAccessView()?>')">Показать</span></td>
+                                </tr>
+                            <?php elseif(!$this->advert->getMainEmail() && $this->advert->getEmail()->getValue()): ?>
+                                <tr>
+                                    <td class="email">Email-адрес:</td>
+                                    <td><span class="imitation_link" onclick="return viewAdvertEmail(this, <?=$this->advert->getId()?>, '<?=$this->advert->getEmail()->getMailHashForAccessView()?>')">Показать</span></td>
+                                </tr>
+                            <?php endif; ?>
+
+                            <?php if($this->advert->getMainUrl() && $this->user->getUrl()->getValue()): ?>
+                                <tr>
+                                    <td class="url">Веб-сайт:</td>
+                                    <td><span data-url="<?=$this->user->getUrl()->getValue()?>" class="imitation_outer_link" onclick="imitationLink(this)"><?=$this->user->getUrl()->getNiceAnchor()?></span></td>
+                                </tr>
+                            <?php elseif(!$this->advert->getMainUrl() && $this->advert->getUrl()->getValue()): ?>
+                                <tr>
+                                    <td class="url">Веб-сайт:</td>
+                                    <td><span data-url="<?=$this->advert->getUrl()->getValue()?>" class="imitation_outer_link" onclick="imitationLink(this)"><?=$this->advert->getUrl()->getNiceAnchor()?></span></td>
+                                </tr>
+                            <?php endif; ?>
+
+                            <?php if($this->advert->getMainIcq() && $this->user->getIcq()): ?>
+                                <tr>
+                                    <td class="icq">ICQ-адрес:</td>
+                                    <td><?=$this->user->getIcq()?></td>
+                                </tr>
+                            <?php elseif(!$this->advert->getMainIcq() && $this->advert->getIcq()): ?>
+                                <tr>
+                                    <td class="icq">ICQ-адрес:</td>
+                                    <td><?=$this->advert->getIcq()?></td>
+                                </tr>
+                            <?php endif; ?>
+
+                            <?php if($this->advert->getMainSkype() && $this->user->getSkype()): ?>
+                                <tr>
+                                    <td class="skype">Skype:</td>
+                                    <td><a href="skype:<?=$this->user->getSkype()?>?call"><?=$this->user->getSkype()?></a></td>
+                                </tr>
+                            <?php elseif(!$this->advert->getMainSkype() && $this->advert->getSkype()): ?>
+                                <tr>
+                                    <td class="skype">Skype:</td>
+                                    <td><a href="skype:<?=$this->advert->getSkype()?>?call"><?=$this->advert->getSkype()?></a></td>
+                                </tr>
+                            <?php endif; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </div>
+
+                <!--<div class="right"></div>-->
+
+                <?php if ($this->getRequest()->getControllerName()->getCamelCaseStyle() == 'View'): ?>
+                    <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script>
+                    <div style="margin:0 5px 5px 0" class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="small" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus" data-yashareTheme="counter"></div>
+                <?php endif; ?>
+            </article>
+
+            <div class="navblock<? if ($row->advert->getThumbnailCount() > 1):?> double<? endif; ?>">
+                <ul>
+
+                    <?php if ($row->advert->getScore()): ?>
+                        <li class="advert_search">
+                            <!--noindex-->
+                            Релевантность совпадения по поисковому запросу &laquo;<em><?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($this->getRequest()->getRequest('search', 'string'))?></em>&raquo;: <?=$row->advert->getScore()?>
+                            <!--/noindex-->
+                        </li>
+                    <?php endif; ?>
+
+                    <? if (!$row->advert->getPayment() && $row->advert->belongToUser($this->current_user)): ?>
+                        <li class="advert_payment">
+                            <!--noindex-->
+                            <a title="Объявление отображается только Вам, оплатите услугу активации объявления!" rel="nofollow" href="<?=$row->advert->getMerchant()->getMerchantUrl(Krugozor_Module_Freekassa_Service_Freekassa::ACTION_ACTIVATE)?>" class="space_nowrap">Необходима оплата &mdash; <?=Krugozor_Registry::getInstance()->PAYMENTS['PAYMENT_ACTION_ACTIVATE']?> руб.!</a>
+                            <!--/noindex-->
+                        </li>
+                    <?php endif; ?>
+
+                    <? if (!$row->advert->getIsVip() && $row->advert->belongToUser($this->current_user)): ?>
+                        <li class="advert_vip">
+                            <!--noindex-->
+                            <a title="Выделить объявление и поместить в линейку VIP-объявлений" rel="nofollow" href="<?=$row->advert->getMerchant()->getMerchantUrl(Krugozor_Module_Freekassa_Service_Freekassa::ACTION_TOP)?>" class="space_nowrap">Выделить объявление</a>
+                            <!--/noindex-->
+                        </li>
+                    <?php endif; ?>
+
+                    <? if (!$row->advert->getSpecialDate() && $row->advert->belongToUser($this->current_user)): ?>
+                        <li class="advert_special">
+                            <!--noindex-->
+                            <a title="Поместить объявление в блок Спецпредложений" rel="nofollow" href="<?=$row->advert->getMerchant()->getMerchantUrl(Krugozor_Module_Freekassa_Service_Freekassa::ACTION_SPECIAL)?>" class="space_nowrap">Спецпредложение</a>
+                            <!--/noindex-->
+                        </li>
+                    <?php endif; ?>
+
+
+
+                    <?php if ($this->current_user->isAdministrator()): ?>
+                        <li class="edit_link">
+                            <a class="space_nowrap" rel="nofollow" href="/advert/backend-edit/?id=<?=$row->advert->getId()?>&amp;referer=<?=$this->getRequest()->getRequestUri()->getUrlencodeUriValue(true)?>">Редактировать в админ</a>
+                        </li>
+                        <li class="delete_link">
+                            <?php
+                            $str = Krugozor_Helper_Format::js(
+                                'Вы действительно хотите удалить объявление &laquo;{title}&raquo;?',
+                                ['title' => $row->advert->getHeader()]
+                            );
+                            ?>
+                            <a class="space_nowrap" title="Безвозвратно удалить объявление"
+                               onclick="return confirm('<?=$str?>')"
+                               href="/advert/backend-delete/?id=<?=$row->advert->getId()?>&amp;referer=<?=$this->getRequest()->getRequestUri()->getUrlencodeUriValue()?>">Удалить</a>
+                        </li>
+                        <?php if($row->advert->getIdUser() != Krugozor_Module_User_Model_User::GUEST_USER_ID): ?>
+                            <li class="all_adverts">
+                                <a class="space_nowrap" rel="nofollow" href="/advert/backend-main/?id_user=<?=$row->advert->getIdUser()?>">Все объявления</a>
+                            </li>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+
+
+                    <?php if (!$this->current_user->isGuest() && $row->advert->belongToRegisterUser($this->current_user)): ?>
+                        <li class="edit_link">
+                            <a class="space_nowrap" title="Редактировать объявление"
+                               href="/my/adverts/edit/<?=$row->advert->getId()?>.xhtml?referrer=<?=$this->getRequest()->getUri()->getUrlencodeUriValue()?>">Редактировать</a>
+                        </li>
+                    <?php endif; ?>
+
+
+
+                    <?php if (in_array($this->getRequest()->getControllerName()->getCamelCaseStyle(), ['FrontendCategoryList', 'FrontendUserAdvertsList', 'View'])): ?>
+
+                        <?php if ($row->advert->belongToRegisterUser($this->current_user)): ?>
+
+                            <?php if ($row->advert->getExpireRestrictionUpdateCreateDate()->invert): ?>
+                                <li class="up_link">
+                                <a title="Поднять объявление в результатах поиска. Данная функция гарантирует, что Ваше объявление увидят больше посетителей сайта <?=Krugozor_Registry::getInstance()->HOSTINFO['HOST_SIMPLE']?>. Применять данную опцию можно не чаще чем через один час." href="/my/adverts/up/<?=$row->advert->getId()?>.xhtml?referrer=<?=$this->getRequest()->getRequestUri()->getUrlencodeUriValue()?>">Поднять</a>
+                            <?php else: ?>
+                                <li class="up_link">
+                                <span class="space_nowrap" title="Для этого объявления данная функция будет доступна через <?=$row->advert->getExpireRestrictionUpdateCreateDate()->i?> мин.">Поднять</span>
+                            <?php endif;?>
+                            </li>
+
+                            <?php if ($row->advert->getActive()): ?>
+                                <li class="lock_link">
+                                <a class="space_nowrap" title="Приостановить показ объявления на сайте (закрыть доступ для всех)" href="/my/adverts/active/<?=$row->advert->getId()?>.xhtml?referrer=<?=$this->getRequest()->getRequestUri()->getUrlencodeUriValue()?>">Приостановить показ
+                            <?php else: ?>
+                                <li class="lock-open_link">
+                                <a class="space_nowrap" title="Возобновить показ объявления на сайте (открыть доступ для всех)" href="/my/adverts/active/<?=$row->advert->getId()?>.xhtml?referrer=<?=$this->getRequest()->getRequestUri()->getUrlencodeUriValue()?>">Возобновить показ
+                            <?php endif;?>
+                            </a>
+                            </li>
+
+                            <li class="delete_link">
+                                <?php
+                                    $str = Krugozor_Helper_Format::js(
+                                        'Вы действительно хотите удалить объявление &laquo;{title}&raquo;?',
+                                        ['title' => $row->advert->getHeader()]
+                                    );
+                                ?>
+                                <a class="space_nowrap" title="Безвозвратно удалить объявление"
+                                   onclick="return confirm('<?=$str?>')"
+                                   href="/my/adverts/delete/<?=$row->advert->getId()?>.xhtml<?php if ($this->getRequest()->getControllerName()->getCamelCaseStyle() != 'View'): ?>?referrer=<?=$this->getRequest()->getRequestUri()->getUrlencodeUriValue()?><?php endif; ?>">Удалить</a>
+                            </li>
+                            <li class="advert_gp">
+                                <a target="_blank" class="space_nowrap" title="Проверка проиндексированности объявления в Google" href="https://www.google.ru/search?q=info%3A<?=urlencode(Krugozor_Registry::getInstance()->HOSTINFO['HOST'] . '/advert/' . $row->advert->getId() . '.xhtml')?>">Google</a>
+                            </li>
+                            <li class="advert_yp">
+                                <a target="_blank" class="space_nowrap" title="Проверка проиндексированности объявления в Yandex" href="http://yandex.ru/yandsearch?text=url%3A%22<?=urlencode(Krugozor_Registry::getInstance()->HOSTINFO['HOST'] . '/advert/' . $row->advert->getId() . '.xhtml')?>%22">Yandex</a>
+                            </li>
+
+                        <?php endif;?>
+
+                        <li class="advert_date space_nowrap">
+                            Размещено: <time datetime="<?=$row->advert->getCreateDate()->format(DateTime::ATOM)?>"><?=$row->advert->getCreateDate()->formatDateForPeople()?></time>
+                            <?php if ($row->advert->belongToRegisterUser($this->current_user)): ?>
+                                , просмотров: <?=$row->advert->getViewCount()?>,
+                                ID объявления: <?=$row->advert->getId()?>
+                            <?php endif; ?>
+                        </li>
+                    <?php else: ?>
+                        <li class="advert_date space_nowrap">
+                            Размещено: <time datetime="<?=$row->advert->getCreateDate()->format(DateTime::ATOM)?>"><?=$row->advert->getCreateDate()->formatDateForPeople()?></time>
+                        </li>
+                    <?php endif; ?>
+
+                </ul>
+            </div>
+        </div>
+
+        <?php if ($counter % 10 == 0): ?>
+            <!-- баннер -->
+        <?php endif; ?>
+
+    <?php endforeach; ?>
+
+    <? include_once $this->getRealTemplatePath('Freekassa/Popup') ?>
+
+<?php endif; ?>

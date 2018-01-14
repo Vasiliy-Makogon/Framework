@@ -1,0 +1,20 @@
+<?php if ($this->enabled_debug_info || $this->getRequest()->getRequest()->aaa): ?>
+    <noindex><!--noindex-->
+        <div style="line-height:1.5em">
+        <strong>Cookie</strong>: <?=print_r($this->getRequest()->getCookie()->getDataAsArray(), 1); ?><br>
+        <strong>Модуль</strong>: <?=$this->getRequest()->getModuleName()->getCamelCaseStyle()?><br>
+        <strong>Контроллер</strong>: <?=$this->getRequest()->getControllerName()->getCamelCaseStyle()?><br>
+        <strong>URI</strong>: <?=$this->getRequest()->getUri()->getSimpleUriValue()?><br>
+        <strong>REQUEST_URI</strong>: <?=$this->getRequest()->getRequestUri()->getSimpleUriValue()?><br>
+        <?php
+        foreach ($this->getRequest()->getRequest() as $key => $value): ?>
+            <strong><?=htmlspecialchars($key)?></strong>: <?=htmlspecialchars($value)?><br>
+        <? endforeach; ?>
+        <strong>Время</strong> <?=(microtime(true) - TIME_START)?><br>
+        <?php
+        foreach (Krugozor_Context::getInstance()->getDatabase()->getQueries() as $key => $value): ?>
+            <p style="margin:10px 0 0 0"><strong><?=htmlspecialchars($key)?></strong>: <?=htmlspecialchars($value)?><br /></p>
+        <? endforeach; ?>
+        </div>
+    <!--/noindex--></noindex>
+<?php endif; ?>

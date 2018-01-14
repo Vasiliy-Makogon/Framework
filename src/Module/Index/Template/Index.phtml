@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="<?=$this->lang['meta']['keywords']?>" />
+<meta name="description" content="<?=$this->lang['meta']['description']?>" />
+<meta property="og:title" content="<?=$this->getHelper('Krugozor_Html_Title')->getTitle()?>"/>
+<meta property="og:description" content="<?=$this->lang['meta']['description']?>" />
+<meta property="og:image" content="/http/image/desing/snippet.jpg" />
+<link rel="shortcut icon" sizes="16x16" href="/favicon.ico" />
+
+<?=$this->getHelper('Krugozor_Html_Title')->getHtml()?>
+
+<?=$this->getCss('/http/css/main.css', false)?>
+<?=$this->getCss('/http/css/modules/advert/_adverts-list.css', true)?>
+<?=$this->getPathToCssModule(true)?>
+
+<?=$this->getJs('/http/js/tooltip.js', false)?>
+<?=$this->getJs('/http/js/jquery-1.11.1.min.js', false)?>
+<?=$this->getJs('/http/js/library/index.js', false)?>
+<?=$this->getJs('/http/js/modules/advert/_adverts-list.js', true)?>
+
+</head><body>
+
+<? include $this->getRealTemplatePath('Common/FrontendTop') ?>
+
+<div id="<?=$this->getPageId()?>" class="content">
+
+    <? include $this->getRealTemplatePath('Common/FrontendNotification') ?>
+
+    <?php if ($this->vip_adverts && $this->vip_adverts->count()): ?>
+        <aside class="carousel">
+            <div class="bheader add_star_header_icon">Срочные объявления<a href="/help/vipfree">Разместиться в VIP бесплатно</a></div>
+            <ul>
+                <?php foreach ($this->vip_adverts as $advert): ?>
+                    <?php
+                    $advert_text = $advert_text = Krugozor_Helper_Format::getPreviewStr($advert->getText(), 140, '...');
+                    $advert_text = $this->getHelper('Krugozor_Helper_Format')->userDataOutput($advert_text);
+                    ?>
+                    <li<?php if($advert->getDenormalizationThumbnailsList()->count()): ?> class="do_animaton"<?php endif; ?>>
+                        <a title="<?=$advert_text?>" href="/advert/<?=$advert->getId()?>.xhtml">
+                            <span class="image_wrap">
+                            <?php if($advert->getDenormalizationThumbnailsList()->count()): ?>
+                                <img src="/i/150x100<?=$advert->getDenormalizationThumbnailsList()->item(0)->getFullHttpPath()?>" alt="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($advert->getHeader())?>" />
+                                <span class="photocamera"><span><?=$advert->getThumbnailCount()?></span></span>
+                            <?php else: ?>
+                                <img class="no_photo" src="/http/image/desing/icon/no_photo.png" alt="" />
+                            <?php endif; ?>
+
+                                <span class="similar_header">
+                                    <span class="text"><?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($advert->getHeader(), 50)?></span>
+                                </span>
+                            </span>
+                        </a>
+                        <a href="/advert/<?=$advert->getId()?>.xhtml">
+                            <span>
+                                <?=Krugozor_Helper_Format::getPreviewStr($advert->getText(), 180, '...')?>
+                            </span>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </aside>
+    <?php endif; ?>
+
+    <div class="three_column three_column_wrap">
+        <div class="left_column">
+            <div class="left_column_content">
+                <!-- Левый столбец -->
+                <div class="bheader add_star_header_icon">Специальные предложения</div>
+
+                <?php if ($this->special_adverts): ?>
+                    <?php foreach ($this->special_adverts as $row): ?>
+
+                        <!-- вынести -->
+                        <div id="advert<?=$row->advert->getId()?>" class="advert special <?php if ($row->advert->getIsVip()): ?> vip<?php endif;?>">
+                            <article>
+                                <div class="left<?php if (!$row->advert->getDenormalizationThumbnailsList()->count()): ?> no_photo<? endif; ?>">
+                                    <?php if ($row->advert->getDenormalizationThumbnailsList()->count()): ?>
+                                        <a href="/advert/<?=$row->advert->getId()?>.xhtml">
+                                            <img alt="<?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($row->advert->getHeader())?>" src="/i/800x800<?=$row->advert->getDenormalizationThumbnailsList()->item(0)->getFullHttpPath()?>" />
+                                            <span><span><?=$row->advert->getThumbnailCount()?></span></span>
+                                        </a>
+                                    <?php else: ?>
+                                        <div></div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="center">
+                                    <div class="price">
+                                        <?php if ($row->advert->getFree()): ?>
+                                            <?php if ($row->advert->getType()->getValue() == 'sale'): ?>
+                                                Отдам даром
+                                            <?php else: ?>
+                                                Приму в дар
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <?php if (!$row->advert->getPrice()): ?>
+                                                Договорная цена
+                                            <?php else: ?>
+                                                <strong><?=number_format($row->advert->getPrice(),0,"."," ")?></strong> <?=$row->advert->getPriceType()->getAsSymbol()?>
+                                            <?php endif;?>
+                                        <?php endif; ?>
+                                    </div>
+                                    <header>
+                                        <h3 class="<?php if ($row->advert->getIsVip()): ?>add_star_header_icon add_star_header_icon_to_advert<?php endif;?>">
+                                            <a href="/advert/<?=$row->advert->getId()?>.xhtml"><?=$this->getHelper('Krugozor_Helper_Format')->userDataOutput($row->advert->getHeader())?></a>
+                                        </h3>
+                                    </header>
+                                    <table>
+                                        <tbody>
+                                        <?php if ($row->category->getUrl() !== $this->category_url): ?>
+                                            <tr>
+                                                <td><!--noindex-->Категория:<!--/noindex--></td>
+                                                <td>
+                                                    <!--noindex-->
+                                                    <a rel="nofollow" title="Показать все объявления в категории &laquo;<?=$row->category->getName()?>&raquo;" href="/<?=$row->country->getNameEn()?>/<?=$row->region->getNameEn()?>/<?=$row->city->getNameEn()?>/categories<?=$row->category->getUrl()?>"><?=$row->category->getName()?></a>
+                                                    <!--/noindex-->
+                                                </td>
+                                            </tr>
+                                        <?php endif; ?>
+                                        <tr>
+                                            <td><!--noindex-->Регион:<!--/noindex--></td>
+                                            <td>
+                                                <!--noindex-->
+                                                <?php if ($row->city->getId() && $row->region->getId() && $row->country->getId()): ?>
+                                                    <? if ($row->city->getId()): ?><a rel="nofollow" title="Показать все объявления в категории &laquo;<?=$row->category->getName()?>&raquo; в регионе <?=$row->city->getNameRu()?>, <?=$row->region->getNameRu()?>, <?=$row->country->getNameRu()?>" href="/<?=$row->country->getNameEn()?>/<?=$row->region->getNameEn()?>/<?=$row->city->getNameEn()?>/categories<?=$row->category->getUrl()?>"><?=$row->city->getNameRu()?></a>,<?php endif; ?>
+                                                    <? if ($row->region->getId()): ?><a rel="nofollow" title="Показать все объявления в категории &laquo;<?=$row->category->getName()?>&raquo; в регионе <?=$row->region->getNameRu()?>, <?=$row->country->getNameRu()?>" href="/<?=$row->country->getNameEn()?>/<?=$row->region->getNameEn()?>/categories<?=$row->category->getUrl()?>"><?=$row->region->getNameRu()?></a>,<?php endif; ?>
+                                                    <? if ($row->country->getId()): ?><a rel="nofollow" title="Показать все объявления в категории &laquo;<?=$row->category->getName()?>&raquo; в регионе <?=$row->country->getNameRu()?>" href="/<?=$row->country->getNameEn()?>/categories<?=$row->category->getUrl()?>"><?=$row->country->getNameRu()?></a><?php endif; ?>
+                                                <?php endif; ?>
+                                                <!--/noindex-->
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <p>
+                                        <?php
+                                        $advert_text = Krugozor_Helper_Format::getPreviewStr($row->advert->getText(), Krugozor_Registry::getInstance()->SITE['MAX_LENGTH_PREVIEW_ADVERT_TEXT_INDEX'], '...');
+                                        echo $this->getHelper('Krugozor_Helper_Format')->userDataOutput($advert_text);
+                                        ?>
+                                    </p>
+                                </div>
+                            </article>
+                            <div class="navblock">
+                                <ul<?php if ($row->advert->belongToUser($this->current_user)): ?> class="my"<?php endif; ?>>
+                                    <li class="advert_date">
+                                        Размещено: <time datetime="<?=$row->advert->getCreateDate()->format(DateTime::ATOM)?>"><?=$row->advert->getCreateDate()->formatDateForPeople()?></time>
+                                    </li>
+
+                                    <? if (!$row->advert->getPayment() && $row->advert->belongToUser($this->current_user)): ?>
+                                        <li class="advert_payment">
+                                            <!--noindex-->
+                                            <a title="Объявление отображается только Вам, оплатите услугу активации объявления!" rel="nofollow" href="<?=$row->advert->getMerchant()->getMerchantUrl(Krugozor_Module_Freekassa_Service_Freekassa::ACTION_ACTIVATE)?>" class="space_nowrap">Необходима оплата &mdash; <?=Krugozor_Registry::getInstance()->PAYMENTS['PAYMENT_ACTION_ACTIVATE']?> руб.!</a>
+                                            <!--/noindex-->
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <? if (!$row->advert->getIsVip() && $row->advert->belongToUser($this->current_user)): ?>
+                                        <li class="advert_vip">
+                                            <!--noindex-->
+                                            <a rel="nofollow" href="<?=$row->advert->getMerchant()->getMerchantUrl(Krugozor_Module_Freekassa_Service_Freekassa::ACTION_TOP)?>" class="space_nowrap">Выделить объявление</a>
+                                            <!--/noindex-->
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <?php if ($this->current_user->isAdministrator()): ?>
+                                        <li class="edit_link">
+                                            <a rel="nofollow" href="/advert/backend-edit/?id=<?=$row->advert->getId()?>&amp;referer=<?=$this->getRequest()->getRequestUri()->getUrlencodeUriValue(true)?>">Редактировать в админ</a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /вынести -->
+
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <!-- /Левый столбец -->
+            </div>
+        </div>
+
+        <div class="center_column">
+            <div class="center_column_content">
+                <!-- Центральный столбец -->
+                <div class="bheader">Последние добавленные на сайт объявления</div>
+                <? include_once($this->getRealTemplatePath('Advert/AdvertsList')) ?>
+                <!-- /Центральный столбец -->
+            </div>
+        </div>
+
+        <div class="right_column">
+            <div class="right_column_content">
+                    <!-- Правый столбец -->
+                    <?php if ($this->regions->count()): ?>
+                        <?php foreach ($this->regions as $region_data): ?>
+                            <div class="subblock">
+                                <div class="bheader add_flag_header_icon flag_<?=$region_data['country']->getNameEn()?>">
+                                    <a href="/<?=$region_data['country']->getNameEn()?>/categories/">Объявления <?=$region_data['country']->getNameRu()?></a>
+                                </div>
+
+                                <?php $count = ceil($region_data['region']->count()/2); ?>
+                                <table>
+                                    <colgroup>
+                                        <col span="2">
+                                    </colgroup>
+                                    <tr>
+                                        <?php for ($i=0; $i<2; $i++): ?>
+                                            <td>
+                                                <?php for ($j=0; $j<$count; $j++): $index = $i+$j+$i*($count-1); ?>
+                                                    <?php if ($region_data['region']->item($index)): ?>
+                                                        <a<?php if ($region_data['region']->item($index)->getIsImportantRegion()): ?> class="main"<?php endif; ?> href="/<?=$region_data['country']->getNameEn()?>/<?=$region_data['region']->item($index)->getNameEn()?>/categories/"><?=$region_data['region']->item($index)->getNameRu()?></a>
+                                                    <?php endif; ?>
+                                                <?php endfor; ?>
+                                            </td>
+                                        <?php endfor; ?>
+                                    </tr>
+                                </table>
+                            </div>
+                        <?php endforeach ?>
+                    <?php endif; ?>
+
+                    <div class="subblock annotation">
+                        <p>На сайте бесплатных объявлений <?=Krugozor_Registry::getInstance()->HOSTINFO['HOST_SIMPLE']?> вы можете <a href="/my/adverts/edit/">бесплатно и без регистрации подать объявление</a> о покупке или продаже любого товара или услуги.</p>
+                        <p>Cайт бесплатных объявлений <?=Krugozor_Registry::getInstance()->HOSTINFO['HOST_SIMPLE']?> содержит более 1500 тематических категорий, в которых размещены тысячи объявлений о продаже недвижимости, объявления о продаже автомобилей, объявления о продаже мебели и товаров для дома, предложения строительных и ремонтных услуг, а так же
+                            объявления для крупного и среднего бизнеса.</p>
+                        <p>Наш сервис объявлений работает без обязательной регистрации, следовательно разместить объявление становится проще и быстрее.</p>
+                        <p><?=Krugozor_Registry::getInstance()->HOSTINFO['HOST']?> — Ваш верный проводник в бескрайнем море товаров и услуг!</p>
+                    </div>
+
+                    <div class="subblock">
+                        <script type="text/javascript" src="//yastatic.net/share/share.js" charset="utf-8"></script>
+                        <div style="text-align:center" class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="small" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus" data-yashareTheme="counter"></div>
+                    </div>
+
+                    <div class="subblock annotation">
+                        <script type="text/javascript" src="//vk.com/js/api/openapi.js?121"></script>
+                        <!-- VK Widget -->
+                        <div id="vk_groups"></div>
+                        <script type="text/javascript">
+                            VK.Widgets.Group("vk_groups", {mode: 2, width: "290", height: "400"}, 120400274);
+                        </script>
+                    </div>
+
+                    <div class="subblock annotation payments_types">
+                        <div>Мы принимаем к оплате:</div><!--
+                            --><img src="http://www.free-kassa.ru/cicons/63.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/45.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/94.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/116.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/133.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/87.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/131.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/112.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/103.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/74.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/67.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/114.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/146.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/64.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/62.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/102.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/79.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/80.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/81.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/110.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/113.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/82.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/84.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/132.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/83.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/99.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/98.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/118.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/117.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/96.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/125.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/136.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/147.png" alt="" /><!--
+                            --><img src="http://www.free-kassa.ru/cicons/150.png" alt="" />
+                    </div>
+                <!-- /Правый столбец -->
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<? include $this->getRealTemplatePath('Common/FrontendBottom') ?>
+
+</body></html>

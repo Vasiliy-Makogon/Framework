@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+    <?=$this->getJs('/http/js/library/krugozor.js', true);?>
+    <?=$this->getJs('/http/js/library/krugozor.thumbnail.js', true);?>
+    </head>
+    <body>
+    <script type="text/javascript">
+    Krugozor.thumbnail.setContext(window.parent);
+    Krugozor.thumbnail.setUploadedImagesBlockId('uploaded_images');
+    Krugozor.thumbnail.setErrorsBlockId('thumbnail_errors');
+    Krugozor.thumbnail.setMainFormId('main_form');
+    Krugozor.thumbnail.setFileUploadFormId('file_upload_form');
+    Krugozor.thumbnail.setMaxFiles(<?=Krugozor_Registry::getInstance()->UPLOAD['MAX_FILES_COUNT']?>);
+
+    <?php if ($this->error): ?>
+    	Krugozor.thumbnail.uploadFail('<?=addslashes($this->error)?>');
+    <?php elseif ($this->path_to_image): ?>
+    	Krugozor.thumbnail.uploadSuccess(<?=$this->thumbnail_id?>, '<?=$this->path_to_image?>');
+    <?php endif; ?>
+    </script>
+    </body>
+</html>

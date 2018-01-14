@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+<?=$this->getHelper('Krugozor_Html_Title')->getHtml()?>
+
+<?=$this->getCss('/http/css/reset.css', false)?>
+<?=$this->getCss('/http/css/tags.css', true)?>
+<?=$this->getCss('/http/css/backend.css', true)?>
+
+<?=$this->getJs('/http/js/library/index.js', true)?>
+<?=$this->getPathToJsModule()?>
+
+</head><body>
+
+<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+
+<form method="post" action="<?=$this->getRequest()->getRequestUri()->getEscapeUriValue()?>#category_<?=$this->category->getPid()?>">
+<table class="datatable edit">
+    <colgroup>
+        <col />
+        <col />
+    </colgroup>
+    <tr>
+        <th colspan="2">
+            <? if ($this->category->getId()): ?>
+                Редактирование категории &laquo;<?=$this->getHelper('Krugozor_Helper_Format')->hsc($this->category->getName())?>&raquo;
+            <? else: ?>
+                Добавление категории
+            <? endif; ?>
+        </th>
+    </tr>
+    <tr>
+        <td class="compulsory">Категория активна:</td>
+        <td>
+        <?
+        $select = $this->getHelper('Krugozor_Helper_Form')->inputSelect('category[active]', $this->category->getActive());
+        $select->addOption( $this->getHelper('Krugozor_Helper_Form')->inputOption(1, $this->lang['content']['yes']) );
+        $select->addOption( $this->getHelper('Krugozor_Helper_Form')->inputOption(0, $this->lang['content']['no']) );
+        echo $select->getHtml();
+        ?><?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['active'])?>
+        </td>
+    </tr>
+    <tr>
+        <td class="compulsory">Родительский узел:</td>
+        <td><?
+            $select = $this->getHelper('Krugozor_Helper_Form')->inputSelect('category[pid]', $this->category->getPid());
+            $select->addOption( $this->getHelper('Krugozor_Helper_Form')->inputOption('0', 'Новый узел') );
+            $categories = $this->getHelper('Krugozor_Module_Category_Helper_BackendSelect', $this->tree)->getHtml();
+            foreach ($categories as $option):
+                $select->addOption($option);
+            endforeach;
+            echo $select->getHtml();
+            ?>
+            <?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['pid'])?></td>
+    </tr>
+    <tr>
+        <td class="compulsory">Имя категории:</td>
+        <td><?=$this->getHelper('Krugozor_Helper_Form')->inputText('category[name]', $this->category->getName(), array('maxlength'=>255, 'class'=>'textSmall'))->getHtml()?>
+           <?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['name'])?></td>
+    </tr>
+    <tr>
+        <td class="compulsory">URL категории:</td>
+        <td><?=$this->getHelper('Krugozor_Helper_Form')->inputText('category[alias]', $this->category->getAlias(), array('maxlength'=>255, 'class'=>'textSmall'))->getHtml()?>
+           <?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['alias'])?></td>
+    </tr>
+    <tr>
+        <td class="compulsory">Описание категории:</td>
+        <td><?=$this->getHelper('Krugozor_Helper_Form')->inputTextarea('category[description]', $this->category->getDescription(), array('class'=>'medium'))->getHtml()?>
+           <?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['description'])?></td>
+    </tr>
+    <tr>
+        <td class="compulsory">Описание категории внизу:</td>
+        <td><?=$this->getHelper('Krugozor_Helper_Form')->inputTextarea('category[text]', $this->category->getText(), array('class'=>'medium'))->getHtml()?>
+            <?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['text'])?></td>
+    </tr>
+    <tr>
+        <td class="compulsory">Ключевые слова:</td>
+        <td><?=$this->getHelper('Krugozor_Helper_Form')->inputTextarea('category[keywords]', $this->category->getKeywords(), array('id'=>'category_keywords', 'class'=>'medium'))->getHtml()?>
+           <?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['keywords'])?></td>
+    </tr>
+    <tr>
+    	<td>Выводить на главной странице<br />элементы из этой категории:</td>
+    	<td>
+    		<?=$this->getHelper('Krugozor_Helper_Form')->inputFullCheckbox('category[show_on_index]', 1, 0, $this->category->getShowOnIndex())?>
+    		<?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['show_on_index'])?>
+    	</td>
+    </tr>
+    <tr>
+    	<td>Выводить категорию при открытии категории-прародителя:</td>
+    	<td>
+    		<?=$this->getHelper('Krugozor_Helper_Form')->inputFullCheckbox('category[show_on_grandparent]', 1, 0, $this->category->getShowOnGrandparent())?>
+    		<?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['show_on_grandparent'])?>
+    	</td>
+    </tr>
+    <tr>
+    	<td>Количество элементов:</td>
+    	<td><?=$this->category->getAdvertCount()?></td>
+    </tr>
+    <tr>
+    	<td>Платная категория:</td>
+    	<td>
+    		<?=$this->getHelper('Krugozor_Helper_Form')->inputFullCheckbox('category[paid]', 1, 0, $this->category->getPaid())?>
+    		<?=$this->getHelper('Krugozor_Helper_Form')->getFieldError($this->err['paid'])?>
+    	</td>
+    </tr>
+    <tr align="center">
+        <td colspan="2">
+        <?=$this->getHelper('Krugozor_Helper_Form')->inputHidden('category[id]', $this->category->getId())->getHtml()?>
+        <?=$this->getHelper('Krugozor_Helper_Form')->inputSubmit('submit', $this->lang['content']['save_changes'])->getHtml()?>&nbsp;&nbsp;&nbsp;
+        <?=$this->getHelper('Krugozor_Helper_Form')->inputFullCheckbox('return_on_page', 1, 0, $this->return_on_page, array('id'=>'label_return_on_page'))?>
+        &nbsp;<?=$this->getHelper('Krugozor_Helper_Form')->Label($this->lang['content']['return_to_this_page'], 'label_return_on_page')->getHtml()?>
+        </td>
+    </tr>
+</table>
+</form>
+
+</body></html>

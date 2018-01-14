@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="<?=$this->lang['meta']['keywords']?>" />
+<meta name="description" content="<?=$this->lang['meta']['description']?>" />
+<link rel="stylesheet" href="/http/css/main.css" type="text/css" />
+<?=$this->getPathToCssModule(true)?>
+<link rel="shortcut icon" sizes="16x16" href="/favicon.ico" />
+<!--[if lte IE 9]>
+    <link rel="stylesheet" type="text/css" href="/http/css/frontend/all-ie.css" />
+    <script src="https://raw.githubusercontent.com/aFarkas/html5shiv/master/src/html5shiv.js"></script>
+<![endif]-->
+<script type="text/javascript" src="/http/js/tooltip.js"></script>
+<script type="text/javascript" src="/http/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/http/js/library/index.js"></script>
+<?=$this->getHelper('Krugozor_Html_Title')->add('Советы по размещению объявлений')->getHtml()?>
+</head><body>
+
+<? include $this->getRealTemplatePath('Common/FrontendTop') ?>
+
+<div id="<?=$this->getPageId()?>" class="content">
+<? include $this->getRealTemplatePath('Common/FrontendNotification') ?>
+
+    <h2>Советы по размещению объявлений</h2>
+
+    <article id="help">
+		<ul class="poleznye_sovety">
+		    <li>
+                <h3>Один товар &mdash; одно объявление</h3>
+                <p>Наиболее частая ошибка продавца при продаже нескольких товаров &mdash; указывать в одном объявлении все, что он продаёт.
+                Так делать категорически нельзя, т.к. потенциальные клиенты просто не увидят интересующий их товар.
+                Золотое правило <?=Krugozor_Registry::getInstance()->HOSTINFO['HOST_SIMPLE']?> гласит: &laquo;Один товар &mdash; одно объявление&raquo;</p>
+            </li>
+			<li>
+                <h3>Обязательно загрузите фотографию товара</h3>
+			    <p>Если есть возможность, не поленитесь загрузить фотографию товара. Если у вас нет возможности сделать фотографию, найдите аналогичную фотографию вашего товара в интернете.<br />
+			    Объявления с фотографиями просматриваются намного чаще и, следовательно, возрастает вероятность, что вас увидит именно «ваш» покупатель.
+			    Порою, фотография оказывает решающее значение на выбор покупателя.</p>
+            </li>
+			<li>
+                <h3>Выбирайте наиболее подходящий раздел каталога для объявления</h3>
+                <p>Каталог <?=Krugozor_Registry::getInstance()->HOSTINFO['HOST_SIMPLE']?> содержит огромное число категорий.
+                Выбирайте наиболее подходящую категорию каталога для вашего объявления,
+                в противном случае ваши потенциальные клиенты не найдут ваше объявление там, где они ожидают его увидеть.</p>
+            </li>
+            <li>
+                <h3>Не забывайте почаще поднимать свое объявление в результатах поиска</h3>
+                <p>Во-первых, таким образом, вы информируете пользователей, что ваше объявление еще актуально, а во-вторых,
+                не даете затеряться ему на последних страницах нашего сайта бесплатных объявлений.
+                Функция &laquo;Поднять объявление&raquo; <em>бесплатна</em> и доступна всем <a title="Регистрация" href="/registration.xhtml">зарегистрированным пользователям</a>.</p>
+            </li>
+            <li>
+                <h3>Пользуйтесь платными услугами, дающими максимальный результат</h3>
+                <p>Вы можете сделать ваше объявление более заметным, воспользовавшись услугой &laquo;Выделить объявлений&raquo; или поместить его в блок &laquo;Спецпредложения&raquo;:</p>
+                <div><img src="/http/image/desing/vip.jpg" alt="" /></div>
+                <p>Для этого зайдите в ваш <a href="/my">личный кабинет</a> и кликните по соответствующим ссылкам в блоке управления объявлениями.</p>
+                <div><img src="/http/image/desing/special.jpg" alt="" /></div>
+            </li>
+		</ul>
+    </article>
+</div>
+
+<? include $this->getRealTemplatePath('Common/FrontendBottom') ?>
+
+</body></html>
