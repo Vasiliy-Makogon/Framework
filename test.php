@@ -1,8 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Василий
- * Date: 14.01.2018
- * Time: 12:47
- */
-echo 123456789;
+include_once '../localhost/vendor/autoload.php';
+
+print_r(new \Krugozor\Pagination\Manager(1,2, $_POST));
