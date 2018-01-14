@@ -10,7 +10,7 @@
     }
   ],
   "psr-0" : {
-    "": "src/"
+    "Krugozor\\": "src/"
   },
   "license": "Apache-2.0",
   "require": {
