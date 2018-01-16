@@ -10,8 +10,8 @@
     }
   ],
   "autoload": {
-    "psr-0": {
-      "": "src/"
+    "psr-4": {
+      "Krugozor\\Framework\\": "src/"
     }
   },
   "license": "Apache-2.0",

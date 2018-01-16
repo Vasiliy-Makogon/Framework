@@ -1,5 +1,7 @@
 <?php
 
+namespace Krugozor\Framework\Module;
+
 /**
  * Created by PhpStorm.
  * User: Василий
