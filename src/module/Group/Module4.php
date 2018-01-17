@@ -6,7 +6,7 @@
  * Time: 22:59
  */
 
-namespace Krugozor\Framework\Module\Group;
+namespace Krugozor\Module\Group;
 
 
 class Module4

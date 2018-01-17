@@ -1,6 +1,6 @@
 <?php
 
-namespace Krugozor\Framework\Module;
+namespace Krugozor\Module;
 
 /**
  * Created by PhpStorm.
