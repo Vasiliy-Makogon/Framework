@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <!-- common meta -->
+    <?php /* @var $this \Krugozor\Framework\View */ ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" sizes="16x16" href="/favicon.ico"/>
+    <?= $this->getHelper('\Krugozor\Framework\Html\Title')->getHtml() ?>
+    <!-- /common meta -->
+
+    <!-- common css -->
+    <?= $this->getCss('common', 'reset.css') ?>
+    <?= $this->getCss('common', 'tags.css') ?>
+    <?= $this->getCss('common', 'backend.css') ?>
+    <!-- /common css -->
+
+    <?= $this->getJs('common', 'library/krugozor.js') ?>
+    <?= $this->getJs('common', 'library/krugozor.forms.js') ?>
+    <?= $this->getJs('common', 'library/krugozor.ajax.js') ?>
+    <?= $this->getJs('common', 'library/krugozor.ui.popup.ajaxselect.js') ?>
+    <?= $this->getJs() ?>
+
+</head>
+<body>
+
+<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+
+<form method="post" action="<?= $this->getRequest()->getRequestUri()->getEscapeUriValue() ?>">
+    <table class="datatable edit">
+        <colgroup>
+            <col/>
+            <col/>
+        </colgroup>
+        <tr>
+            <th colspan="2">Добавление списка категорий</th>
+        </tr>
+        <tr>
+            <td class="compulsory">Родительский узел:</td>
+            <td>
+                <?php
+                $select = $this->getHelper('\Krugozor\Framework\Helper\Form')->inputSelect('data[category]', $this->getRequest()->getRequest('pid', 'decimal'));
+                $select->addOption($this->getHelper('\Krugozor\Framework\Helper\Form')->inputOption('0', 'Выберите'));
+                $categories = $this->getHelper('\Krugozor\Framework\Module\Category\Helper\OptionsList', $this->tree)->getOptions();
+                foreach ($categories as $option):
+                    $select->addOption($option);
+                endforeach;
+                echo $select->getHtml();
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td class="compulsory">Список категорий:</td>
+            <td><?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputTextarea('data[list]', '')->getHtml() ?></td>
+        </tr>
+        <tr align="center">
+            <td colspan="2">
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputHidden('data[id]', $this->getRequest()->getRequest('id', 'decimal'))->getHtml() ?>
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputSubmit('submit', $this->lang['content']['save_changes'])->getHtml() ?>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

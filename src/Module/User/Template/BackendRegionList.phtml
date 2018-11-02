@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <!-- common meta -->
+    <?php /* @var $this \Krugozor\Framework\View */ ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" sizes="16x16" href="/favicon.ico"/>
+    <?= $this->getHelper('\Krugozor\Framework\Html\Title')->getHtml() ?>
+    <!-- /common meta -->
+
+    <!-- common css -->
+    <?= $this->getCss('common', 'reset.css') ?>
+    <?= $this->getCss('common', 'tags.css') ?>
+    <?= $this->getCss('common', 'backend.css') ?>
+    <!-- /common css -->
+    <?= $this->getCss() ?>
+
+</head>
+<body>
+
+<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+
+<table class="datatable">
+    <tr>
+        <td>
+            <?php
+            $select = $this->getHelper('\Krugozor\Framework\Helper\Form')->inputSelect('id_country', $this->getRequest()->getRequest('id_country', 'string'), array('onchange' => 'window.location.href = "?id_country=" + this.value'));
+            $select->addOption($this->getHelper('\Krugozor\Framework\Helper\Form')->inputOption(0, $this->lang['content']['select_value']));
+            foreach ($this->countryList as $country):
+                $select->addOption($this->getHelper('\Krugozor\Framework\Helper\Form')->inputOption($country->getId(), $country->getNameRu()));
+            endforeach;
+            echo $select->getHtml();
+            ?>
+        </td>
+    </tr>
+</table>
+
+<table class="datatable">
+    <? if ($this->regionList->getList()->count()): ?>
+        <colgroup>
+            <col><col><col><col><col>
+            <col><col><col>
+        </colgroup>
+        <tr>
+            <th colspan="10">Список регионов</th>
+        </tr>
+        <tr class="head_params">
+            <td>
+                <?php
+                $linker = $this->getHelper('\Krugozor\Framework\Helper\SortLink')
+                    ->setFieldName('id')
+                    ->setAnchor($this->lang['content']['id'])
+                    ->setUrl($this->getRequest()->getCanonicalRequestUri()->getSimpleUriValue())
+                    ->setIconSrc(\Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'])
+                    ->setCurrentFieldName($this->regionList->getAlias())
+                    ->setCurrentSortOrder($this->regionList->getOrder())
+                    ->setQueryStringFromArray(array(
+                        'sep' => $this->regionList->getPagination()->getCurrentSeparator(),
+                        'page' => $this->regionList->getPagination()->getCurrentPage(),
+                        'id_country' => $this->getRequest()->getRequest('id_country', 'string')
+                    ));
+
+                echo $linker->getHtml();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('country')
+                    ->setAnchor('ID Страны')
+                    ->getHtml(); ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('weight')
+                    ->setAnchor('Вес')
+                    ->getHtml(); ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('name_ru')
+                    ->setAnchor('Регион RU')
+                    ->getHtml(); ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('name_ru2')
+                    ->setAnchor('Регион RU')
+                    ->getHtml(); ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('name_en')
+                    ->setAnchor('Регион EN')
+                    ->getHtml(); ?>
+            </td>
+            <td colspan="4"><?= $this->lang['content']['actions'] ?></td>
+        </tr>
+
+        <? foreach ($this->regionList->getList() as $region): ?>
+            <tr class="color_hover center">
+                <td id="region_<?= $region->getId() ?>"><?= $region->getId() ?></td>
+                <td>
+                    <a href="/user/backend-region-list/?id_country=<?= $region->getIdCountry() ?>"><?= $region->getIdCountry() ?></a>
+                </td>
+                <td><?= $region->getWeight() ?></td>
+                <td>
+                    <a href="/user/backend-city-list/?id_region=<?= $region->getId() ?>">
+                        <?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($region->getNameRu(), 'decode', 'hsc') ?>
+                    </a>
+                </td>
+                <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($region->getNameRu2(), 'decode', 'hsc') ?></td>
+                <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($region->getNameEn(), 'decode', 'hsc') ?></td>
+                <td class="td_actions">
+                    <a href="/user/backend-region-edit/?id=<?= $region->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
+                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png" alt=""/>
+                    </a>
+                </td>
+                <td class="td_actions"><img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete_empty.png" alt=""/></td>
+            </tr>
+        <? endforeach; ?>
+
+    <? else: ?>
+        <tr>
+            <th><h4>Список регионов</h4></th>
+        </tr>
+        <tr class="center">
+            <td>Список регионов пуст</td>
+        </tr>
+    <? endif; ?>
+</table>
+
+<?php
+$pagination = $this->regionList->getPagination();
+$pagination
+    ->getHelper()
+    ->setCssNormalLinkClass('navigation_normal_link')
+    ->setRequestUriParameter('field_name', $this->regionList->getAlias())
+    ->setRequestUriParameter('sort_order', $this->regionList->getOrder())
+    ->setRequestUriParameter('id_country', $this->getRequest()->getRequest('id_country', 'string'));
+?>
+
+<? include $this->getRealTemplatePath('Common/BackendNavigation') ?>
+<? include $this->getRealTemplatePath('Common/DebugInfo') ?>
+
+</body>
+</html>

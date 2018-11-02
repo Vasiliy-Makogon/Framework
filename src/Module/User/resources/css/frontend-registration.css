@@ -1,0 +1,19 @@
+/* Метки: Страна, город, Регион */
+div#user_frontend-registration div.fields_wrap.cities p > span.city_field_description {
+    font-weight:bold;
+    width:60px;
+    display:block;
+    float:left;
+    font-size:11px;
+    color:#666; 
+}
+div#user_frontend-registration div.fields_wrap.cities select {
+    width: 300px;
+}
+/* Для всплывающей подсказки около поля капчи меняем позицию сноски */
+div#user_frontend-registration div.animate_field_captcha div.triangle-right {
+    top:20px;
+} 
+div#user_frontend-registration div.animate_field_captcha div.triangle-right-border {
+    top:19px;
+}

@@ -1,0 +1,102 @@
+div.notification_normal{
+    background-position-x: 20px;
+    background-position-y: 20px;
+}
+
+div.advert {
+    margin-bottom: 10px;
+}
+div.advert > article > div.left {
+    flex-basis: 130px;
+    min-width: 130px;
+}
+div.advert > article > div.left.double {
+    flex-basis:264px;
+    min-width:264px;
+}
+@media screen and (max-width: 900px) {
+    div.advert > article > div.left.double {
+        flex-basis:130px;
+        min-width:130px;
+    }
+}
+
+
+div.advert > article > div.center header {
+    margin: 0 0 10px 0;
+}
+div.advert > article > div.center header h3{
+    font-size: 18px;
+}
+div.advert > article > div.center p {
+    margin:10px 0;
+    font-size: 100%;
+}
+div.advert > article {
+    position: relative;
+    min-height: 100px;
+}
+@media screen and (min-width: 900px) {
+    div.advert > article > div.center > div.price {
+        font-size: 140%;
+        padding: 10px;
+    }
+}
+div.advert > article div.yashare-auto-init {
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
+
+/* Контакты */
+div.advert > article > div.center table.contacts {
+	border-collapse:separate;
+    border-spacing:0 5px;
+}
+div.advert > article > div.center table.contacts tbody tr td img {
+    vertical-align:middle;
+}
+div.advert > article > div.center table.contacts tbody tr td:last-child {
+    color: #000;
+}
+/* Имитация ссылок */
+div.advert > article > div.center table.contacts tbody tr td:last-child span.imitation_link,
+div.advert > article > div.center table.contacts tbody tr td:last-child span.imitation_outer_link{
+    text-decoration:none;
+    color:#395773;
+    cursor:pointer;
+    padding-right:14px;
+}
+div.advert > article > div.center table.contacts tbody tr td:last-child span.imitation_link:hover,
+div.advert > article > div.center table.contacts tbody tr td:last-child span.imitation_outer_link:hover{
+    text-decoration:underline;
+}
+div.advert > article > div.center table.contacts tbody tr td:last-child span.imitation_outer_link {
+    background:url("/http/image/desing/icon/external.png") no-repeat scroll right center transparent;
+}
+/* Контактная информация */
+div.advert > article > div.center table.contacts tbody tr td.user:first-child {
+	background:transparent url('/http/image/desing/icon/user_suit.png') 0 center no-repeat;
+	padding-left:20px;
+}
+div.advert > article > div.center table.contacts tbody tr td.phone:first-child {
+    background:transparent url('/http/image/desing/icon/phone.png') 0 center no-repeat;
+    padding-left:20px;
+}
+div.advert > article > div.center table.contacts tbody tr td.email:first-child {
+    background:transparent url('/http/image/desing/icon/email.png') 0 center no-repeat;
+    padding-left:20px;
+}
+div.advert > article > div.center table.contacts tbody tr td.url:first-child {
+    background:transparent url('/http/image/desing/icon/world.png') 0 center no-repeat;
+    padding-left:20px;
+}
+div.advert > article > div.center table.contacts tbody tr td.icq:first-child {
+    background:transparent url('/http/image/desing/icon/icq_invisible.png') 0 center no-repeat;
+    padding-left:20px;
+}
+div.advert > article > div.center table.contacts tbody tr td.skype:first-child {
+    background:transparent url('/http/image/desing/icon/skype.png') 0 center no-repeat;
+    padding-left:20px;
+}

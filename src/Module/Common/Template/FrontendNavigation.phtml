@@ -1,0 +1,11 @@
+<?php if ($this->pagination): ?>
+    <!--noindex-->
+    <div class="navigation_list">
+        Всего элементов: <strong><?=$this->pagination->getCount()?></strong>
+        <?php if ($this->pagination->getCount()): ?>
+            <br /><br /><span class="navigation_title">Страницы:</span>
+            <?=$this->pagination->getHelper()->getHtml()?>
+        <?php endif; ?>
+    </div>
+    <!--/noindex-->
+<?php endif; ?>

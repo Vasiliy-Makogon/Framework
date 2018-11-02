@@ -1,0 +1,204 @@
+body {
+    padding: 10px;
+}
+a:link,
+a:visited,
+a:hover {
+    color: #336699;
+}
+a:active {
+    color: #cc0000;
+}
+a:hover {
+    text-decoration: none;
+}
+input[type="submit"], input[type="button"], input[type="file"] {
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #336699 30%, #113b63 100%) repeat scroll 0 0;
+    border-radius: 5px;
+    box-shadow: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 4px;
+}
+/* Ошибка заполнения поля формы формы (выводится около текстового поля) */
+.fieldErrorMessage {
+    color: #E15D52;
+    font-size: 11px;
+    margin: 5px 0 0 0;
+    padding: 0 0 0 19px;
+    background: url('/http/image/desing/icon/exclamation.png') no-repeat left center;
+    line-height: 16px;
+}
+.fieldErrorMessage p {
+    margin: 0;
+}
+/* Класс ссылки добавления нового элемента в меню */
+a.add_element {
+    padding-left: 20px;
+    background: url(/http/image/system/icon/add.png) no-repeat left;
+    line-height: 16px;
+}
+/* Стандартная таблица админ-интерфейса */
+table.datatable {
+    border-collapse: collapse;
+    background-color: #f5f5f5;
+    width: 100%;
+    margin-bottom: 15px;
+}
+table.datatable.edit {
+
+}
+table.datatable.edit colgroup col:first-child {
+    width: 20%;
+}
+table.datatable.edit colgroup col:last-child {
+    width: 80%;
+}
+table.datatable tr.head_params {
+    font-weight: bold;
+    text-align: center;
+}
+table.datatable tr.center,
+table.datatable tr td.center {
+    text-align: center;
+}
+table.datatable tr td.center img,
+table.datatable tr td.center small {
+    display: block;
+}
+table.datatable tr td.center img {
+    margin: auto;
+}
+table.datatable tr td.small_text {
+    font-size: 90%;
+}
+table.datatable tr.color_hover:hover {
+    background-color: #E6E6FA;
+}
+table.datatable tr th {
+    background-color: #E6E6FA;
+    border: 1px solid #9999CC;
+    text-align: center;
+    padding: 5px;
+    font-size: 14px;
+}
+table.datatable tr td {
+    border: 1px solid #CCCCFF;
+    padding: 5px;
+}
+table.datatable tr td .after_field_text {
+    font-size: 90%;
+}
+table.datatable tr td .after_field_text,
+table.datatable tr td input[type='text'],
+table.datatable tr td input[type='password'],
+table.datatable tr td select {
+    width: 500px;
+}
+table.datatable tr td select.width_auto {
+    width: auto;
+}
+table.datatable tr td input[readonly="readonly"] {
+    background-color: #f5f5f5;
+}
+table.datatable tr td.compulsory,
+strong.compulsory {
+    color: #336699;
+    font-weight: bold;
+}
+table.datatable tr td.lighttext {
+    color: #666;
+}
+table.datatable tr td.redtext span {
+    font-weight: bold;
+    color: #cc0000;
+}
+table.datatable tr td.td_actions {
+    text-align: center;
+}
+table.datatable tr td.td_actions img,
+table.datatable tr td.td_actions small {
+    display: block;
+}
+table.datatable tr td.td_actions img {
+    margin: auto;
+}
+table.datatable tr td .external {
+    background: url("/http/image/desing/icon/external.png") no-repeat scroll right center transparent;
+    padding-right: 14px;
+}
+/* Меню */
+.datatable.menu tr td > a {
+    float: right;
+    display: block;
+    font-weight: bold;
+}
+.datatable tr td span.vhr {
+    color: #9999CC;
+}
+/* Системные уведомления */
+div.notification_normal,
+div.notification_alert,
+div.notification_warning {
+    padding: 10px 5px 5px 70px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+div.notification_normal {
+    border: 1px solid green;
+    background: url('/http/image/system/icon/notification_ok.gif') 20px 50% no-repeat;
+}
+div.notification_alert {
+    border: 0.1em solid #CC0000;
+    background: url('/http/image/system/icon/notification_error.gif') 20px 50% no-repeat;
+}
+div.notification_warning {
+    border: 1px solid #FF6600;
+    background: url('/http/image/system/icon/notification_warning.gif') 20px 50% no-repeat;
+}
+div.notification_normal h3,
+div.notification_alert h3,
+div.notification_warning h3 {
+    margin: 0 0 5px 0;
+    padding: 4px;
+    background-color: #F5F5F5;
+    font-size: 120%;
+}
+div.notification_normal h3 {
+    color: green;
+}
+div.notification_alert h3 {
+    color: #CC0000;
+}
+div.notification_warning h3 {
+    color: #FF6600;
+}
+div.notification_normal p,
+div.notification_alert p,
+div.notification_warning p {
+    padding: 5px;
+}
+/* Строка навигации */
+div.navigation_list {
+    background-color: #f5f5f5;
+    border: 1px solid #9999CC;
+    padding: 5px;
+    margin: 0 0 15px 0;
+    font-size: 90%;
+}
+div.navigation_list a.navigation_normal_link {
+    padding: 2px 4px;
+    border: 1px solid #CCCCCC;
+    text-decoration: none;
+}
+div.navigation_list span.navigation_title {
+    font-weight: bold;
+}
+div.navigation_list a.navigation_normal_link:hover {
+    background-color: #E6E6FA;
+    border: 1px solid #CC0000;
+    color: #CC0000;
+}
+div.navigation_list span.navigation_active_link {
+    font-weight: bold;
+}

@@ -1,0 +1,35 @@
+div#user_frontend-edit div.fields_wrap.cities p > span.city_field_description {
+    font-weight:bold;
+    width:60px;
+    display:block;
+    float:left;
+    font-size:11px;
+    color:#666;
+}
+div#user_frontend-edit div.fields_wrap.cities select {
+    width:300px;
+}
+
+/* Красивое radio (при условии, что за input сразу идёт label)*/
+div#user_frontend-edit div.field_row .radiobuttons_classic input[type="radio"]{
+    display:none;
+}
+div#user_frontend-edit div.field_row .radiobuttons_classic label {
+    border-radius:5px;
+    line-height: 25px;
+    padding:3px 10px 3px 23px;
+    display:inline-block;
+    margin:0 5px 0 0;
+    border:1px solid transparent;
+    cursor:pointer;
+    line-height: 25px;
+    background:url(/http/image/desing/icon/radiobutton_no.png) 5px 50% no-repeat #FFF;
+}
+div#user_frontend-edit div.field_row .radiobuttons_classic label:hover {
+    border:1px solid #CCCCCC;
+    background-color: #f5f5f5;
+}
+div#user_frontend-edit div.field_row .radiobuttons_classic input[type="radio"]:checked + label{
+    border: 1px solid #7F9DB9;
+    background:url(/http/image/desing/icon/radiobutton_yes.png) 5px 50% no-repeat #f5f5f5;
+}

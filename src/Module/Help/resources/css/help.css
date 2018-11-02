@@ -1,0 +1,27 @@
+article#help > h2{
+    margin:0 0 20px 0;
+}
+article#help h3{
+    font-size:15px;
+    color:#994015;
+}
+article#help > p{
+    margin:20px 0;
+}
+article#help ul,
+article#help ol{
+    margin:20px 0 20px 50px;
+}
+article#help ul li,
+article#help ol li{
+    margin:5px 0;
+}
+
+div.location_top{
+    text-align:right;
+}
+div.location_top a{
+    background:url('/http/image/desing/icon/arrow_up.png') center right no-repeat;
+    padding-right:16px;
+    color:#395773;
+}

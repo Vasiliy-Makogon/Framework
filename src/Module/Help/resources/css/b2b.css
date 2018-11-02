@@ -1,0 +1,54 @@
+div#help_b2b samp {
+	font-size:16px;
+	text-decoration:underline;
+	color:#395773;
+}
+
+div#help_b2b article aside {
+	margin: 20px auto;
+	width:800px;
+}
+div#help_b2b article aside.intro ul{
+	margin: 0 0 20px 0;
+    font-size:16px;
+    list-style-type:none;
+}
+div#help_b2b article aside.intro ul li{
+	padding: 0 0 0 23px;
+	margin:0 0 5px 0;
+}
+
+div#help_b2b article aside.intro ul li.who_you{
+	background:url("/http/image/desing/icon/accept.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+}
+div#help_b2b article aside.intro ul li.questions{
+    color:#395773;
+    font-style:oblique;
+    font-size:17px;
+}
+div#help_b2b article aside.intro ul li.questions_other{
+    padding-left:50px;
+    font-size:12px;
+}
+div#help_b2b article aside.intro ul.pluses{
+    margin: 0 0 30px 0;
+    font-size:16px;
+}
+div#help_b2b article aside.intro ul.pluses li{
+	padding: 0 0 0 23px;
+    background:url("/http/image/desing/icon/plus.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+    list-style-type:none;
+    margin:0 0 10px 0;
+}
+div#help_b2b article dl{
+    
+}
+div#help_b2b article dl dt {
+    font-size:16px;
+}
+div#help_b2b article dl dd{
+    margin:10px 0 20px 20px;
+}
+div#help_b2b article p.start{
+    font-size:16px;
+}

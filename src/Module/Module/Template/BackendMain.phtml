@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <!-- common meta -->
+    <?php /* @var $this \Krugozor\Framework\View */ ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" sizes="16x16" href="/favicon.ico"/>
+    <?= $this->getHelper('\Krugozor\Framework\Html\Title')->getHtml() ?>
+    <!-- /common meta -->
+
+    <!-- common css -->
+    <?= $this->getCss('common', 'reset.css') ?>
+    <?= $this->getCss('common', 'tags.css') ?>
+    <?= $this->getCss('common', 'backend.css') ?>
+    <!-- /common css -->
+    <?= $this->getCss() ?>
+
+</head>
+<body>
+
+<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+
+<table class="datatable">
+    <tr>
+        <td>
+            <a class="add_element" href="/module/edit-module/"><?= $this->getLang()['content']['add_module'] ?></a>
+        </td>
+    </tr>
+</table>
+
+<table class="datatable">
+    <? if ($this->modulesList->getList()->count()): ?>
+        <colgroup>
+            <col><col><col><col><col><col>
+        </colgroup>
+        <tr>
+            <th colspan="6"><?= $this->getLang()['content']['list_of_modules'] ?></th>
+        </tr>
+        <tr class="head_params">
+            <td>
+                <?php
+                $linker = $this->getHelper('\Krugozor\Framework\Helper\SortLink')
+                    ->setFieldName('id')
+                    ->setAnchor($this->getLang()['content']['id'])
+                    ->setUrl($this->getRequest()->getCanonicalRequestUri()->getEscapeUriValue())
+                    ->setIconSrc(\Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'])
+                    ->setCurrentFieldName($this->modulesList->getAlias())
+                    ->setCurrentSortOrder($this->modulesList->getOrder());
+
+                echo $linker->getHtml();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('name')
+                    ->setAnchor($this->getLang()['content']['module_name'])
+                    ->getHtml(); ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('key')
+                    ->setAnchor($this->getLang()['content']['module_key'])
+                    ->getHtml(); ?>
+            </td>
+            <td><?= $this->getLang()['content']['controllers_count'] ?></td>
+            <td colspan="2"><?= $this->getLang()['content']['actions'] ?></td>
+        </tr>
+
+        <? foreach ($this->modulesList->getList() as $module): ?>
+            <tr class="center color_hover">
+                <td><?= $module->getId() ?></td>
+                <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($module->getName()) ?></td>
+                <td><?= $module->getKey() ?></td>
+                <td>
+                    <? if ($module->getControllers()): ?>
+                        <?= $module->getControllers()->count() ?>
+                        <?= $this->getHelper('\Krugozor\Framework\Helper\Format')->triumviratForm($module->getControllers()->count(), $this->getLang()['content']['triumvirat_controllers']) ?>
+                    <? else: ?>
+                        контроллеров нет
+                    <? endif; ?>
+                </td>
+                <td class="td_actions"><a href="/module/edit-module/?id=<?= $module->getId() ?>"><img
+                                src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png"
+                                alt=""/></a></td>
+                <td class="td_actions">
+                    <?php
+                    $str = \Krugozor\Framework\Helper\Format::js(
+                        $this->getLang()['content']['question_delete_module'],
+                        ['module_name' => $module->getName(), 'module_id' => $module->getId()]
+                    );
+                    ?>
+                    <a onclick="return confirm('<?= $str ?>')"
+                       href="/module/delete-module/?id=<?= $module->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
+                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete.png"
+                             alt=""/>
+                    </a>
+                </td>
+            </tr>
+        <? endforeach; ?>
+
+    <? else: ?>
+        <tr>
+            <th><?= $this->getLang()['content']['list_of_modules'] ?></th>
+        </tr>
+        <tr class="center">
+            <td><?= $this->getLang()['content']['not_found_request_data'] ?></td>
+        </tr>
+    <? endif; ?>
+</table>
+
+<?php
+$pagination = $this->modulesList->getPagination();
+$pagination
+    ->getHelper()
+    ->setCssNormalLinkClass('navigation_normal_link')
+    ->setRequestUriParameter('field_name', $this->modulesList->getAlias())
+    ->setRequestUriParameter('sort_order', $this->modulesList->getOrder())
+    ->setPaginationType(\Krugozor\Pagination\Helper::PAGINATION_NORMAL_TYPE);
+?>
+
+<? include $this->getRealTemplatePath('Common/BackendNavigation') ?>
+
+<? include $this->getRealTemplatePath('Common/DebugInfo') ?>
+
+</body>
+</html>

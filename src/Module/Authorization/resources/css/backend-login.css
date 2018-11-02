@@ -1,0 +1,56 @@
+div#center_block {
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    width: 50%;
+    top: 25%;
+    padding:20px;
+    border: 1px solid #666666;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    box-sizing:border-box;
+}
+
+div#center_block h3{
+    margin:0 0 5px 0;
+    padding:10px;
+    background-color:#F5F5F5;
+    font-size:120%;
+}
+
+/* Запомнить пароль */
+div#center_block p.changeCookieDays {
+    font-size: 90%;
+    display: none;
+    margin:10px 0;
+}
+div#center_block p.changeCookieDays.show {
+    display:block;
+}
+div#center_block p.changeCookieDays a,
+div#center_block p.changeCookieDays a:link {
+    border: 1px solid #CCC;
+    padding: 3px;
+    text-decoration: none;
+}
+div#center_block p.changeCookieDays a:hover {
+    background-color: #E6E6FA;
+}
+
+/* Переопределяем классы datatable */
+table.datatable.clear {
+    background-color: transparent;
+}
+table.datatable.clear.edit colgroup col:first-child{
+    width:20%;
+}
+table.datatable.clear.edit colgroup col:last-child{
+    width:80%;
+}
+table.datatable.clear tr td {
+    border: none;
+}
+table.datatable.clear tr td input[type='text'],
+table.datatable.clear tr td input[type='password'] {
+    width: 100%;
+}

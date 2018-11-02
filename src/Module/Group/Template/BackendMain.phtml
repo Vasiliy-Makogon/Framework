@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <!-- common meta -->
+    <?php /* @var $this \Krugozor\Framework\View */ ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" sizes="16x16" href="/favicon.ico"/>
+    <?= $this->getHelper('\Krugozor\Framework\Html\Title')->getHtml() ?>
+    <!-- /common meta -->
+
+    <!-- common css -->
+    <?= $this->getCss('common', 'reset.css') ?>
+    <?= $this->getCss('common', 'tags.css') ?>
+    <?= $this->getCss('common', 'backend.css') ?>
+    <!-- /common css -->
+    <?= $this->getCss() ?>
+
+</head>
+<body>
+
+<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+
+<table class="datatable">
+    <tr>
+        <td>
+            <a class="add_element" href="/group/backend-edit/">
+                <?= $this->getLang()['content']['adding_group'] ?>
+            </a>
+        </td>
+    </tr>
+</table>
+
+<table class="datatable">
+    <? if ($this->groupList->getList()->count()): ?>
+        <colgroup>
+            <col><col><col><col><col>
+        </colgroup>
+        <tr>
+            <th colspan="5"><?= $this->getLang()['content']['list_of_groups'] ?></th>
+        </tr>
+        <tr class="head_params">
+            <td>
+                <?php
+                $linker = $this->getHelper('\Krugozor\Framework\Helper\SortLink')
+                    ->setFieldName('id')
+                    ->setAnchor($this->getLang()['content']['id'])
+                    ->setUrl($this->getRequest()->getCanonicalRequestUri()->getEscapeUriValue())
+                    ->setIconSrc(\Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'])
+                    ->setCurrentFieldName($this->groupList->getAlias())
+                    ->setCurrentSortOrder($this->groupList->getOrder())
+                    ->setQueryStringFromArray(array(
+                        'sep' => $this->groupList->getPagination()->getCurrentSeparator(),
+                        'page' => $this->groupList->getPagination()->getCurrentPage(),
+                    ));
+
+                echo $linker->getHtml();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('name')
+                    ->setAnchor($this->getLang()['content']['group_name'])
+                    ->getHtml(); ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('active')
+                    ->setAnchor($this->getLang()['content']['group_active'])
+                    ->getHtml(); ?>
+            </td>
+            <td colspan="2"><?= $this->getLang()['content']['actions'] ?></td>
+        </tr>
+
+        <? foreach ($this->groupList->getList() as $group): ?>
+            <tr class="center color_hover">
+                <td><?= $group->getId() ?></td>
+                <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($group->getName(), 'decode', 'hsc') ?></td>
+                <td<? if (!$group->getActive()): ?> class="lighttext"<?php endif; ?>>
+                    <span>
+                        <? if ($group->getActive()): ?>
+                            <?= $this->getLang()['content']['yes'] ?>
+                        <? else: ?>
+                            <?= $this->getLang()['content']['no'] ?>
+                        <? endif; ?>
+                    </span>
+                </td>
+                <td class="td_actions">
+                    <a href="/group/backend-edit/?id=<?= $group->getId() ?>">
+                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png"
+                             alt=""/>
+                    </a>
+                </td>
+                <td class="td_actions">
+                    <? if (!in_array($group->getAlias(), ['administrator', 'user', 'guest'])): ?>
+                        <?php
+                        $str = \Krugozor\Framework\Helper\Format::js(
+                            $this->getLang()['content']['question_delete_group'],
+                            ['group_name' => $group->getName()]
+                        );
+                        ?>
+                        <a onclick="return confirm('<?= $str ?>')"
+                           href="/group/backend-delete/?id=<?= $group->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
+                            <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete.png"
+                                 alt=""/>
+                        </a>
+                    <? else: ?>
+                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete_empty.png"
+                             alt=""/>
+                    <? endif; ?>
+                </td>
+            </tr>
+        <? endforeach; ?>
+    <? else: ?>
+        <tr>
+            <th><?= $this->getLang()['content']['list_of_groups'] ?></th>
+        </tr>
+        <tr class="center">
+            <td><?= $this->getLang()['content']['empty_list_of_groups'] ?></td>
+        </tr>
+    <? endif; ?>
+</table>
+
+<?php
+$pagination = $this->groupList->getPagination();
+$pagination
+    ->getHelper()
+    ->setCssNormalLinkClass('navigation_normal_link')
+    ->setRequestUriParameter('field_name', $this->groupList->getAlias())
+    ->setRequestUriParameter('sort_order', $this->groupList->getOrder());
+?>
+
+<? include $this->getRealTemplatePath('Common/BackendNavigation') ?>
+<? include $this->getRealTemplatePath('Common/DebugInfo') ?>
+
+</body>
+</html>

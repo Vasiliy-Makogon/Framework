@@ -1,0 +1,7 @@
+fieldset > div > div {
+    padding-bottom: 5px;
+}
+fieldset {
+    width: 500px;
+    box-sizing: border-box;
+}

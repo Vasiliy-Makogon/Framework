@@ -1,0 +1,67 @@
+/* Таблицы с регионами */
+div#index_index div.subblock table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 5px 0;
+    margin: 10px 5px 0 5px;
+}
+div#index_index div.subblock table col {
+    width: 50%;
+}
+div#index_index div.subblock table tr td {
+    vertical-align: top;
+    font-size: 11px;
+}
+div#index_index div.subblock table a {
+    display: block;
+    color: #113b63;
+    margin-bottom: 4px;
+}
+div#index_index div.subblock table a:last-child {
+    margin: 0;
+}
+div#index_index div.subblock table a:hover {
+    color: #994015
+}
+div#index_index div.subblock table a.main {
+    font-weight: bold;
+}
+div#index_index div.subblock.annotation {
+    font-size: 11px;
+    color: #333;
+    padding: 0 5px;
+}
+div#index_index div.subblock.annotation a {
+    color: #666;
+}
+div#index_index div.subblock.annotation.gray {
+    color: #666;
+    margin-top: -20px;
+    margin-bottom: 14px;
+    padding: 0 14px;
+}
+div#index_index div.subblock.payments_types {
+    text-align: center;
+}
+div#index_index div.subblock.payments_types > div {
+    margin: 0 0 10px 0;
+}
+div#index_index div.subblock.payments_types > img,
+div#index_index div.subblock.payments_types > a {
+    margin: 2px;
+}
+div#index_index div.subblock.payments_types a {
+    width: 88px;
+    height: 31px;
+    display: inline-block;
+    line-height: 31px;
+}
+div#index_index div.subblock.payments_types > img,
+div#index_index div.subblock.payments_types > a > img {
+    vertical-align: middle;
+    width: 88px;
+    height: 31px;
+}
+div#index_index div.subblock.payments_types img {
+    outline: 1px solid #CCC;
+}

@@ -1,0 +1,356 @@
+/*
+https://webref.ru/css/flex-basis
+https://webref.ru/css/flex-grow
+https://webref.ru/css/flex-shrink
+*/
+
+div#wrap {
+    max-width: 1200px;
+    height: 100%;
+    margin: 15px auto 0 auto;
+    background-color: #fff;
+    padding: 5px;
+    box-sizing: border-box;
+}
+/* Блок логотипа и правого блока */
+div.logo {
+    justify-content: center;
+    margin: 0 0 10px 0;
+}
+div.logo div.left_column {
+    text-align: center;
+    flex-grow: 0;
+    align-self: center;
+    justify-content: center;
+    flex-basis: 350px;
+}
+div.logo div.left_column a {
+    display: inline-block;
+    margin: 0 0 5px 0;
+}
+div.logo div.left_column a img {
+    overflow: auto;
+}
+div.logo div.right_column {
+    font-size: 11px;
+    color: #666;
+    padding: 0 10px 0 10px;
+    justify-content: center;
+}
+div.logo div.right_column p {
+    margin: 0 0 4px 0;
+    text-align: justify;
+}
+div.logo div.right_column p a {
+    text-decoration: none;
+    color: inherit;
+}
+div.logo div.right_column p:last-child {
+    margin: 0;
+}
+/* Меню верхнее */
+nav.top_menu {
+    z-index: 1000;
+    border: 1px solid #f5f5f5;
+    line-height: 30px;
+    flex-wrap: nowrap;
+}
+nav.top_menu .left_column {
+    flex-basis: auto;
+    flex-grow: 1;
+}
+nav.top_menu .right_column {
+    flex-basis: auto;
+    flex-grow: 0;
+}
+nav.top_menu .left_column > .left_column_content,
+nav.top_menu .right_column > .right_column_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: nowrap;
+}
+nav.top_menu .right_column > .right_column_content {
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+}
+nav.top_menu .left_column > .left_column_content {
+    padding: 0 5px;
+}
+nav.top_menu .left_column > .left_column_content li {
+    display: inline-block;
+    padding: 0 5px;
+}
+@media screen and (max-width: 1200px) {
+    nav.top_menu {
+        flex-wrap: wrap;
+    }
+    nav.top_menu .left_column {
+        flex-basis: 100%;
+        order: 2;
+        flex-grow: 1;
+    }
+    nav.top_menu .right_column {
+        flex-basis: 100%;
+        order: 1;
+        flex-grow: 1;
+    }
+    nav.top_menu .right_column > .right_column_content {
+        justify-content: flex-start;
+        background-color: #F5F5F5;
+    }
+}
+@media screen and (max-width: 550px) {
+    nav.top_menu .left_column > .left_column_content {
+        flex-direction: column;
+    }
+}
+nav.top_menu .left_column > .left_column_content li a {
+    font-weight: bold;
+    white-space: nowrap
+}
+nav.top_menu .right_column > .right_column_content > span {
+    padding: 0 5px;
+}
+nav.top_menu .right_column > .right_column_content > span > span.name {
+    white-space: nowrap;
+}
+nav.top_menu .right_column > .right_column_content > span > span.name > a.logout {
+    display: inline-block;
+    width: 16px;
+    background: url(/http/image/desing/icon/exit.png) center center no-repeat;
+}
+nav.top_menu .right_column > .right_column_content > span > span.name > a.logout:link {
+    text-decoration: none;
+}
+nav.top_menu i {
+    color: #CCCCCC;
+}
+/* Контент страницы */
+div.content {
+    margin: 15px auto;
+}
+/* Основные заголовки разделов */
+div.content h2 {
+    font-size: 16px;
+    padding: 8px 10px;
+    background-color: #F5F5F5;
+    color: #113B63;
+    font-weight: normal;
+    border-radius: 10px;
+    margin: 0 0 10px 0;
+}
+div.content h2 a {
+    text-decoration: none;
+}
+/* Категории каталога */
+div.subcategories {
+    margin: 0 0 18px 10px;
+}
+div.subcategories div.bheader {
+    margin-bottom: 10px;
+}
+div.subcategories.categories_list ul {
+    list-style-type: none;
+    overflow: hidden;
+    font-size: 13px;
+    font-weight: bold;
+}
+div.subcategories.categories_list ul li {
+    line-height: 20px;
+    float: left;
+    width: 33%;
+    display: block;
+    box-sizing: border-box;
+}
+div.subcategories.categories_list.precent_50 ul li {
+    width: 50%;
+}
+div.subcategories.categories_list.precent_100 ul li {
+    width: 100%;
+}
+@media screen and (min-width: 680px) {
+    div.subcategories.categories_list ul li {
+        width: 25%;
+    }
+}
+div.subcategories.categories_list ul li span {
+    font-weight: normal;
+    font-size: 10px;
+    color: #666;
+}
+/*
+Трёхколончатая верстка основного макета
+https://jsfiddle.net/vha3m57f/1/
+*/
+.three_column.three_column_wrap {
+
+}
+@media screen and (max-width: 1000px) {
+    .three_column.three_column_wrap {
+        flex-wrap: wrap;
+    }
+}
+.three_column.three_column_wrap .left_column {
+    flex-basis: 250px;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+@media screen and (max-width: 1000px) {
+    .three_column.three_column_wrap .left_column {
+        flex-basis: 100%;
+    }
+}
+.three_column.three_column_wrap .center_column {
+    flex-shrink: 1;
+}
+.three_column.three_column_wrap .center_column .center_column_content {
+    padding: 0 5px;
+}
+@media screen and (max-width: 1000px) {
+    .three_column.three_column_wrap .center_column .center_column_content {
+        padding: 0;
+    }
+}
+.three_column.three_column_wrap .right_column {
+    flex-basis: 300px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+@media screen and (max-width: 1000px) {
+    .three_column.three_column_wrap .right_column {
+        flex-basis: 100%;
+    }
+}
+.three_column.three_column_wrap .right_column .right_column_content {
+    border: 1px solid #f5f5f5;
+    font-size: 11px;
+}
+/* Блоки в правом столбце */
+.three_column.three_column_wrap .right_column .right_column_content div.subblock {
+    margin: 0 0 25px 0;
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock:last-child {
+    margin: 0;
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader a {
+    text-decoration: none;
+    color: #994015;
+    display: block;
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon {
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-attachment: scroll;
+    padding-left: 32px;
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_russia {
+    background-image: url("/http/image/desing/flags/ru.png");
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_novorossija {
+    background-image: url("/http/image/desing/flags/nr.png");
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_belarus {
+    background-image: url("/http/image/desing/flags/by.png");
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_ukraine {
+    background-image: url("/http/image/desing/flags/ua.png");
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_kazakhstan {
+    background-image: url("/http/image/desing/flags/kz.png");
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_abkhazia {
+    background-image: url("/http/image/desing/flags/_abkhazia.png");
+}
+.three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_south_ossetia {
+    background-image: url("/http/image/desing/flags/_south-ossetia.png");
+}
+/* Список городов */
+.three_column.three_column_wrap .right_column .right_column_content .subblock ul.regions {
+    overflow: hidden;
+    padding: 5px;
+}
+.three_column.three_column_wrap .right_column .right_column_content .subblock ul.regions li {
+    margin-bottom: 4px;
+}
+.three_column.three_column_wrap .right_column .right_column_content .subblock ul.regions.cities li {
+    display: inline-block;
+    width: 50%;
+    float: left;
+}
+.three_column.three_column_wrap .right_column .right_column_content .subblock ul.regions li a {
+    color: #113b63;
+    font-size: 11px;
+}
+.three_column.three_column_wrap .right_column .right_column_content .subblock ul.regions li a.main {
+    font-weight: bold;
+}
+.three_column.three_column_wrap .right_column .right_column_content .subblock ul.regions li a:hover {
+    color: #994015
+}
+/* Кол-во объявлений у регионов */
+.three_column.three_column_wrap .right_column .right_column_content .subblock ul.regions li span {
+    font-weight: normal;
+    font-size: 10px;
+    color: #666;
+}
+/*  Главный нижний блок, в который заключены все последующие блоки  */
+footer {
+    background-color: #F5F5F5;
+    margin-top: 10px;
+    font-size: 11px;
+    clear: both;
+}
+footer div.two_column {
+    background-color: #336699;
+    color: #fff;
+    padding: 0 10px;
+}
+footer div.two_column {
+    line-height: 25px;
+}
+footer div.two_column div.left_column {
+    text-align: left;
+    flex-grow: 0;
+    flex-basis: auto;
+}
+footer div.two_column div.right_column {
+    text-align: right;
+    flex-grow: 1;
+    flex-basis: auto;
+}
+footer div.two_column div.right_column div.right_column_content ul {
+
+}
+footer div.two_column div.right_column div.right_column_content ul li {
+    display: inline-block;
+}
+@media screen and (max-width: 830px) {
+    footer div.two_column div.right_column div.right_column_content ul li {
+        display: list-item;
+        list-style-type: none;
+    }
+    footer div.two_column div.right_column div.right_column_content ul li i {
+        display: none;
+    }
+}
+footer div.two_column div.right_column div.right_column_content ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+footer div.two_column div.right_column div.right_column_content ul li a:hover {
+    text-decoration: underline;
+}
+footer div.users_online {
+    /*line-height: 25px;*/
+    padding: 10px;
+    text-align: center;
+}
+footer div.bottom_buttons {
+    text-align: center;
+    padding: 10px;
+}
+footer div.bottom_buttons img {
+    opacity: 0.4;
+}

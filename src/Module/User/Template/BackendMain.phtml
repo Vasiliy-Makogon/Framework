@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <!-- common meta -->
+    <?php /* @var $this \Krugozor\Framework\View */ ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" sizes="16x16" href="/favicon.ico"/>
+    <?= $this->getHelper('\Krugozor\Framework\Html\Title')->getHtml() ?>
+    <!-- /common meta -->
+
+    <!-- common css -->
+    <?= $this->getCss('common', 'reset.css') ?>
+    <?= $this->getCss('common', 'tags.css') ?>
+    <?= $this->getCss('common', 'backend.css') ?>
+    <!-- /common css -->
+    <?= $this->getCss() ?>
+
+    <?= $this->getJs('common', 'library/krugozor.js') ?>
+    <?= $this->getJs('common', 'library/krugozor.forms.js') ?>
+</head>
+<body>
+
+<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+
+<table class="datatable">
+    <tr>
+        <td>
+            <a class="add_element" href="/user/backend-edit/"><?= $this->lang['content']['add_user'] ?></a>
+            <span class="vhr">|</span>
+        </td>
+    </tr>
+</table>
+
+<?php
+$pagination = $this->usersList->getPagination();
+$pagination
+    ->getHelper()
+    ->setCssNormalLinkClass('navigation_normal_link')
+    ->setCssActiveLinkClass('navigation_active_link')
+    ->setRequestUriParameter('field_name', $this->usersList->getAlias())
+    ->setRequestUriParameter('sort_order', $this->usersList->getOrder())
+    ->setRequestUriParameter('search', $this->search)
+    ->setRequestUriParameter('col', $this->col)
+    ->setRequestUriParameter('user_active', $this->user_active)
+    ->setRequestUriParameter('user_city', $this->user_city)
+    ->setRequestUriParameter('user_region', $this->user_region)
+    ->setRequestUriParameter('user_country', $this->user_country);
+?>
+
+<? include $this->getRealTemplatePath('Common/BackendNavigation') ?>
+
+<table class="datatable">
+    <?php if ($this->usersList->getList()->count()): ?>
+        <colgroup>
+            <col><col><col><col><col><col><col>
+        </colgroup>
+        <tr>
+            <th colspan="7">
+                <?= $this->lang['content']['the_list_of_users'] ?>
+            </th>
+        </tr>
+        <tr class="head_params">
+            <td>
+                <?php
+                $linker = $this->getHelper('\Krugozor\Framework\Helper\SortLink')
+                    ->setFieldName('id')
+                    ->setAnchor($this->lang['content']['id'])
+                    ->setUrl($this->getRequest()->getCanonicalRequestUri()->getEscapeUriValue())
+                    ->setIconSrc(\Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'])
+                    ->setCurrentFieldName($this->usersList->getAlias())
+                    ->setCurrentSortOrder($this->usersList->getOrder())
+                    ->setQueryStringFromArray(array(
+                        'sep' => $this->usersList->getPagination()->getCurrentSeparator(),
+                        'page' => $this->usersList->getPagination()->getCurrentPage(),
+                        'search' => $this->search,
+                        'col' => $this->col,
+                        'user_active' => $this->user_active,
+                        'user_city' => $this->user_city,
+                        'user_region' => $this->user_region,
+                        'user_country' => $this->user_country
+                    ));
+
+                echo $linker->getHtml();
+                ?>
+            </td>
+            <td>
+                <?php
+                echo $linker->setFieldName('first_name')
+                    ->setAnchor($this->lang['content']['user_first_name'])
+                    ->getHtml();
+                ?>
+            </td>
+            <td><?= $this->lang['content']['user_adverts'] ?></td>
+            <td><?= $this->lang['content']['place_of_residence'] ?></td>
+            <td>
+                <?php
+                echo $linker->setFieldName('ip')
+                    ->setAnchor($this->lang['content']['user_ip'])
+                    ->getHtml();
+                ?>
+            </td>
+            <td colspan="2"><?= $this->lang['content']['actions'] ?></td>
+        </tr>
+    
+        <? foreach ($this->usersList->getList() as $row): ?>
+            <tr class="center color_hover">
+                <td><?= $row->user->getId() ?></td>
+                <td>
+                    <a href="/user/backend-edit/?id=<?= $row->user->getId() ?>"><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->hsc($row->user->getFullNameOrLogin()) ?></a>
+                </td>
+                <td>
+                    <?php if ($row->fake->getAdvertCount()): ?>
+                        <a href="/advert/backend-main/?id_user=<?= $row->user->getId() ?>"><?= $row->fake->getAdvertCount() ?>
+                            <img alt="" src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>zoom.png"/></a>
+                    <?php else: ?>
+                        0
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <?php if ($row->user->getCountry()): ?>
+                        <a href="/user/backend-main/?user_country=<?= $row->country->getId() ?>"><?= $row->country->getNameRu() ?></a>,
+                    <?php endif; ?>
+                    <?php if ($row->user->getRegion()): ?>
+                        <a href="/user/backend-main/?user_region=<?= $row->region->getId() ?>"><?= $row->region->getNameRu() ?></a>,
+                    <?php endif; ?>
+                    <?php if ($row->user->getCity()): ?>
+                        <a href="/user/backend-main/?user_city=<?= $row->city->getId() ?>"><?= $row->city->getNameRu() ?></a>
+                    <?php endif; ?>
+                </td>
+                <td>
+                    <a href="/user/backend-main/?search=<?= $row->user->getIp() ?>&amp;col=user_ip"><?= $row->user->getIp() ?></a>
+                </td>
+                <td class="td_actions">
+                    <a href="/user/backend-edit/?id=<?= $row->user->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
+                        <img alt="" src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png"/>
+                    </a>
+                </td>
+                <td class="td_actions">
+                    <?php if ($row->user->isAdministrator()): ?>
+                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete_empty.png" alt=""/>
+                    <?php else: ?>
+                        <?php
+                        $str = \Krugozor\Framework\Helper\Format::js(
+                            $this->getLang()['content']['question_delete_user'],
+                            ['user_name' => $row->user->getFullNameOrLogin(), 'user_id' => $row->user->getId()]
+                        );
+                        ?>
+                        <a onclick="return confirm('<?= $str ?>')"
+                           href="/user/backend-delete/?id=<?= $row->user->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
+                            <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete.png" alt=""/>
+                        </a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <? endforeach; ?>
+    <? else: ?>
+        <tr>
+            <th>
+                <?= $this->lang['content']['the_list_of_users'] ?>
+            </th>
+        </tr>
+        <tr class="center">
+            <td>
+                <?= $this->lang['content']['not_found_request_data'] ?>
+            </td>
+        </tr>
+    <? endif; ?>
+</table>
+
+<? include $this->getRealTemplatePath('Common/BackendNavigation') ?>
+
+<form id="search_form" action="<?= $this->getRequest()->getRequestUri()->getEscapeUriValue() ?>" method="get">
+    <table class="datatable searchtable">
+        <colgroup>
+            <col><col><col>
+        </colgroup>
+        <tr>
+            <th colspan="3"><?= $this->lang['content']['search_users'] ?></th>
+        </tr>
+        <tr class="head_params">
+            <td><?= $this->lang['content']['what_to_search'] ?></td>
+            <td><?= $this->lang['content']['domain_search'] ?></td>
+            <td><?= $this->lang['content']['user_activities'] ?></td>
+        </tr>
+        <tr class="center">
+            <td>
+                <input type="text"
+                       value="<? if ($this->search): ?><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->hsc($this->search) ?><? endif; ?>"
+                       maxlength="300" name="search" id="search"/>
+            </td>
+            <td>
+                <select name="col" class="inputText">
+                    <option value="all"<? if (!$this->col): ?> selected="selected"<? endif; ?>>Везде</option>
+                    <option value="user_first_name"<? if ($this->col == "user_first_name"): ?> selected="selected"<? endif; ?>><?= $this->lang['content']['user_first_name'] ?></option>
+                    <option value="user_icq"<? if ($this->col == "user_icq"): ?> selected="selected"<? endif; ?>><?= $this->lang['content']['user_icq'] ?></option>
+                    <option value="user_url"<? if ($this->col == "user_url"): ?> selected="selected"<? endif; ?>><?= $this->lang['content']['user_url'] ?></option>
+                    <option value="user_email"<? if ($this->col == "user_email"): ?> selected="selected"<? endif; ?>><?= $this->lang['content']['user_mail'] ?></option>
+                    <option value="user_login"<? if ($this->col == "user_login"): ?> selected="selected"<? endif; ?>><?= $this->lang['content']['user_login'] ?></option>
+                    <option value="id_user"<? if ($this->col == "id_user"): ?> selected="selected"<? endif; ?>><?= $this->lang['content']['id_user'] ?></option>
+                </select>
+            </td>
+            <td>
+                <select name="user_active" class="inputText">
+                    <option value=""<? if (!$this->user_active): ?> selected="selected"<? endif; ?>><?= $this->lang['content']['any'] ?></option>
+                    <option value="1"<? if ($this->user_active == '1'): ?> selected="selected"<? endif; ?>><?= $this->lang['content']['active'] ?></option>
+                    <option value="0"<? if ($this->user_active == '0'): ?> selected="selected"<? endif; ?>><?= $this->lang['content']['blocked'] ?></option>
+                </select>
+            </td>
+        </tr>
+        <tr class="center">
+            <td colspan="5">
+                <input type="submit" value="Поиск"/>&nbsp;
+                <input type="button" onclick="if (window.cform) cform.clear();" value="Сбросить параметры поиска"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<script type="text/javascript">
+    try {
+        var cform = new Krugozor.Forms.Checker('search_form');
+    } catch (e) {
+        console.log(e.message);
+    }
+</script>
+
+<? include $this->getRealTemplatePath('Common/DebugInfo') ?>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <!-- common meta -->
+    <?php /* @var $this \Krugozor\Framework\View */ ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="<?= $this->getLang()['meta']['keywords'] ?>"/>
+    <meta name="description" content="<?= $this->getLang()['meta']['description'] ?>"/>
+    <meta property="og:title" content="<?= $this->getHelper('\Krugozor\Framework\Html\Title')->getTitle() ?>"/>
+    <meta property="og:description" content="<?= $this->getLang()['meta']['description'] ?>"/>
+    <meta property="og:image" content="/http/image/desing/snippet.jpg"/>
+    <link rel="shortcut icon" sizes="16x16" href="/favicon.ico"/>
+    <!-- common meta -->
+
+    <!-- common css -->
+    <?= $this->getCss('common', 'reset.css', false) ?>
+    <?= $this->getCss('common', 'tags.css', false) ?>
+    <?= $this->getCss('common', 'classes.css', false) ?>
+    <?= $this->getCss('common', 'structure.css', false) ?>
+    <!-- /common css -->
+
+    <?= $this->getCss('help', 'help.css', false) ?>
+    <?= $this->getCss() ?>
+
+    <?= $this->getHelper('\Krugozor\Framework\Html\Title')->add('Советы по размещению объявлений')->getHtml() ?>
+</head>
+<body>
+
+<? include $this->getRealTemplatePath('Common/FrontendTop') ?>
+
+<div id="<?= $this->getPageId() ?>" class="content">
+    <? include $this->getRealTemplatePath('Common/FrontendNotification') ?>
+
+    <article id="help">
+        <h2>Советы по размещению объявлений</h2>
+
+        <ul class="poleznye_sovety">
+            <li>
+                <h3>Один товар &mdash; одно объявление</h3>
+                <p>Наиболее частая ошибка продавца при продаже нескольких товаров &mdash; указывать в одном объявлении
+                    все, что он продаёт.
+                    Так делать категорически нельзя, т.к. потенциальные клиенты просто не увидят интересующий их товар.
+                    Золотое правило <?= \Krugozor\Framework\Registry::getInstance()->HOSTINFO['HOST_SIMPLE'] ?> гласит:
+                    &laquo;<b>Один товар &mdash; одно объявление</b>&raquo;</p>
+            </li>
+            <li>
+                <h3>Обязательно загрузите фотографию товара</h3>
+                <p>Если есть возможность, <b>не поленитесь загрузить фотографию товара</b>. Если у вас нет возможности сделать
+                    фотографию, найдите аналогичную фотографию вашего товара в интернете.
+                    Объявления с фотографиями просматриваются намного чаще и, следовательно, возрастает вероятность, что
+                    вас увидит именно «ваш» покупатель.
+                    Порою, фотография оказывает решающее значение на выбор покупателя.</p>
+            </li>
+            <li>
+                <h3>Выбирайте наиболее подходящий раздел каталога для объявления</h3>
+                <p>Каталог нашего сайта объявлений содержит огромное
+                    число категорий.
+                    <b>Выбирайте наиболее подходящую категорию каталога</b> для вашего объявления,
+                    в противном случае ваши потенциальные клиенты не найдут ваше объявление там, где они ожидают его
+                    увидеть.</p>
+            </li>
+            <li>
+                <h3>Не забывайте почаще поднимать свое объявление в результатах поиска</h3>
+                <p>Во-первых, таким образом, вы информируете пользователей, что ваше объявление еще актуально, а
+                    во-вторых,
+                    не даете затеряться ему на последних страницах нашего сайта бесплатных объявлений.
+                    <b>Функция &laquo;Поднять объявление&raquo; бесплатна</b> и доступна всем
+                    <a title="Регистрация" href="/user/frontend-registration/">зарегистрированным пользователям</a>.</p>
+            </li>
+            <li>
+                <h3>Пользуйтесь платными услугами, дающими максимальный результат</h3>
+                <p>Вы можете <b>сделать ваше объявление более заметным</b>, воспользовавшись одной из платных услуг:</p>
+
+                <dl>
+                    <dt>Услуга &laquo;<b>Выделить объявление</b>&raquo;:</dt>
+                    <dd><img src="/http/image/desing/vip.jpg" alt=""/></dd>
+
+                    <dt>Услуга &laquo;<b>Спецпредложение</b>&raquo;:</dt>
+                    <dd><img src="/http/image/desing/special.jpg" alt=""/></dd>
+                </dl>
+
+                <p>Что бы воспользоваться платными услугами, дающими максимальный результат, зайдите в ваш
+                    <a href="/authorization/frontend-login">личный кабинет</a> и кликните по соответствующим ссылкам в
+                    блоке управления объявлениями.</p>
+            </li>
+        </ul>
+    </article>
+</div>
+
+<? include $this->getRealTemplatePath('Common/FrontendBottom') ?>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <?=$this->getHelper('\Krugozor\Framework\Html\Title')->add('О сайте')->getHtml()?>
+
+    <!-- common meta -->
+    <?php /* @var $this \Krugozor\Framework\View */ ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="<?= $this->getLang()['meta']['keywords'] ?>"/>
+    <meta name="description" content="<?= $this->getLang()['meta']['description'] ?>"/>
+    <meta property="og:title" content="<?= $this->getHelper('\Krugozor\Framework\Html\Title')->getTitle() ?>"/>
+    <meta property="og:description" content="<?= $this->getLang()['meta']['description'] ?>"/>
+    <meta property="og:image" content="/http/image/desing/snippet.jpg"/>
+    <link rel="shortcut icon" sizes="16x16" href="/favicon.ico"/>
+    <!-- common meta -->
+
+    <!-- common css -->
+    <?= $this->getCss('common', 'reset.css', false) ?>
+    <?= $this->getCss('common', 'tags.css', false) ?>
+    <?= $this->getCss('common', 'classes.css', false) ?>
+    <?= $this->getCss('common', 'structure.css', false) ?>
+    <!-- /common css -->
+
+    <?= $this->getCss('help', 'help.css', false) ?>
+    <?= $this->getCss() ?>
+</head><body>
+
+<? include $this->getRealTemplatePath('Common/FrontendTop') ?>
+
+<div id="<?=$this->getPageId()?>" class="content">
+    <?php include $this->getRealTemplatePath('Common/FrontendNotification') ?>
+
+    <article id="help">
+        <h2>О сайте</h2>
+
+		<p>Сайт бесплатных объявлений <?=\Krugozor\Framework\Registry::getInstance()->HOSTINFO['HOST_SIMPLE']?> появился после того, как нами было потрачено огромное количество времени на поиск бесплатной доски объявлений, отвечающей требованиям простоты размещения информации, отсутствия обязательной регистрации на сайте, удобной и логически понятной структуры категорий, эффективности поиска любых тематических объявлений. Т.е. сайтa, позволяющего пользователю свободно ориентироваться в огромном постоянно растущем количестве предложений.</p>
+
+		<p>Наш сайт представляет собой электронную доску объявлений, которая поделена на несколько тысяч <a href="/russia/categories/">тематических категорий</a>, согласно содержанию самых предложений. Это сайт, где каждый желающий может разместить своё объявление, а все посетители сайта — прочитать его.</p>
+		<p>Для размещения объявлений доступны следующие категории:
+
+		<?php foreach($this->categories as $category): ?>
+		    <a href="/russia/categories<?=$category->getUrl()?>"><?=$category->getName()?></a>,
+		<?php endforeach; ?></p>
+
+		<p>Таким образом, на сайте бесплатных объявлений <?=\Krugozor\Framework\Registry::getInstance()->HOSTINFO['HOST_SIMPLE']?> вы можете абсолютно <strong>бесплатно и без регистрации подать объявление</strong> о покупке и продаже автомобиля, можете опубликовать предложение о продаже недвижимости или избавиться от старого ноутбука. Для этого надо всего лишь нажать на ссылку  «<a href="/advert/frontend-add">Подать объявление</a>», заполнить форму и ждать отклика!</p>
+		<p>На сайте мы постарались учесть все нюансы и негативный опыт использования досок и сайтов бесплатных объявлений и надеемся, что <?=\Krugozor\Framework\Registry::getInstance()->HOSTINFO['HOST_SIMPLE']?> оправдает все ваши ожидания и превратит процесс размещения объявления из утомительного и долгого занятия в дело нескольких минут!</p>
+    </article>
+</div>
+
+<? include $this->getRealTemplatePath('Common/FrontendBottom') ?>
+
+</body></html>

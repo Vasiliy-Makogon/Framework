@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <!-- common meta -->
+    <?php /* @var $this \Krugozor\Framework\View */ ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" sizes="16x16" href="/favicon.ico"/>
+    <?= $this->getHelper('\Krugozor\Framework\Html\Title')->getHtml() ?>
+    <!-- /common meta -->
+
+    <!-- common css -->
+    <?= $this->getCss('common', 'reset.css') ?>
+    <?= $this->getCss('common', 'tags.css') ?>
+    <?= $this->getCss('common', 'backend.css') ?>
+    <!-- /common css -->
+    <?= $this->getCss() ?>
+
+    <?= $this->getJs('common', 'library/krugozor.js') ?>
+    <?= $this->getJs('common', 'library/krugozor.forms.js') ?>
+</head>
+<body>
+
+<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+
+<form id="group_form" method="post" onsubmit="if (window.cform) return cform.checkTextFieldsOnEmpty();"
+      action="<?= $this->getRequest()->getRequestUri()->getEscapeUriValue() ?>">
+
+    <table class="datatable edit">
+        <colgroup>
+            <col/>
+            <col/>
+        </colgroup>
+        <tr>
+            <th colspan="2">
+                <? if ($this->group->getId()): ?>
+                    <?= $this->getLang()['content']['editing_the_group'] ?> &laquo;<?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($this->group->getName(), 'decode', 'hsc'); ?>&raquo;
+                <? else: ?>
+                    <?= $this->getLang()['content']['adding_group'] ?>
+                <? endif; ?>
+            </th>
+        </tr>
+        <tr>
+            <td class="compulsory"><?= $this->getLang()['content']['group_name'] ?>:</td>
+            <td>
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputText('group[name]', $this->group->getName(), array('maxlength' => 255))->getHtml() ?>
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->getFieldError($this->err['name']) ?>
+            </td>
+        </tr>
+        <tr>
+            <td class="compulsory"><?= $this->getLang()['content']['group_alias'] ?>:</td>
+            <td>
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputText('group[alias]', $this->group->getAlias(), array('maxlength' => 30))->getHtml() ?>
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->getFieldError($this->err['alias']) ?>
+            </td>
+        </tr>
+        <tr>
+            <td class="compulsory"><?= $this->getLang()['content']['group_active'] ?>:</td>
+            <td>
+                <?
+                $select = $this->getHelper('\Krugozor\Framework\Helper\Form')->inputSelect('group[active]', $this->group->getActive());
+                $select->addOption($this->getHelper('\Krugozor\Framework\Helper\Form')->inputOption(1, $this->getLang()['content']['yes']));
+                $select->addOption($this->getHelper('\Krugozor\Framework\Helper\Form')->inputOption(0, $this->getLang()['content']['no']));
+                echo $select->getHtml();
+                ?>
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->getFieldError($this->err['active']) ?>
+            </td>
+        </tr>
+        <tr>
+            <td class="compulsory"><?= $this->getLang()['content']['group_accesss'] ?>:</td>
+            <td>
+                <? foreach ($this->modules as $module): ?>
+                    <fieldset>
+                        <legend><?= $module->getName() ?></legend>
+                        <? if ($module->getControllers()->count()): ?>
+                            <div>
+                                <? foreach ($module->getControllers() as $controller): ?>
+                                    <div>
+                                        <?php
+                                        $access = $this->group->getDenormalizedAccesses()->checkAccess($module->getKey(), $controller->getKey());
+                                        $label = 'label_' . $module->getId() . '_' . $controller->getId();
+                                        ?>
+                                        <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputFullCheckbox('group[accesses][' . $module->getId() . '][' . $controller->getId() . ']', 1, 0, $access, array('id' => $label)) ?>
+                                        <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->Label($controller->getName(), $label)->getHtml() ?>
+                                    </div>
+                                <? endforeach; ?>
+                            </div>
+                        <? endif; ?>
+                    </fieldset>
+                <? endforeach; ?>
+            </td>
+        </tr>
+        <tr align="center">
+            <td colspan="2">
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputHidden('group[id]', $this->group->getId())->getHtml() ?>
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputSubmit('submit', $this->getLang()['content']['save_changes'])->getHtml() ?>
+                &nbsp;&nbsp;&nbsp;
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputFullCheckbox('return_on_page', 1, 0, $this->return_on_page, array('id' => 'label_return_on_page')) ?>
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->Label($this->getLang()['content']['return_to_this_page'], 'label_return_on_page')->getHtml() ?>
+            </td>
+        </tr>
+    </table>
+
+</form>
+
+<script type="text/javascript">
+    try {
+        var cform = new Krugozor.Forms.Checker('group_form');
+        cform.putFocus();
+    } catch (e) {
+        console.log(e.message)
+    }
+</script>
+
+<? include $this->getRealTemplatePath('Common/DebugInfo') ?>
+
+</body>
+</html>

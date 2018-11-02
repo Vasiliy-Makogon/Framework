@@ -1,0 +1,42 @@
+<div id="wrap">
+
+    <header>
+        <div class="logo two_column">
+            <div class="left_column">
+                <a href="/"><img src="/http/image/desing/logo_.png" alt="<?=$this->getHelper('\Krugozor\Framework\Html\Title')->getByIndex(0)?>" /></a>
+            </div>
+            <div class="right_column">
+                <p><?=\Krugozor\Framework\Registry::getInstance()->HOSTINFO['HOST']?> &mdash; cайт частных бесплатных объявлений России, Белоруссии, Украины и Казахстана.</p>
+                <p>На сайте вы можете <a href="/advert/frontend-edit-advert/">бесплатно и без регистрации разместить объявление</a> о купле-продаже любого интересующего вас товара &mdash; начиная с квартиры и заканчивая домашними животными.</p>
+                <p>Cайт содержит более 1500 тематических категорий, захватывающих все основные направления жизнедеятельности и бизнеса.</p>
+            </div>
+        </div>
+
+        <nav class="top_menu two_column">
+            <div class="left_column">
+                <menu class="left_column_content">
+                    <? if ($this->current_user && $this->current_user->isGuest()): ?>
+                        <li><a class="space_nowrap" href="/advert/frontend-add"><strong>Подать объявление без регистрации</strong></a></li>
+                        <li><a class="space_nowrap" href="/authorization/frontend-login/"><strong>Войти в личный кабинет</strong></a></li>
+                        <li><a class="space_nowrap" href="/help/poleznye_sovety">Советы по размещению объявлений</a></li>
+                    <? else: ?>
+                        <li><a class="space_nowrap" href="/advert/frontend-edit-advert/"><strong>Подать новое объявление</strong></a></li>
+                        <li><a class="space_nowrap" href="/authorization/frontend-login/"><strong>Мой личный кабинет</strong></a></li>
+                        <li><a class="space_nowrap" href="/help/poleznye_sovety">Советы по размещению объявлений</a></li>
+                    <? endif; ?>
+                </menu>
+            </div>
+            <div class="right_column">
+                <div class="right_column_content">
+                <? if($this->current_user && !$this->current_user->isGuest()): ?>
+                    <span>
+                        Добро пожаловать, <span class="name">
+                            <strong><?=$this->getHelper('\Krugozor\Framework\Helper\Format')->hsc($this->current_user->getFullNameOrLogin())?></strong>!
+                            <a class="logout" onclick="return confirm('Вы действительно хотите завершить работу с сайтом?')" href="/authorization/logout/?referer=<?=$this->getRequest()->getRequestUri()->getUrlencodeUriValue(true)?>" title="Выйти из системы">&nbsp;</a>
+                        </span>
+                    </span>
+                <?php endif; ?>
+                </div>
+            </div>
+        </nav>
+    </header>
