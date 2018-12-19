@@ -7,6 +7,8 @@ use Krugozor\Framework\Helper\Form;
 use Krugozor\Framework\View\Lang;
 use Krugozor\Framework\Http\Request;
 
+echo 123;
+
 class View
 {
     /**

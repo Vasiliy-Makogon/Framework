@@ -1,6 +1,6 @@
 {
   "name": "krugozor/framework",
-  "description": "Framework",
+  "description": "Krugozor Framework",
   "minimum-stability": "dev",
   "php": ">=5.3.0",
   "authors": [
