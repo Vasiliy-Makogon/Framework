@@ -28,8 +28,15 @@ class Lang extends CoverArray
 
             $lang = Context::getInstance()->getRequest()->getRequest('lang', 'string')
                     ?: Registry::getInstance()->LOCALIZATION['LANG'];
-            $lang_path = array(dirname(__DIR__), 'Module', ucfirst($module), 'i18n', $lang, 'controller', $file);
-            $path = implode(DIRECTORY_SEPARATOR, $lang_path) . '.php';
+
+            $anchor = 'Krugozor\\Framework\\Module\\' . ucfirst($module) . '\\Anchor';
+            if (!class_exists($anchor)) {
+                throw new \RuntimeException("Не найден Anchor-файл `$anchor`");
+            }
+
+            $path = implode(DIRECTORY_SEPARATOR, [
+                    $anchor::getPath(), 'i18n', $lang, 'controller', $file
+                ]) . '.php';
 
             if (!file_exists($path)) {
                 throw new \RuntimeException('Не найден файл интернационализации по адресу ' . $path);

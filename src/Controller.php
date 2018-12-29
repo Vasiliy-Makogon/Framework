@@ -195,15 +195,19 @@ abstract class Controller
      */
     protected final function getRealLocalTemplatePath(?string $template = null): ?string
     {
+        $anchor = 'Krugozor\\Framework\\Module\\' .
+            $this->getRequest()->getModuleName()->getCamelCaseStyle() .
+            '\\Anchor';
+        if (!class_exists($anchor)) {
+            throw new \RuntimeException("Не найден Anchor-файл `$anchor`");
+        }
+
         if ($template === null) {
-            $template_file_paths = array(
-                __DIR__, 'Module', $this->getRequest()->getModuleName()->getCamelCaseStyle(), 'Template',
-                $this->getRequest()->getControllerName()->getCamelCaseStyle()
-            );
+            $template_file_paths = [
+                $anchor::getpath(), 'Template', $this->getRequest()->getControllerName()->getCamelCaseStyle()
+            ];
         } else {
-            $template_file_paths = array(
-                __DIR__, 'Module', $this->getRequest()->getModuleName()->getCamelCaseStyle(), 'Template', $template
-            );
+            $template_file_paths = [$anchor::getpath(), 'Template', $template];
         }
 
         foreach (array('.phtml', '.mail') as $ext) {

@@ -10,10 +10,15 @@ class Css extends Controller
 {
     public function run()
     {
+        $anchor = 'Krugozor\\Framework\\Module\\' .
+                  Strings::formatToCamelCaseStyle($this->getRequest()->getRequest('module')) .
+                  '\\Anchor';
+        if (!class_exists($anchor)) {
+            throw new \RuntimeException("Не найден Anchor-файл `$anchor`");
+        }
+
         $paths = [
-            dirname(dirname(dirname(__DIR__))),
-            'Module',
-            Strings::formatToCamelCaseStyle($this->getRequest()->getRequest('module')),
+            $anchor::getPath(),
             'resources',
             'css',
             $this->getRequest()->getRequest('file')

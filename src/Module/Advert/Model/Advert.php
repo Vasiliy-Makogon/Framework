@@ -39,7 +39,7 @@ class Advert extends Model
      *
      * @var int
      */
-    const MIN_ADVERTS_WITH_SPECIAL_STATUSES = 10;
+    const MIN_ADVERTS_WITH_SPECIAL_STATUSES = 15;
 
     /**
      * Паттерн для создания md5-хэшей объявлений.
