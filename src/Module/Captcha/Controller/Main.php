@@ -18,8 +18,7 @@ class Main extends Controller
         $session_id   = $this->getRequest()->getRequest('session_id', 'string');
 
         if (empty($session_name)) {
-            $this->log('Не указан session ID в ' . __FILE__);
-            exit;
+            throw new \RuntimeException('No specified session name in captcha');
         }
 
         $session = Session::getInstance($session_name, $session_id);

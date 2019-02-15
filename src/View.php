@@ -328,7 +328,7 @@ class View
 
         $anchor = 'Krugozor\\Framework\\Module\\' . ucfirst($module) . '\\Anchor';
         if (!class_exists($anchor)) {
-            throw new \RuntimeException("Не найден Anchor-файл `$anchor`");
+            throw new \RuntimeException("Not found Anchor-file at `$anchor`");
         }
 
         $path = implode(DIRECTORY_SEPARATOR, [$anchor::getPath(), '\\Template', $file]) . '.phtml';

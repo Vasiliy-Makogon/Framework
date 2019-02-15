@@ -199,7 +199,7 @@ abstract class Controller
             $this->getRequest()->getModuleName()->getCamelCaseStyle() .
             '\\Anchor';
         if (!class_exists($anchor)) {
-            throw new \RuntimeException("Не найден Anchor-файл `$anchor`");
+            throw new \RuntimeException("Not found Anchor-file at `$anchor`");
         }
 
         if ($template === null) {

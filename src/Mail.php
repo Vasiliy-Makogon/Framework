@@ -13,9 +13,9 @@ namespace Krugozor\Framework;
  * $mail->setHeader('Заголовок письма');
  *
  * // шаблон письма в стиле PHP-pure
- * $mail->setTemplate('../../template.mail');
+ * $mail->setTemplate('/path/to/template.mail');
  *
- * // данные для шаблона любого типа
+ * // данные для шаблона любого PHP-типа
  * $mail->user = $this->user;
  * $mail->new_password = $new_password;
  *
@@ -28,7 +28,7 @@ class Mail
      *
      * @var array
      */
-    private $data = array();
+    private $_data = array();
 
     /**
      * Тип письма.
@@ -36,7 +36,7 @@ class Mail
      *
      * @var string
      */
-    private $type;
+    private $type = 'text';
 
     /**
      * mime-типы
@@ -54,65 +54,35 @@ class Mail
      *
      * @var string
      */
-    private $header;
-
-    /**
-     * Сформированное тело письма, после отправки.
-     *
-     * @var string
-     */
-    private $message;
+    private $_header;
 
     /**
      * Email-адрес адресата.
      *
      * @var string
      */
-    private $to;
-
-    /**
-     * Email-адрес отправителя.
-     *
-     * @var string
-     */
-    private $from;
-
-    /**
-     * Email-адрес для ответа.
-     *
-     * @var string
-     */
-    private $reply_to;
+    private $_to;
 
     /**
      * Путь до файла почтового шаблона.
      *
      * @var string
      */
-    private $tpl_file;
+    private $_tpl_file;
 
     /**
      * Язык письма.
      *
      * @var string
      */
-    private $lang;
+    private $_lang = 'ru';
 
     /**
-     * HTTP-заголовки
+     * Дополнительные HTTP-заголовки письма.
      *
      * @var array
      */
-    private $headers;
-
-    /**
-     * Mail constructor.
-     */
-    public function __construct()
-    {
-        $this->type = 'text';
-        $this->lang = 'ru';
-    }
+    private $_additional_headers = [];
 
     /**
      * Устанавливает данные $value под индексом $key во
@@ -122,9 +92,9 @@ class Mail
      * @param string $key
      * @param mixed $value
      */
-    public function __set(string $key, $value)
+    public function __set($key, $value)
     {
-        $this->data[$key] = $value;
+        $this->_data[$key] = $value;
     }
 
     /**
@@ -134,21 +104,20 @@ class Mail
      * @param string $key
      * @return mixed|null
      */
-    public function __get(string $key)
+    public function __get($key)
     {
-        return isset($this->data[$key]) ? $this->data[$key] : null;
+        return isset($this->_data[$key]) ? $this->_data[$key] : null;
     }
 
     /**
      * Устанавливает тип письма: text или html
-     *
      * @param string $type
-     * @return Mail
+     * @return $this
      */
-    public function setType(string $type): self
+    public function setType($type)
     {
         if (!isset(self::$types[$type])) {
-            throw new \InvalidArgumentException(__METHOD__ . ': Указан неизвестный тип письма');
+            throw new \InvalidArgumentException(__METHOD__ . ': Unknown letter type specified');
         }
 
         $this->type = $type;
@@ -158,69 +127,84 @@ class Mail
 
     /**
      * Устанавливает Email-адрес адресата.
-     *
-     * @param string $to
-     * @return Mail
+     * @param string $_to
+     * @return $this
      */
-    public function setTo(string $to): self
+    public function setTo($_to)
     {
-        $this->to = $to;
+        $this->_to = $_to;
 
         return $this;
     }
 
     /**
      * Устанавливает язык письма.
-     *
-     * @param string $lang
-     * @return Mail
+     * @param string $_lang
+     * @return $this
      */
-    public function setLang(string $lang): self
+    public function setLang($_lang)
     {
-        $this->lang = $lang;
+        $this->_lang = $_lang;
 
         return $this;
     }
 
     /**
      * Устанавливает Email-адрес отправителя.
-     *
-     * @param string $from
-     * @return Mail
+     * @param string $value
+     * @return $this
      */
-    public function setFrom(string $from): self
+    public function setFrom($value)
     {
-        $this->from = $from;
+        if ($value) {
+            $this->_additional_headers['From'] = $value;
+        }
 
         return $this;
     }
 
     /**
      * Устанавливает Email-адрес для ответа.
-     *
-     * @param string $reply_to
-     * @return Mail
+     * @param string $value
+     * @return $this
      */
-    public function setReplyTo(string $reply_to): self
+    public function setReplyTo($value)
     {
-        $this->reply_to = $reply_to;
+        if ($value) {
+            $this->_additional_headers['Reply-To'] = $value;
+        }
 
         return $this;
     }
 
     /**
-     * Принимает путь к файлу шаблона. Файл должен существовать.
+     * Устанавливает копию Email-адреса адресата.
      *
-     * @param string $tpl_file
-     * @return Mail
+     * @param string $value
+     * @return $this
      */
-    public function setTemplate(string $tpl_file): self
+    public function setCc($value)
     {
-        if (!file_exists($tpl_file)) {
-            new \RuntimeException(__METHOD__ . ': Не найден почтовый шаблон ' . $tpl_file);
+        if ($value) {
+            $this->_additional_headers['Cc'] = $value;
         }
 
-        $this->tpl_file = $tpl_file;
+        return $this;
+    }
+
+    /**
+     * Принимает путь к файлу шаблона.
+     *
+     * @param string $tpl_file
+     * @return $this
+     */
+    public function setTemplate($tpl_file)
+    {
+        if (!file_exists($tpl_file)) {
+            new \RuntimeException(__METHOD__ . ': No mail template found at ' . $tpl_file);
+        }
+
+        $this->_tpl_file = $tpl_file;
 
         return $this;
     }
@@ -228,12 +212,12 @@ class Mail
     /**
      * Устанавливает заголовок письма.
      *
-     * @param string $header
-     * @return Mail
+     * @param string $_header
+     * @return $this
      */
-    public function setHeader(string $header): self
+    public function setHeader($_header)
     {
-        $this->header = $header;
+        $this->_header = $_header;
 
         return $this;
     }
@@ -243,29 +227,31 @@ class Mail
      *
      * @return bool
      */
-    public function send(): bool
+    public function send()
     {
-        $this->headers =
-            'Content-type: ' . self::$types[$this->type] . '; charset=utf-8' . PHP_EOL .
-            'Content-language: ' . $this->lang . PHP_EOL .
-            'From: ' . $this->from . PHP_EOL .
-            'X-Mailer: PHP/' . phpversion() . PHP_EOL .
-            'Date: ' . date("r") . PHP_EOL .
-            'Reply-To: ' . ($this->reply_to ? $this->reply_to : $this->from);
+        $additional_headers = [
+            'Content-type' => self::$types[$this->type] . '; charset=utf-8',
+            'Content-language' => $this->_lang,
+            'X-Mailer' => 'PHP/' . phpversion(),
+            'Date' => date("r"),
+        ];
+
+        $headers = array_merge($additional_headers, $this->_additional_headers);
+
+        if (empty($headers['Reply-To']) && !empty($headers['From'])) {
+            $headers['Reply-To'] = $headers['From'];
+        }
+
+        $additional_headers_buffer = [];
+        foreach ($headers as $k => $v) {
+            $additional_headers_buffer[] = "$k: $v";
+        }
 
         ob_start();
-        include($this->tpl_file);
-        $this->message = ob_get_contents();
+        include($this->_tpl_file);
+        $message = ob_get_contents();
         ob_end_clean();
 
-        return mb_send_mail($this->to, $this->header, $this->message, $this->headers);
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage(): string
-    {
-        return $this->message;
+        return mb_send_mail($this->_to, $this->_header, $message, implode(PHP_EOL, $additional_headers_buffer));
     }
 }

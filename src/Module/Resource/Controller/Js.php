@@ -14,7 +14,7 @@ class Js extends Controller
             Strings::formatToCamelCaseStyle($this->getRequest()->getRequest('module')) .
             '\\Anchor';
         if (!class_exists($anchor)) {
-            throw new \RuntimeException("Не найден Anchor-файл `$anchor`");
+            throw new \RuntimeException("Not found Anchor-file at `$anchor`");
         }
 
         $paths = [

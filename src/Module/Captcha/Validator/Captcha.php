@@ -6,6 +6,9 @@ use Krugozor\Framework\Validator\ValidatorAbstract;
 
 class Captcha extends ValidatorAbstract
 {
+    /**
+     * @var string
+     */
     protected $error_key = 'BAD_CAPTCHA';
 
     /**
