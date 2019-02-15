@@ -18,7 +18,7 @@ class Main extends Controller
         $session_id   = $this->getRequest()->getRequest('session_id', 'string');
 
         if (empty($session_name)) {
-            $this->log('Session ID not specified in ' . __FILE__);
+            $this->log('Не указан session ID в ' . __FILE__);
             exit;
         }
 

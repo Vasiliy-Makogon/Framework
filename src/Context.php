@@ -119,6 +119,5 @@ final class Context implements Singleton
 
     private function __construct()
     {
-
     }
 }
