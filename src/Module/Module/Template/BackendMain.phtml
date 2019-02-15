@@ -84,7 +84,7 @@
                     <? endif; ?>
                 </td>
                 <td class="td_actions"><a href="/module/edit-module/?id=<?= $module->getId() ?>"><img
-                                src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png"
+                                src="/img/common/system/icon/edit.png"
                                 alt=""/></a></td>
                 <td class="td_actions">
                     <?php
@@ -95,7 +95,7 @@
                     ?>
                     <a onclick="return confirm('<?= $str ?>')"
                        href="/module/delete-module/?id=<?= $module->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
-                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete.png"
+                        <img src="/img/common/system/icon/delete.png"
                              alt=""/>
                     </a>
                 </td>

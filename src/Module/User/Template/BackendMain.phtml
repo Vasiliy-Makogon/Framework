@@ -115,7 +115,7 @@ $pagination
                 <td>
                     <?php if ($row->fake->getAdvertCount()): ?>
                         <a href="/advert/backend-main/?id_user=<?= $row->user->getId() ?>"><?= $row->fake->getAdvertCount() ?>
-                            <img alt="" src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>zoom.png"/></a>
+                            <img alt="" src="/img/common/system/icon/zoom.png"/></a>
                     <?php else: ?>
                         0
                     <?php endif; ?>
@@ -136,12 +136,12 @@ $pagination
                 </td>
                 <td class="td_actions">
                     <a href="/user/backend-edit/?id=<?= $row->user->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
-                        <img alt="" src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png"/>
+                        <img alt="" src="/img/common/system/icon/edit.png"/>
                     </a>
                 </td>
                 <td class="td_actions">
                     <?php if ($row->user->isAdministrator()): ?>
-                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete_empty.png" alt=""/>
+                        <img src="/img/common/system/icon/delete_empty.png" alt=""/>
                     <?php else: ?>
                         <?php
                         $str = \Krugozor\Framework\Helper\Format::js(
@@ -151,7 +151,7 @@ $pagination
                         ?>
                         <a onclick="return confirm('<?= $str ?>')"
                            href="/user/backend-delete/?id=<?= $row->user->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
-                            <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete.png" alt=""/>
+                            <img src="/img/common/system/icon/delete.png" alt=""/>
                         </a>
                     <?php endif; ?>
                 </td>

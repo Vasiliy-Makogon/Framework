@@ -116,10 +116,10 @@
                 <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($region->getNameEn(), 'decode', 'hsc') ?></td>
                 <td class="td_actions">
                     <a href="/user/backend-region-edit/?id=<?= $region->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
-                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png" alt=""/>
+                        <img src="/img/common/system/icon/edit.png" alt=""/>
                     </a>
                 </td>
-                <td class="td_actions"><img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete_empty.png" alt=""/></td>
+                <td class="td_actions"><img src="/img/common/system/icon/delete_empty.png" alt=""/></td>
             </tr>
         <? endforeach; ?>
 

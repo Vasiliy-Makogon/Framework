@@ -90,7 +90,7 @@
                 </td>
                 <td class="td_actions">
                     <a href="/group/backend-edit/?id=<?= $group->getId() ?>">
-                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png"
+                        <img src="/img/common/system/icon/edit.png"
                              alt=""/>
                     </a>
                 </td>
@@ -104,11 +104,11 @@
                         ?>
                         <a onclick="return confirm('<?= $str ?>')"
                            href="/group/backend-delete/?id=<?= $group->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
-                            <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete.png"
+                            <img src="/img/common/system/icon/delete.png"
                                  alt=""/>
                         </a>
                     <? else: ?>
-                        <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete_empty.png"
+                        <img src="/img/common/system/icon/delete_empty.png"
                              alt=""/>
                     <? endif; ?>
                 </td>
