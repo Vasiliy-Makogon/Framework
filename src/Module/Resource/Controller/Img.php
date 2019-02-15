@@ -20,7 +20,7 @@ class Img extends Controller
         $paths = [
             $anchor::getPath(),
             'resources',
-            'css',
+            'img',
             $this->getRequest()->getRequest('file')
         ];
         $path = implode(DIRECTORY_SEPARATOR, $paths);
