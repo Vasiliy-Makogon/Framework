@@ -65,20 +65,20 @@ class TreeBackendTable extends HelperAbstract
                 </td>
                 <td class="td_actions"><a
                             href="/category/backend-edit/?id=0&amp;pid=<?= $item->getId() ?>&amp;referer=<?= $this->view->getRequest()->getRequestUri()->getUrlencodeUriValue() ?>#category_<?= $item->getPid() ?>"><img
-                                src="<?= Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>add.png" alt=""/></a>
+                                src="/img/common/system/icon/add.png" alt=""/></a>
                 </td>
                 <td class="td_actions"><a
                             href="/category/backend-add-list/?pid=<?= $item->getId() ?>&amp;referer=<?= $this->view->getRequest()->getRequestUri()->getUrlencodeUriValue() ?>#category_<?= $item->getPid() ?>"><img
-                                src="<?= Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>add.png" alt=""/></a>
+                                src="/img/common/system/icon/add.png" alt=""/></a>
                 </td>
                 <td class="td_actions"><a
                             href="/category/backend-edit/?id=<?= $item->getId() ?>&amp;pid=<?= $item->getPid() ?>&amp;referer=<?= $this->view->getRequest()->getRequestUri()->getUrlencodeUriValue() ?>#category_<?= $item->getPid() ?>"><img
-                                alt="" src="<?= Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png"/></a>
+                                alt="" src="/img/common/system/icon/edit.png"/></a>
                 </td>
                 <td class="td_actions">
                     <?php if ($item->getAdvertCount() || $item->getAllChilds()): ?>
                         <img title="Невозможно удалить категорию, пока в ней есть элементы или категории-потомки"
-                             src="<?= Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete_empty.png" alt=""/>
+                             src="/img/common/system/icon/delete_empty.png" alt=""/>
                     <?php else: ?>
                         <?php
                         $msg = 'Вы действительно хотите удалить категорию &laquo;{title}&raquo; (id: {id})?';
@@ -87,17 +87,17 @@ class TreeBackendTable extends HelperAbstract
                         ?>
                         <a onclick="return confirm('<?= $msg ?>')"
                            href="/category/backend-delete/?id=<?= $item->getId() ?>&amp;referer=<?= $this->view->getRequest()->getRequestUri()->getUrlencodeUriValue() ?>#category_<?= $item->getPid() ?>">
-                            <img src="<?= Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete.png" alt=""/>
+                            <img src="/img/common/system/icon/delete.png" alt=""/>
                         </a>
                     <?php endif; ?>
                 </td>
                 <td class="td_actions"><a
                             href="/category/backend-motion/?tomotion=up&amp;id=<?= $item->getId() ?>&amp;pid=<?= $item->getPid() ?>&amp;referer=<?= $this->view->getRequest()->getRequestUri()->getUrlencodeUriValue() ?>#category_<?= $item->getPid() ?>"><img
-                                src="<?= Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>up.gif"
+                                src="/img/common/system/icon/up.gif"
                                 title="Поднять запись на одну позицию выше" alt=""/></a></td>
                 <td class="td_actions"><a
                             href="/category/backend-motion/?tomotion=down&amp;id=<?= $item->getId() ?>&amp;pid=<?= $item->getPid() ?>&amp;referer=<?= $this->view->getRequest()->getRequestUri()->getUrlencodeUriValue() ?>#category_<?= $item->getPid() ?>"><img
-                                src="<?= Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>down.gif" alt=""/></a>
+                                src="/img/common/system/icon/down.gif" alt=""/></a>
                 </td>
             </tr>
             <?php

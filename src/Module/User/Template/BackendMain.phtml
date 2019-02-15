@@ -70,7 +70,7 @@ $pagination
                     ->setFieldName('id')
                     ->setAnchor($this->lang['content']['id'])
                     ->setUrl($this->getRequest()->getCanonicalRequestUri()->getEscapeUriValue())
-                    ->setIconSrc(\Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'])
+                    ->setIconSrc('/img/common/system/icon/')
                     ->setCurrentFieldName($this->usersList->getAlias())
                     ->setCurrentSortOrder($this->usersList->getOrder())
                     ->setQueryStringFromArray(array(

@@ -17,7 +17,7 @@ namespace Krugozor\Framework\Helper;
  *     // url ссылки
  *     ->setUrl('/admin/user/')
  *     // путь к директории с иконками ASC и DESC
- *     ->setIconSrc(\Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'])
+ *     ->setIconSrc('/img/common/system/icon/')
  *     // имя поля, по которому в данный момент проходит сортировка
  *     ->setCurrentFieldName($_REQUEST['field_name'])
  *     // текущий метод сортировки (ASC и DESC)

@@ -55,7 +55,7 @@
                     ->setFieldName('id')
                     ->setAnchor($this->lang['content']['id'])
                     ->setUrl($this->getRequest()->getCanonicalRequestUri()->getSimpleUriValue())
-                    ->setIconSrc(\Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'])
+                    ->setIconSrc('/img/common/system/icon/')
                     ->setCurrentFieldName($this->regionList->getAlias())
                     ->setCurrentSortOrder($this->regionList->getOrder())
                     ->setQueryStringFromArray(array(

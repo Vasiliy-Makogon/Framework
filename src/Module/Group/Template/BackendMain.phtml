@@ -49,7 +49,7 @@
                     ->setFieldName('id')
                     ->setAnchor($this->getLang()['content']['id'])
                     ->setUrl($this->getRequest()->getCanonicalRequestUri()->getEscapeUriValue())
-                    ->setIconSrc(\Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'])
+                    ->setIconSrc('/img/common/system/icon/')
                     ->setCurrentFieldName($this->groupList->getAlias())
                     ->setCurrentSortOrder($this->groupList->getOrder())
                     ->setQueryStringFromArray(array(
