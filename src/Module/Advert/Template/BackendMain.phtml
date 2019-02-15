@@ -257,7 +257,7 @@ $pagination->getHelper()
                             ?>
                             <a onclick='return confirm("<?= $str ?>")'
                                href="/advert/backend-delete/?id=<?= $row['advert']->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
-                                <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete.png" alt=""/>
+                                <img src="/img/common/system/icon/delete.png" alt=""/>
                             </a>
                         <?php else: ?>
                             <img title="Нельзя удалять объявления со статусом VIP или находящиеся в Спецпредложении"
