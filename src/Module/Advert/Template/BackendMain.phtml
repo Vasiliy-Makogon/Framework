@@ -162,7 +162,7 @@ $pagination->getHelper()
                     </td>
                     <td class="center<? if (!$row['advert']->getVipDate()): ?> lighttext<?php endif; ?>">
                         <? if ($row['advert']->getVipDate()): ?>
-                            <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>star.png"
+                            <img src="/img/common/system/icon/star.png"
                                  alt=""/>
                             <small><?= $row['advert']->getVipDate()->format('Y-m-d H:i') ?></small>
                         <?php else: ?>
@@ -171,7 +171,7 @@ $pagination->getHelper()
                     </td>
                     <td class="center<? if (!$row['advert']->getSpecialDate()): ?> lighttext<?php endif; ?>">
                         <? if ($row['advert']->getSpecialDate()): ?>
-                            <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>star.png"
+                            <img src="/img/common/system/icon/star.png"
                                  alt=""/>
                             <small><?= $row['advert']->getSpecialDate()->format('Y-m-d H:i') ?></small>
                         <? else: ?>
@@ -187,10 +187,10 @@ $pagination->getHelper()
                     </td>
                     <td class="center<?php if (!$row['advert']->getThumbnailCount()): ?> lighttext<?php endif; ?>">
                         <?php if ($row['advert']->getThumbnailCount() > 1): ?>
-                            <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>photos.png"
+                            <img src="/img/common/system/icon/photos.png"
                                  alt="" title="Изображений: <?= $row['advert']->getThumbnailCount() ?>"/>
                         <?php elseif ($row['advert']->getThumbnailCount() == 1): ?>
-                            <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>photo.png"
+                            <img src="/img/common/system/icon/photo.png"
                                  alt="" title="Изображений: <?= $row['advert']->getThumbnailCount() ?>"/>
                         <?php else: ?>
                             <?= $this->getLang()['content']['no'] ?>
@@ -236,7 +236,7 @@ $pagination->getHelper()
                         <?php if ($row['user']->isGuest() && $row['advert']->getEmail()->getValue()): ?>
                             <a class="invite-anonymous-user"
                                href="/user/backend-invite-anonymous-user/advert/<?= $row['advert']->getId() ?>"><img
-                                        src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>email.png" alt=""/></a>
+                                        src="/img/common/system/icon/email.png" alt=""/></a>
                             <?php if ($row['invite_anonymous_user']->getSendDate()): ?>
                                 <small><?= $row['invite_anonymous_user']->getSendDate()->format('d.m.Y') ?></small>
                             <?php endif; ?>
@@ -244,7 +244,7 @@ $pagination->getHelper()
                     </td>
                     <td class="td_actions">
                         <a href="/advert/backend-edit/?id=<?= $row['advert']->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
-                            <img src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>edit.png" alt=""/>
+                            <img src="/img/common/system/icon/edit.png" alt=""/>
                         </a>
                     </td>
                     <td class="td_actions">
@@ -261,7 +261,7 @@ $pagination->getHelper()
                             </a>
                         <?php else: ?>
                             <img title="Нельзя удалять объявления со статусом VIP или находящиеся в Спецпредложении"
-                                 src="<?= \Krugozor\Framework\Registry::getInstance()->APPLICATION['SYSTEM_ICONS'] ?>delete_empty.png" alt=""/>
+                                 src="/img/common/system/icon/delete_empty.png" alt=""/>
                         <? endif; ?>
                     </td>
                 </tr>
