@@ -33,11 +33,24 @@ class Img extends Controller
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime_type = $finfo->file($path);
 
-        print_r($mime_type);
+        switch ($mime_type) {
+            case 'image/png':
+                $this->getResponse()->setHeader(Response::HEADER_CONTENT_TYPE, 'image/png');
+                break;
+            case 'image/jpeg':
+                $this->getResponse()->setHeader(Response::HEADER_CONTENT_TYPE, 'image/jpeg');
+                break;
+            case 'image/gif':
+                $this->getResponse()->setHeader(Response::HEADER_CONTENT_TYPE, 'image/gif');
+                break;
+            case 'image/x-icon':
+                $this->getResponse()->setHeader(Response::HEADER_CONTENT_TYPE, 'image/x-icon');
+                break;
+            default:
+                exit;
+        }
 
-        $this->getResponse()
-            //->setHeader(Response::HEADER_CONTENT_TYPE, 'text/css; charset=utf-8')
-            ->sendHeaders();
+        $this->getResponse()->sendHeaders();
 
         echo (file_exists($path) ? file_get_contents($path) : '');
         exit;
