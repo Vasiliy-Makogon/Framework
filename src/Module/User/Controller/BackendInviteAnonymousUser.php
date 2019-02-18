@@ -56,7 +56,7 @@ class BackendInviteAnonymousUser extends Ajax
             $sendmail->host_url = Registry::getInstance()->HOSTINFO['HOST_URL'];
             $sendmail->send();
 
-            $data['message'] = $sendmail->getMessage();
+            $data['message'] = $sendmail->getGeneratedMessage();
 
             $model = $this->getMapper('User/InviteAnonymousUser')->createModel();
             $model->setUniqueCookieId($advert->getUniqueUserCookieId());

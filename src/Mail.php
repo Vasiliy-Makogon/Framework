@@ -28,7 +28,7 @@ class Mail
      *
      * @var array
      */
-    private $_data = array();
+    private $data = array();
 
     /**
      * Тип письма.
@@ -54,35 +54,42 @@ class Mail
      *
      * @var string
      */
-    private $_header;
+    private $header;
+
+    /**
+     * Сформированное тело письма.
+     *
+     * @var string
+     */
+    private $generated_message;
 
     /**
      * Email-адрес адресата.
      *
      * @var string
      */
-    private $_to;
+    private $to;
 
     /**
      * Путь до файла почтового шаблона.
      *
      * @var string
      */
-    private $_tpl_file;
+    private $tpl_file;
 
     /**
      * Язык письма.
      *
      * @var string
      */
-    private $_lang = 'ru';
+    private $lang = 'ru';
 
     /**
      * Дополнительные HTTP-заголовки письма.
      *
      * @var array
      */
-    private $_additional_headers = [];
+    private $additional_headers = [];
 
     /**
      * Устанавливает данные $value под индексом $key во
@@ -94,7 +101,7 @@ class Mail
      */
     public function __set($key, $value)
     {
-        $this->_data[$key] = $value;
+        $this->data[$key] = $value;
     }
 
     /**
@@ -106,7 +113,7 @@ class Mail
      */
     public function __get($key)
     {
-        return isset($this->_data[$key]) ? $this->_data[$key] : null;
+        return isset($this->data[$key]) ? $this->data[$key] : null;
     }
 
     /**
@@ -127,24 +134,24 @@ class Mail
 
     /**
      * Устанавливает Email-адрес адресата.
-     * @param string $_to
+     * @param string $to
      * @return $this
      */
-    public function setTo($_to)
+    public function setTo($to)
     {
-        $this->_to = $_to;
+        $this->to = $to;
 
         return $this;
     }
 
     /**
      * Устанавливает язык письма.
-     * @param string $_lang
+     * @param string $lang
      * @return $this
      */
-    public function setLang($_lang)
+    public function setLang($lang)
     {
-        $this->_lang = $_lang;
+        $this->lang = $lang;
 
         return $this;
     }
@@ -157,7 +164,7 @@ class Mail
     public function setFrom($value)
     {
         if ($value) {
-            $this->_additional_headers['From'] = $value;
+            $this->additional_headers['From'] = $value;
         }
 
         return $this;
@@ -171,7 +178,7 @@ class Mail
     public function setReplyTo($value)
     {
         if ($value) {
-            $this->_additional_headers['Reply-To'] = $value;
+            $this->additional_headers['Reply-To'] = $value;
         }
 
         return $this;
@@ -186,7 +193,7 @@ class Mail
     public function setCc($value)
     {
         if ($value) {
-            $this->_additional_headers['Cc'] = $value;
+            $this->additional_headers['Cc'] = $value;
         }
 
         return $this;
@@ -204,7 +211,7 @@ class Mail
             new \RuntimeException(__METHOD__ . ': No mail template found at ' . $tpl_file);
         }
 
-        $this->_tpl_file = $tpl_file;
+        $this->tpl_file = $tpl_file;
 
         return $this;
     }
@@ -212,14 +219,25 @@ class Mail
     /**
      * Устанавливает заголовок письма.
      *
-     * @param string $_header
+     * @param string $header
      * @return $this
      */
-    public function setHeader($_header)
+    public function setHeader($header)
     {
-        $this->_header = $_header;
+        $this->header = $header;
 
         return $this;
+    }
+
+    /**
+     * Возвращает тело письма (только сообщение без заголовоков)
+     * после обработки буферизацией вывода.
+     *
+     * @return string
+     */
+    public function getGeneratedMessage()
+    {
+        return $this->generated_message;
     }
 
     /**
@@ -231,12 +249,12 @@ class Mail
     {
         $additional_headers = [
             'Content-type' => self::$types[$this->type] . '; charset=utf-8',
-            'Content-language' => $this->_lang,
+            'Content-language' => $this->lang,
             'X-Mailer' => 'PHP/' . phpversion(),
             'Date' => date("r"),
         ];
 
-        $headers = array_merge($additional_headers, $this->_additional_headers);
+        $headers = array_merge($additional_headers, $this->additional_headers);
 
         if (empty($headers['Reply-To']) && !empty($headers['From'])) {
             $headers['Reply-To'] = $headers['From'];
@@ -248,10 +266,10 @@ class Mail
         }
 
         ob_start();
-        include($this->_tpl_file);
-        $message = ob_get_contents();
+        include($this->tpl_file);
+        $this->generated_message = ob_get_contents();
         ob_end_clean();
 
-        return mb_send_mail($this->_to, $this->_header, $message, implode(PHP_EOL, $additional_headers_buffer));
+        return mb_send_mail($this->to, $this->header, $this->generated_message, implode(PHP_EOL, $additional_headers_buffer));
     }
 }
