@@ -19,7 +19,7 @@ div#help_b2b article aside.intro ul li{
 }
 
 div#help_b2b article aside.intro ul li.who_you{
-	background:url("/http/image/desing/icon/accept.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+	background:url("/img/common/system/icon/accept.png") no-repeat scroll left center rgba(0, 0, 0, 0);
 }
 div#help_b2b article aside.intro ul li.questions{
     color:#395773;
@@ -36,7 +36,7 @@ div#help_b2b article aside.intro ul.pluses{
 }
 div#help_b2b article aside.intro ul.pluses li{
 	padding: 0 0 0 23px;
-    background:url("/http/image/desing/icon/plus.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+    background:url("/img/common/system/icon/plus.png") no-repeat scroll left center rgba(0, 0, 0, 0);
     list-style-type:none;
     margin:0 0 10px 0;
 }

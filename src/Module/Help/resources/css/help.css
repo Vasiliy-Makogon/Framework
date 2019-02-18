@@ -21,7 +21,7 @@ div.location_top{
     text-align:right;
 }
 div.location_top a{
-    background:url('/http/image/desing/icon/arrow_up.png') center right no-repeat;
+    background:url('/img/common/system/icon/arrow_up.png') center right no-repeat;
     padding-right:16px;
     color:#395773;
 }

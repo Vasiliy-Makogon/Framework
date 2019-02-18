@@ -119,7 +119,7 @@ nav.top_menu .right_column > .right_column_content > span > span.name {
 nav.top_menu .right_column > .right_column_content > span > span.name > a.logout {
     display: inline-block;
     width: 16px;
-    background: url(/http/image/desing/icon/exit.png) center center no-repeat;
+    background: url(/img/common/system/icon/exit.png) center center no-repeat;
 }
 nav.top_menu .right_column > .right_column_content > span > span.name > a.logout:link {
     text-decoration: none;

@@ -8,7 +8,7 @@ var viewAdvertEmail = function(_this, id_advert, hash){
     var ajax = new Krugozor.Ajax();
 
     var img = document.createElement('IMG');
-    img.src = '/http/image/desing/icon/ajax-loader-small.gif';
+    img.src = '/img/common/system/icon/ajax-loader-small.gif';
     
     var parent = _this.parentNode;
     parent.replaceChild(img, _this.parentNode.firstChild);
@@ -31,7 +31,7 @@ var viewAdvertEmail = function(_this, id_advert, hash){
 
 var viewAdvertPhone = function(_this, id_advert){
     var img = document.createElement('IMG');
-    img.src = '/http/image/desing/icon/ajax-loader-small.gif';
+    img.src = '/img/common/system/icon/ajax-loader-small.gif';
     
     var parent = _this.parentNode;
     parent.replaceChild(img, _this.parentNode.firstChild);

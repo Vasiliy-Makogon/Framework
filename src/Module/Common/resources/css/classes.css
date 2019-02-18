@@ -9,7 +9,7 @@
 }
 /* Добавление иконки со звездой к заголовку */
 .add_star_header_icon {
-    background-image: url("/http/image/desing/icon/star.png");
+    background-image: url("/img/common/system/icon/star.png");
     background-repeat: no-repeat;
     background-position: 5px center;
     background-attachment: scroll;
@@ -33,7 +33,7 @@ aside.carousel div.bheader a {
     color: #CC0000;
     font-size: 11px;
     font-weight: bold;
-    background: url('/http/image/desing/icon/exclamation.png') no-repeat left center;
+    background: url('/img/common/system/icon/exclamation.png') no-repeat left center;
     padding-left: 20px;
 }
 @media screen and (max-width: 550px) {
@@ -114,7 +114,7 @@ aside.carousel > ul li:hover.do_animaton a:first-child span.image_wrap > span.ph
     top: 65px;
 }
 aside.carousel > ul li a:first-child span.image_wrap > span.photocamera > span {
-    background: url("/http/image/desing/icon/photocamera.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+    background: url("/img/common/system/icon/photocamera.png") no-repeat scroll left center rgba(0, 0, 0, 0);
     display: inline-block;
     padding-left: 18px;
     font-size: 11px;
@@ -246,7 +246,7 @@ div.description_before_fields {
     font-size: 11px;
     color: #113B63;
     padding: 5px 0 5px 21px;
-    background: url("/http/image/desing/icon/information.png") no-repeat scroll 0 50% transparent;
+    background: url("/img/common/system/icon/information.png") no-repeat scroll 0 50% transparent;
 }
 div.description_before_fields > ul {
     margin: 10px 10px 10px 20px;
@@ -372,7 +372,7 @@ div.field_row_fake div.group div.fieldErrorMessage {
     color: #E15D52;
     font-size: 11px;
     padding: 2px 0 2px 21px;
-    background: url('/http/image/desing/icon/exclamation.png') no-repeat left center;
+    background: url('/img/common/system/icon/exclamation.png') no-repeat left center;
     line-height: 16px;
     margin: 5px 0 0 0;
 }
@@ -454,13 +454,13 @@ div.notification_warning {
     border: 2px solid #CCC;
 }
 div.notification_normal {
-    background: #F0F0F0 url('/http/image/desing/icon/notification_ok.gif') 20px 50% no-repeat;
+    background: #F0F0F0 url('/img/common/system/icon/notification_ok.gif') 20px 50% no-repeat;
 }
 div.notification_alert {
-    background: #F0F0F0 url('/http/image/desing/icon/notification_error.gif') 20px 50% no-repeat;
+    background: #F0F0F0 url('/img/common/system/icon/notification_error.gif') 20px 50% no-repeat;
 }
 div.notification_warning {
-    background: #F0F0F0 url('/http/image/desing/icon/notification_warning.gif') 20px 50% no-repeat;
+    background: #F0F0F0 url('/img/common/system/icon/notification_warning.gif') 20px 50% no-repeat;
 }
 div.notification_normal h3,
 div.notification_alert h3,

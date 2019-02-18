@@ -17,13 +17,13 @@ div#advert_frontend-add .two_column ul li {
     list-style-type: none;
 }
 div#advert_frontend-add .two_column ul.plus li {
-    background: url('/http/image/desing/icon/plus.png') center left no-repeat;
+    background: url('/img/common/system/icon/plus.png') center left no-repeat;
 }
 div#advert_frontend-add .two_column ul.minus li {
-    background: url('/http/image/desing/icon/minus.png') center left no-repeat;
+    background: url('/img/common/system/icon/minus.png') center left no-repeat;
 }
 div#advert_frontend-add .two_column ul.information li {
-    background: url('/http/image/desing/icon/information.png') center left no-repeat;
+    background: url('/img/common/system/icon/information.png') center left no-repeat;
 }
 div#advert_frontend-add .two_column ul.information li:last-child {
     margin: 0;

@@ -77,7 +77,7 @@ div#authorization_frontend-login div.two_column.logout div.right_column ul.infor
     padding:0 0 0 23px;
     list-style-type:none;
     font-size:14px;
-    background:url('/http/image/desing/icon/information.png') center left no-repeat;
+    background:url('/img/common/system/icon/information.png') center left no-repeat;
     margin:0 0 15px 0;
 }
 div#authorization_frontend-login div.two_column.logout div.right_column div.right_column_content ul.information li:last-child{

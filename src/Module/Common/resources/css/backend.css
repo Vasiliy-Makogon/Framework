@@ -26,7 +26,7 @@ input[type="submit"], input[type="button"], input[type="file"] {
     font-size: 11px;
     margin: 5px 0 0 0;
     padding: 0 0 0 19px;
-    background: url('/http/image/desing/icon/exclamation.png') no-repeat left center;
+    background: url('/img/common/system/icon/exclamation.png') no-repeat left center;
     line-height: 16px;
 }
 .fieldErrorMessage p {
@@ -35,7 +35,7 @@ input[type="submit"], input[type="button"], input[type="file"] {
 /* Класс ссылки добавления нового элемента в меню */
 a.add_element {
     padding-left: 20px;
-    background: url(/img/common/system/icon/add.png) no-repeat left;
+    background: url('/img/common/system/icon/add.png') no-repeat left;
     line-height: 16px;
 }
 /* Стандартная таблица админ-интерфейса */
@@ -124,7 +124,7 @@ table.datatable tr td.td_actions img {
     margin: auto;
 }
 table.datatable tr td .external {
-    background: url("/http/image/desing/icon/external.png") no-repeat scroll right center transparent;
+    background: url("/img/common/system/icon/external.png") no-repeat scroll right center transparent;
     padding-right: 14px;
 }
 /* Меню */

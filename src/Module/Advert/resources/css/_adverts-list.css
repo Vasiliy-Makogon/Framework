@@ -102,7 +102,7 @@ div.advert > article > div.left a > span {
     position: absolute;
 }
 div.advert > article > div.left a > span > span {
-    background: url("/http/image/desing/icon/photocamera.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+    background: url("/img/common/system/icon/photocamera.png") no-repeat scroll left center rgba(0, 0, 0, 0);
     display: inline-block;
     padding-left: 18px;
     font-size:11px;
@@ -237,36 +237,36 @@ div.advert > div.navblock ul li:last-child {
     margin:0;
 }
 div.advert > div.navblock ul li.advert_date {
-    background: url("/http/image/desing/icon/information.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+    background: url("/img/common/system/icon/information.png") no-repeat scroll left center rgba(0, 0, 0, 0);
 }
 div.advert > div.navblock ul li.edit_link {
-    background: url("/http/image/desing/icon/edit.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+    background: url("/img/common/system/icon/edit.png") no-repeat scroll left center rgba(0, 0, 0, 0);
 }
 div.advert > div.navblock ul li.up_link{
-    background:url('/http/image/desing/icon/arrow_up.png') center left no-repeat;
+    background:url('/img/common/system/icon/arrow_up.png') center left no-repeat;
     cursor: help;
 }
 div.advert > div.navblock ul li.lock_link{
-    background:url('/http/image/desing/icon/lock.png') center left no-repeat;
+    background:url('/img/common/system/icon/lock.png') center left no-repeat;
 }
 div.advert > div.navblock ul li.lock-open_link{
-    background:url('/http/image/desing/icon/lock-open.png') center left no-repeat;
+    background:url('/img/common/system/icon/lock-open.png') center left no-repeat;
 }
 div.advert > div.navblock ul li.delete_link{
-    background:url('/http/image/desing/icon/delete.png') center left no-repeat;
+    background:url('/img/common/system/icon/delete.png') center left no-repeat;
 }
 div.advert > div.navblock ul li.delete_user_link{
-    background:url('/http/image/desing/icon/user_delete.png') center left no-repeat;
+    background:url('/img/common/system/icon/user_delete.png') center left no-repeat;
 }
 div.advert > div.navblock ul li.advert_search{
-    background:url('/http/image/desing/icon/chart_bar.png') center left no-repeat;
+    background:url('/img/common/system/icon/chart_bar.png') center left no-repeat;
 }
 div.advert > div.navblock ul li.advert_vip,
 div.advert > div.navblock ul li.advert_special{
-    background:url('/http/image/desing/icon/star.png') center left no-repeat;
+    background:url('/img/common/system/icon/star.png') center left no-repeat;
 }
 div.advert > div.navblock ul li.all_adverts{
-    background:url('/http/image/desing/icon/zoom.png') center left no-repeat;
+    background:url('/img/common/system/icon/zoom.png') center left no-repeat;
 }
 
 
@@ -279,13 +279,13 @@ div.advert > div.navblock ul li.advert_special a {
     color:#BB0000;
 }
 div.advert > div.navblock ul li.advert_gp{
-    background:url('/http/image/desing/icon/gp.png') center left no-repeat;
+    background:url('/img/common/system/icon/gp.png') center left no-repeat;
 }
 div.advert > div.navblock ul li.advert_yp{
-    background:url('/http/image/desing/icon/yp.png') center left no-repeat;
+    background:url('/img/common/system/icon/yp.png') center left no-repeat;
 }
 div.advert > div.navblock ul li.advert_payment{
-    background:url('/http/image/desing/icon/money.png') center left no-repeat;
+    background:url('/img/common/system/icon/money.png') center left no-repeat;
 }
 div.advert > div.navblock ul li.advert_payment a {
     color:green;

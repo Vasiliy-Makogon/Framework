@@ -73,30 +73,30 @@ div.advert > article > div.center table.contacts tbody tr td:last-child span.imi
     text-decoration:underline;
 }
 div.advert > article > div.center table.contacts tbody tr td:last-child span.imitation_outer_link {
-    background:url("/http/image/desing/icon/external.png") no-repeat scroll right center transparent;
+    background:url("/img/common/system/icon/external.png") no-repeat scroll right center transparent;
 }
 /* Контактная информация */
 div.advert > article > div.center table.contacts tbody tr td.user:first-child {
-	background:transparent url('/http/image/desing/icon/user_suit.png') 0 center no-repeat;
+	background:transparent url('/img/common/system/icon/user_suit.png') 0 center no-repeat;
 	padding-left:20px;
 }
 div.advert > article > div.center table.contacts tbody tr td.phone:first-child {
-    background:transparent url('/http/image/desing/icon/phone.png') 0 center no-repeat;
+    background:transparent url('/img/common/system/icon/phone.png') 0 center no-repeat;
     padding-left:20px;
 }
 div.advert > article > div.center table.contacts tbody tr td.email:first-child {
-    background:transparent url('/http/image/desing/icon/email.png') 0 center no-repeat;
+    background:transparent url('/img/common/system/icon/email.png') 0 center no-repeat;
     padding-left:20px;
 }
 div.advert > article > div.center table.contacts tbody tr td.url:first-child {
-    background:transparent url('/http/image/desing/icon/world.png') 0 center no-repeat;
+    background:transparent url('/img/common/system/icon/world.png') 0 center no-repeat;
     padding-left:20px;
 }
 div.advert > article > div.center table.contacts tbody tr td.icq:first-child {
-    background:transparent url('/http/image/desing/icon/icq_invisible.png') 0 center no-repeat;
+    background:transparent url('/img/common/system/icon/icq_invisible.png') 0 center no-repeat;
     padding-left:20px;
 }
 div.advert > article > div.center table.contacts tbody tr td.skype:first-child {
-    background:transparent url('/http/image/desing/icon/skype.png') 0 center no-repeat;
+    background:transparent url('/img/common/system/icon/skype.png') 0 center no-repeat;
     padding-left:20px;
 }
