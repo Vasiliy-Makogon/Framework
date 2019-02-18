@@ -209,7 +209,7 @@ div#advert_frontend-edit-advert fieldset div#uploaded_images span img{
     height:86px;
 }
 div#advert_frontend-edit-advert fieldset div#uploaded_images span a {
-    background:white url(/http/image/desing/icon/delete.png) top left no-repeat;
+    background:white url('/img/common/system/icon/delete.png') top left no-repeat;
     width:16px;
     height:16px;
     display:block;
