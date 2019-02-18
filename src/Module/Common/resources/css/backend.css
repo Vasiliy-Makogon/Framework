@@ -35,7 +35,7 @@ input[type="submit"], input[type="button"], input[type="file"] {
 /* Класс ссылки добавления нового элемента в меню */
 a.add_element {
     padding-left: 20px;
-    background: url(/http/image/system/icon/add.png) no-repeat left;
+    background: url(/img/common/system/icon/add.png) no-repeat left;
     line-height: 16px;
 }
 /* Стандартная таблица админ-интерфейса */
@@ -146,15 +146,15 @@ div.notification_warning {
 }
 div.notification_normal {
     border: 1px solid green;
-    background: url('/http/image/system/icon/notification_ok.gif') 20px 50% no-repeat;
+    background: url('/img/common/system/icon/notification_ok.gif') 20px 50% no-repeat;
 }
 div.notification_alert {
     border: 0.1em solid #CC0000;
-    background: url('/http/image/system/icon/notification_error.gif') 20px 50% no-repeat;
+    background: url('/img/common/system/icon/notification_error.gif') 20px 50% no-repeat;
 }
 div.notification_warning {
     border: 1px solid #FF6600;
-    background: url('/http/image/system/icon/notification_warning.gif') 20px 50% no-repeat;
+    background: url('/img/common/system/icon/notification_warning.gif') 20px 50% no-repeat;
 }
 div.notification_normal h3,
 div.notification_alert h3,
