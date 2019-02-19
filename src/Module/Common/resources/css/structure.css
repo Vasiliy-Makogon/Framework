@@ -246,25 +246,25 @@ https://jsfiddle.net/vha3m57f/1/
     padding-left: 32px;
 }
 .three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_russia {
-    background-image: url("/http/image/desing/flags/ru.png");
+    background-image: url("/img/local/flags/ru.png");
 }
 .three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_novorossija {
-    background-image: url("/http/image/desing/flags/nr.png");
+    background-image: url("/img/local/flags/nr.png");
 }
 .three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_belarus {
-    background-image: url("/http/image/desing/flags/by.png");
+    background-image: url("/img/local/flags/by.png");
 }
 .three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_ukraine {
-    background-image: url("/http/image/desing/flags/ua.png");
+    background-image: url("/img/local/flags/ua.png");
 }
 .three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_kazakhstan {
-    background-image: url("/http/image/desing/flags/kz.png");
+    background-image: url("/img/local/flags/kz.png");
 }
 .three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_abkhazia {
-    background-image: url("/http/image/desing/flags/_abkhazia.png");
+    background-image: url("/img/local/flags/_abkhazia.png");
 }
 .three_column.three_column_wrap .right_column .right_column_content div.subblock .bheader.add_flag_header_icon.flag_south_ossetia {
-    background-image: url("/http/image/desing/flags/_south-ossetia.png");
+    background-image: url("/img/local/flags/_south-ossetia.png");
 }
 /* Список городов */
 .three_column.three_column_wrap .right_column .right_column_content .subblock ul.regions {

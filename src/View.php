@@ -331,7 +331,7 @@ class View
             throw new \RuntimeException("Not found Anchor-file at `$anchor`");
         }
 
-        $path = implode(DIRECTORY_SEPARATOR, [$anchor::getPath(), '\\Template', $file]) . '.phtml';
+        $path = implode(DIRECTORY_SEPARATOR, [$anchor::getPath(), 'Template', $file]) . '.phtml';
         if (!file_exists($path)) {
             throw new \RuntimeException(
                 __METHOD__ . ": Не найден подключаемый файл второстепенного шаблона ($path)"

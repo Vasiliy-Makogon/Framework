@@ -74,7 +74,7 @@ var Krugozor = window.Krugozor || {};
  */
 Krugozor.thumbnail = {
     // Путь к прелоадеру изображений.
-    thumbnail_icon_path: '/http/image/desing/thumbnail_load_icon.gif',
+    thumbnail_icon_path: '/img/local/thumbnail_load_icon.gif',
     
     // Путь к обработчику загрузки изображений, т.е. к iframe.
     form_action: null,

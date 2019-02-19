@@ -18,16 +18,16 @@ div#authorization_frontend-login .two_column.login .left_column ul#my_actions li
 	list-style-position:inside;
 }
 div#authorization_frontend-login .two_column.login .left_column ul#my_actions li.new {
-	list-style-image:url('/http/image/desing/icon/advert_add.png');
+	list-style-image:url('/img/local/icon/advert_add.png');
 }
 div#authorization_frontend-login .two_column.login .left_column ul#my_actions li.adverts {
-    list-style-image:url('/http/image/desing/icon/advert_edit.png');
+    list-style-image:url('/img/local/icon/advert_edit.png');
 }
 div#authorization_frontend-login .two_column.login .left_column ul#my_actions li.userinfo {
-    list-style-image:url('/http/image/desing/icon/advert_user.png');
+    list-style-image:url('/img/local/icon/advert_user.png');
 }
 div#authorization_frontend-login .two_column.login .left_column ul#my_actions li.logout {
-    list-style-image:url('/http/image/desing/icon/advert_exit.png');
+    list-style-image:url('/img/local/icon/advert_exit.png');
 }
 
 

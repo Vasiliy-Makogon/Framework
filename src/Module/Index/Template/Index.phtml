@@ -11,7 +11,7 @@
     <meta name="description" content="<?= $this->getLang()['meta']['description'] ?>"/>
     <meta property="og:title" content="<?= $this->getHelper('\Krugozor\Framework\Html\Title')->getTitle() ?>"/>
     <meta property="og:description" content="<?= $this->getLang()['meta']['description'] ?>"/>
-    <meta property="og:image" content="/http/image/desing/snippet.jpg"/>
+    <meta property="og:image" content="/img/local/snippet.jpg"/>
     <link rel="shortcut icon" sizes="16x16" href="/favicon.ico"/>
     <?= $this->getHelper('\Krugozor\Framework\Html\Title')->getHtml() ?>
     <!-- /common meta -->
@@ -62,7 +62,7 @@
                                      alt="<?= $this->getHelper('\Krugozor\Framework\Helper\Format')->userDataOutput($advert->getHeader()) ?>"/>
                                 <span class="photocamera"><span><?= $advert->getThumbnailCount() ?></span></span>
                             <?php else: ?>
-                                <img class="no_photo" src="/http/image/desing/icon/no_photo.png" alt=""/>
+                                <img class="no_photo" src="/img/local/icon/no_photo.png" alt=""/>
                             <?php endif; ?>
 
                                 <span class="similar_header">

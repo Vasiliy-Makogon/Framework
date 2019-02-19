@@ -188,7 +188,7 @@ Krugozor.UI.popup.ajaxselect = {
             overlay.appendOverlay();
             
             var preloader = Krugozor.Preloader.createPreloader();
-            preloader.setImagePath('/http/image/desing/preloader.gif');
+            preloader.setImagePath('/img/local/preloader.gif');
             preloader.setZIndex(100001);
             preloader.addPreloaderTo(overlay.overlay);	
             
