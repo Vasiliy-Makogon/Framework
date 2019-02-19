@@ -25,14 +25,14 @@
 </head>
 <body>
 
-<?php include $this->getRealTemplatePath('Common/FrontendTop') ?>
+<?php include $this->getRealTemplatePath('Local/FrontendTop') ?>
 
 <div id="<?= $this->getPageId() ?>" class="content">
     <h2><?= $this->lang['content']['document_not_found_header'] ?></h2>
     <?= $this->lang['content']['document_not_found_body'] ?>
 </div>
 
-<?php require_once $this->getRealTemplatePath('Common/FrontendBottom'); ?>
+<?php require_once $this->getRealTemplatePath('Local/FrontendBottom'); ?>
 
 </body>
 </html>
