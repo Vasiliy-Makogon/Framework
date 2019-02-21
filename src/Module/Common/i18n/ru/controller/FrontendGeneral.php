@@ -1,11 +1,11 @@
 <?php
 return [
     'title' => [
-        'website title'
+        'common website title'
     ],
     'meta' => [
-        'keywords' => "keyword1, keyword2, keyword3",
-        'description' => "Description of website."
+        'keywords' => "common keyword1, common keyword 2, common keyword 3",
+        'description' => "common description of website."
     ],
     'notification' => [
         'header' => [
