@@ -133,12 +133,11 @@ class View
 
         switch ($helper_name) {
             // Для хэлпера форм указываем шаблон описания ошибок заполнения полей.
-            // @todo: разобраться с этим хардкодом, вынести определение шаблона ошибки в иное место.
             case '\Krugozor\Framework\Helper\Form':
                 if (!isset($this->helpers[$helper_name])) {
                     $this->helpers[$helper_name] = Form::getInstance();
                     $this->helpers[$helper_name]->setFieldErrorTemplate(
-                        $this->getRealTemplatePath('Common/FieldError')
+                        $this->getRealTemplatePath('Local/FieldError')
                     );
                 }
                 return $this->helpers[$helper_name];
