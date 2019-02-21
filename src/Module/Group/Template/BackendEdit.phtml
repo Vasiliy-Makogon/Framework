@@ -23,8 +23,8 @@
 </head>
 <body>
 
-<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
-<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+<? include $this->getRealTemplatePath('Local/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Local/BackendMenu') ?>
 
 <form id="group_form" method="post" onsubmit="if (window.cform) return cform.checkTextFieldsOnEmpty();"
       action="<?= $this->getRequest()->getRequestUri()->getEscapeUriValue() ?>">
@@ -115,7 +115,7 @@
     }
 </script>
 
-<? include $this->getRealTemplatePath('Common/DebugInfo') ?>
+<? include $this->getRealTemplatePath('Local/DebugInfo') ?>
 
 </body>
 </html>

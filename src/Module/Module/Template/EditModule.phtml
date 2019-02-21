@@ -20,8 +20,8 @@
 </head>
 <body>
 
-<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
-<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+<? include $this->getRealTemplatePath('Local/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Local/BackendMenu') ?>
 
 <?php if ($this->module->getId()): ?>
     <table class="datatable edit">
@@ -114,7 +114,7 @@
     </table>
 </form>
 
-<? include $this->getRealTemplatePath('Common/DebugInfo') ?>
+<? include $this->getRealTemplatePath('Local/DebugInfo') ?>
 
 </body>
 </html>

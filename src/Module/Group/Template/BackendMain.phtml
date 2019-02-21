@@ -21,8 +21,8 @@
 </head>
 <body>
 
-<? include $this->getRealTemplatePath('Common/BackendNotification') ?>
-<? include $this->getRealTemplatePath('Common/BackendMenu') ?>
+<? include $this->getRealTemplatePath('Local/BackendNotification') ?>
+<? include $this->getRealTemplatePath('Local/BackendMenu') ?>
 
 <table class="datatable">
     <tr>
@@ -133,8 +133,8 @@ $pagination
     ->setRequestUriParameter('sort_order', $this->groupList->getOrder());
 ?>
 
-<? include $this->getRealTemplatePath('Common/BackendNavigation') ?>
-<? include $this->getRealTemplatePath('Common/DebugInfo') ?>
+<? include $this->getRealTemplatePath('Local/BackendNavigation') ?>
+<? include $this->getRealTemplatePath('Local/DebugInfo') ?>
 
 </body>
 </html>
