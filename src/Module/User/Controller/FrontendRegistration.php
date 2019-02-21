@@ -38,7 +38,7 @@ class FrontendRegistration extends Controller
         $this->getView()->session_id = Session::getInstance()->getId();
 
         $this->getView()->getLang()->loadI18n(
-            'Common/FrontendGeneral', $this->getRequest()->getVirtualControllerPath()
+            'Common/FrontendGeneral', 'Local/FrontendGeneral', $this->getRequest()->getVirtualControllerPath()
         )->addTitle();
 
         $this->user = $this->getMapper('User/User')->createModel();

@@ -9,7 +9,7 @@ class Index extends Controller
     public function run()
     {
         $this->getView()->getLang()->loadI18n(
-            'Common/FrontendGeneral'
+            'Common/FrontendGeneral', 'Local/FrontendGeneral'
         )->addTitle();
 
         $this->getView()->current_user = $this->getCurrentUser();

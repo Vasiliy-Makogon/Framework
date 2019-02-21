@@ -23,7 +23,7 @@ class FrontendGetpassword extends Controller
         }
 
         $this->getView()->getLang()->loadI18n(
-            'Common/FrontendGeneral', $this->getRequest()->getVirtualControllerPath()
+            'Common/FrontendGeneral', 'Local/FrontendGeneral', $this->getRequest()->getVirtualControllerPath()
         )->addTitle();
 
         $this->getView()->current_user = $this->getCurrentUser();

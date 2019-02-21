@@ -10,7 +10,7 @@ class NotFound extends Controller
     {
         $this->getResponse()->setHttpStatusCode(404);
         $this->getView()->getLang()->loadI18n(
-            'Common/FrontendGeneral', $this->getRequest()->getVirtualControllerPath()
+            'Common/FrontendGeneral', 'Local/FrontendGeneral', $this->getRequest()->getVirtualControllerPath()
         )->addTitle();
 
         $this->getView()->current_user = $this->getCurrentUser();

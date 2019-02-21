@@ -22,7 +22,7 @@ class FrontendEdit extends Controller
     public function run()
     {
         $this->getView()->getLang()->loadI18n(
-            'Common/FrontendGeneral', $this->getRequest()->getVirtualControllerPath()
+            'Common/FrontendGeneral', 'Local/FrontendGeneral', $this->getRequest()->getVirtualControllerPath()
         )->addTitle();
 
         if ($this->getCurrentUser()->isGuest()) {
