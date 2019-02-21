@@ -1,11 +1,10 @@
 <?php
 return [
     'title' => [
-        'common website title'
+        // не заполняйте значениями массив в этом файле
     ],
     'meta' => [
-        'keywords' => "common keyword1, common keyword 2, common keyword 3",
-        'description' => "common description of website."
+        // не заполняйте значениями массив в этом файле
     ],
     'notification' => [
         'header' => [
