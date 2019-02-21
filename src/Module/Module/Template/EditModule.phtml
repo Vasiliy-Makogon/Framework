@@ -12,9 +12,9 @@
     <!-- /common meta -->
 
     <!-- common css -->
-    <?= $this->getCss('common', 'reset.css') ?>
-    <?= $this->getCss('common', 'tags.css') ?>
-    <?= $this->getCss('common', 'backend.css') ?>
+    <?= $this->getCss('local', 'reset.css') ?>
+    <?= $this->getCss('local', 'tags.css') ?>
+    <?= $this->getCss('local', 'backend.css') ?>
     <!-- /common css -->
 
 </head>
@@ -77,7 +77,7 @@
                                 <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->hsc($controller->getName()) ?></td>
                                 <td>
                                     <a href="/module/edit-controller/?id=<?= $controller->getId() ?>&amp;id_module=<?= $controller->getIdModule() ?>">
-                                        <img src="/img/common/system/icon/edit.png"
+                                        <img src="/img/local/system/icon/edit.png"
                                              alt=""/>
                                     </a>
                                 </td>
@@ -90,7 +90,7 @@
                                     ?>
                                     <a onclick="return confirm('<?= $str ?>')"
                                        href="/module/delete-controller/?id=<?= $controller->getId() ?>&amp;id_module=<?= $controller->getIdModule() ?>">
-                                        <img src="/img/common/system/icon/delete.png"
+                                        <img src="/img/local/system/icon/delete.png"
                                              alt=""/>
                                     </a>
                                 </td>

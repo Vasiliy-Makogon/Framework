@@ -12,9 +12,9 @@
     <!-- /common meta -->
 
     <!-- common css -->
-    <?= $this->getCss('common', 'reset.css') ?>
-    <?= $this->getCss('common', 'tags.css') ?>
-    <?= $this->getCss('common', 'backend.css') ?>
+    <?= $this->getCss('local', 'reset.css') ?>
+    <?= $this->getCss('local', 'tags.css') ?>
+    <?= $this->getCss('local', 'backend.css') ?>
     <!-- /common css -->
     <?= $this->getCss() ?>
 
@@ -49,7 +49,7 @@
                     ->setFieldName('id')
                     ->setAnchor($this->getLang()['content']['id'])
                     ->setUrl($this->getRequest()->getCanonicalRequestUri()->getEscapeUriValue())
-                    ->setIconSrc('/img/common/system/icon/')
+                    ->setIconSrc('/img/local/system/icon/')
                     ->setCurrentFieldName($this->groupList->getAlias())
                     ->setCurrentSortOrder($this->groupList->getOrder())
                     ->setQueryStringFromArray(array(
@@ -90,7 +90,7 @@
                 </td>
                 <td class="td_actions">
                     <a href="/group/backend-edit/?id=<?= $group->getId() ?>">
-                        <img src="/img/common/system/icon/edit.png"
+                        <img src="/img/local/system/icon/edit.png"
                              alt=""/>
                     </a>
                 </td>
@@ -104,11 +104,11 @@
                         ?>
                         <a onclick="return confirm('<?= $str ?>')"
                            href="/group/backend-delete/?id=<?= $group->getId() ?>&amp;referer=<?= $this->getRequest()->getRequestUri()->getUrlencodeUriValue(true) ?>">
-                            <img src="/img/common/system/icon/delete.png"
+                            <img src="/img/local/system/icon/delete.png"
                                  alt=""/>
                         </a>
                     <? else: ?>
-                        <img src="/img/common/system/icon/delete_empty.png"
+                        <img src="/img/local/system/icon/delete_empty.png"
                              alt=""/>
                     <? endif; ?>
                 </td>
