@@ -1,9 +1,0 @@
-<?php if ($pagination): ?>
-    <div class="navigation_list">
-        Всего элементов: <strong><?=$pagination->getCount()?></strong>
-        <?php if ($pagination->getCount()): ?>
-            <br /><br /><span class="navigation_title">Страницы:</span>
-            <?=$pagination->getHelper()->getHtml()?>
-        <?php endif; ?>
-    </div>
-<?php endif; ?>
