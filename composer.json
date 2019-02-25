@@ -18,7 +18,8 @@
   "require": {
     "krugozor/database": "^1.0",
     "krugozor/pagination": "dev-master",
-    "krugozor/cover": "dev-master"
+    "krugozor/cover": "dev-master",
+    "krugozor/framework": "dev-master"
   },
   "vendor-dir": "vendor"
 }

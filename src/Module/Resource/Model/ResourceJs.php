@@ -12,9 +12,7 @@ class ResourceJs extends Resource
     {
         $mime_type = $this->getMimeType();
 
-        print_r($mime_type);
-
-        if (!in_array($mime_type, ['text/plain'])) {
+        if (!in_array($mime_type, ['text/plain', 'text/html'])) {
             throw new \RuntimeException('Call not js-resource file by path ' . $this->path);
         }
     }

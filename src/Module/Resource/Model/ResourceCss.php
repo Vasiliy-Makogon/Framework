@@ -12,7 +12,7 @@ class ResourceCss extends Resource
     {
         $mime_type = $this->getMimeType();
 
-        if (!in_array($mime_type, ['text/plain'])) {
+        if (!in_array($mime_type, ['text/plain', 'text/html'])) {
             throw new \RuntimeException('Call not css-resource file by path ' . $this->path);
         }
     }
