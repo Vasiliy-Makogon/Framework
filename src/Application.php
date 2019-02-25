@@ -7,6 +7,7 @@ use Krugozor\Framework\Http\Cover\Uri\PartEntity;
 use Krugozor\Framework\Http\Cover\Uri\RequestUri;
 use Krugozor\Framework\Http\Response;
 use Krugozor\Framework\Module\Captcha\Model\Captcha;
+use Krugozor\Framework\Module\Resource\Model\Resource;
 use Krugozor\Framework\Statical\Arrays;
 use Krugozor\Framework\Statical\Strings;
 
@@ -104,6 +105,11 @@ final class Application
 
             case $result instanceof Response:
                 $this->context->getResponse()->sendCookie()->sendHeaders();
+                break;
+
+            case $result instanceof Resource:
+                $this->context->getResponse()->sendCookie()->sendHeaders();
+                echo $result->getResourceContents();
                 break;
 
             default:

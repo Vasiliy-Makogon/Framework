@@ -3,7 +3,9 @@
 namespace Krugozor\Framework\Module\Resource\Controller;
 
 use Krugozor\Framework\Controller;
+use Krugozor\Framework\Http\Request;
 use Krugozor\Framework\Http\Response;
+use Krugozor\Framework\Module\Resource\Model\ResourceImg;
 use Krugozor\Framework\Statical\Strings;
 
 class Img extends Controller
@@ -11,8 +13,8 @@ class Img extends Controller
     public function run()
     {
         $anchor = 'Krugozor\\Framework\\Module\\' .
-                  Strings::formatToCamelCaseStyle($this->getRequest()->getRequest('module')) .
-                  '\\Anchor';
+            Strings::formatToCamelCaseStyle($this->getRequest()->getRequest('module')) .
+            '\\Anchor';
         if (!class_exists($anchor)) {
             throw new \RuntimeException("Not found Anchor-file at `$anchor`");
         }
@@ -25,34 +27,28 @@ class Img extends Controller
         ];
         $path = implode(DIRECTORY_SEPARATOR, $paths);
 
-        if (!file_exists($path)) {
-            $this->log("Call to undefined file by path $path");
-            exit;
+        try {
+            $resource = new ResourceImg($path);
+            $resource->checkMieType();
+
+            $this->getResponse()
+                ->unsetHeader('Last-Modified')
+                ->unsetHeader('Expires')
+                ->unsetHeader('Cache-Control')
+                ->unsetHeader('Pragma');
+
+            if (!Request::IfModifiedSince($resource->getModificationTime())) {
+                return $this->getResponse()->setHttpStatusCode(304);
+            }
+
+            $this->getResponse()
+                ->setHeader(Response::HEADER_CONTENT_TYPE, $resource->getMimeType())
+                ->setHeader('Last-Modified', $resource->getModificationTime()->formatHttpDate())
+                ->setHeader('Cache-Control', 'no-cache, must-revalidate');
+
+            return $resource;
+        } catch (\Exception $e) {
+            throw $e;
         }
-
-        $finfo = new \finfo(FILEINFO_MIME_TYPE);
-        $mime_type = $finfo->file($path);
-
-        switch ($mime_type) {
-            case 'image/png':
-                $this->getResponse()->setHeader(Response::HEADER_CONTENT_TYPE, 'image/png');
-                break;
-            case 'image/jpeg':
-                $this->getResponse()->setHeader(Response::HEADER_CONTENT_TYPE, 'image/jpeg');
-                break;
-            case 'image/gif':
-                $this->getResponse()->setHeader(Response::HEADER_CONTENT_TYPE, 'image/gif');
-                break;
-            case 'image/x-icon':
-                $this->getResponse()->setHeader(Response::HEADER_CONTENT_TYPE, 'image/x-icon');
-                break;
-            default:
-                exit;
-        }
-
-        $this->getResponse()->sendHeaders();
-
-        echo (file_exists($path) ? file_get_contents($path) : '');
-        exit;
     }
 }

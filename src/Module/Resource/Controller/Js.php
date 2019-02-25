@@ -3,7 +3,9 @@
 namespace Krugozor\Framework\Module\Resource\Controller;
 
 use Krugozor\Framework\Controller;
+use Krugozor\Framework\Http\Request;
 use Krugozor\Framework\Http\Response;
+use Krugozor\Framework\Module\Resource\Model\ResourceJs;
 use Krugozor\Framework\Statical\Strings;
 
 class Js extends Controller
@@ -25,13 +27,28 @@ class Js extends Controller
         ];
         $path = implode(DIRECTORY_SEPARATOR, $paths);
 
-        $this->getResponse()
-            ->setHeader(Response::HEADER_CONTENT_TYPE, 'application/x-javascript; charset=utf-8')
-            ->sendHeaders();
+        try {
+            $resource = new ResourceJs($path);
+            $resource->checkMieType();
 
-        echo file_exists($path)
-            ? file_get_contents($path)
-            : 'console.log("Not found '. addslashes($path) . '");';
-        exit;
+            $this->getResponse()
+                ->unsetHeader('Last-Modified')
+                ->unsetHeader('Expires')
+                ->unsetHeader('Cache-Control')
+                ->unsetHeader('Pragma');
+
+            if (!Request::IfModifiedSince($resource->getModificationTime())) {
+                return $this->getResponse()->setHttpStatusCode(304);
+            }
+
+            $this->getResponse()
+                ->setHeader(Response::HEADER_CONTENT_TYPE, 'application/x-javascript; charset=utf-8')
+                ->setHeader('Last-Modified', $resource->getModificationTime()->formatHttpDate())
+                ->setHeader('Cache-Control', 'no-cache, must-revalidate');
+
+            return $resource;
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 }
