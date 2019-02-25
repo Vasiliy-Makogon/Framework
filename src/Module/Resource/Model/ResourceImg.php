@@ -13,7 +13,7 @@ class ResourceImg extends Resource
         $mime_type = $this->getMimeType();
 
         if (!in_array($mime_type, ['image/png', 'image/jpeg', 'image/gif', 'image/x-icon'])) {
-            throw new \RuntimeException('Call not image resource file by path ' . $this->path);
+            throw new \RuntimeException('Call not image-resource file by path ' . $this->path);
         }
     }
 }
