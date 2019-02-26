@@ -2,7 +2,6 @@
 
 namespace Krugozor\Framework\Module\MailQueue\Model;
 
-
 use Krugozor\Framework\Model;
 use Krugozor\Framework\Type\Datetime;
 
