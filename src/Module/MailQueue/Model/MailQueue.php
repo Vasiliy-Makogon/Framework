@@ -130,6 +130,8 @@ class MailQueue extends Model
             throw new \InvalidArgumentException('Parameter $data must be a string or a array.');
         }
 
-        return is_array($data) ? serialize($data) : unserialize($data);
+        // Решение по сериализации + кодирование взято здесь (что бы не было ошибки "Error at offset"):
+        // https://stackoverflow.com/questions/10152904/unserialize-function-unserialize-error-at-offset
+        return is_array($data) ? base64_encode(serialize($data)) : unserialize(base64_decode($data));
     }
 }
