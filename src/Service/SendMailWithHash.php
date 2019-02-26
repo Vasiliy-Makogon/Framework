@@ -3,8 +3,9 @@
 namespace Krugozor\Framework\Service;
 
 use Krugozor\Framework\Module\User\Model\User;
-use Krugozor\Framework\Mail;
 use Krugozor\Framework\Module\User\Mapper\User as UserMapper;
+use Krugozor\Framework\Module\MailQueue\Model\MailQueue;
+use Krugozor\Framework\Module\MailQueue\Mapper\MailQueue as MailQueueMapper;
 
 /**
  * Базовый сервис для отправки писем с хэшем с целью проверки
@@ -18,21 +19,26 @@ abstract class SendMailWithHash
     protected $user_mapper;
 
     /**
+     * @var MailQueueMapper
+     */
+    protected $mailQueueMapper;
+
+    /**
      * @var User
      */
     protected $user;
 
     /**
-     * @var Mail
+     * @var MailQueue
      */
-    protected $mail;
+    protected $mailQueue;
 
     /**
      * @param UserMapper $user_mapper
      */
-    public function __construct(UserMapper $user_mapper)
+    public function __construct()
     {
-        $this->user_mapper = $user_mapper;
+
     }
 
     /**
@@ -47,22 +53,42 @@ abstract class SendMailWithHash
     }
 
     /**
-     * @param Mail $mail
+     * @param UserMapper $user_mapper
      * @return SendMailWithHash
      */
-    public function setMail(Mail $mail): self
+    public function setUserMapper(UserMapper $user_mapper): self
     {
-        $this->mail = $mail;
+        $this->user_mapper = $user_mapper;
+
+        return $this;
+    }
+
+    /**
+     * @param MailQueue $mailQueue
+     * @return SendMailWithHash
+     */
+    public function setMailQueue(MailQueue $mailQueue): self
+    {
+        $this->mailQueue = $mailQueue;
+
+        return $this;
+    }
+
+    /**
+     * @param MailQueueMapper $mailQueueMapper
+     * @return SendMailWithHash
+     */
+    public function setMailQueueMapper(MailQueueMapper $mailQueueMapper): self
+    {
+        $this->mailQueueMapper = $mailQueueMapper;
 
         return $this;
     }
 
     /**
      * Отправляет письмо с уникальной ссылкой.
-     *
-     * @return bool
      */
-    abstract public function sendEmailWithHash(): bool;
+    abstract public function sendEmailWithHash();
 
     /**
      * Проверяет хэш $hash на валидность.
@@ -75,15 +101,15 @@ abstract class SendMailWithHash
     abstract public function isValidHash(string $hash): bool;
 
     /**
-     * Проверяет, инстанцирован ли объект почты.
+     * Проверяет, инстанцирован ли объект почтовой очереди.
      *
      * @throws InvalidArgumentException
      */
     protected function checkMailObjectInstance()
     {
-        if ($this->mail === null) {
+        if ($this->mailQueue === null) {
             throw new \InvalidArgumentException(
-                __METHOD__ . ': Не передан объект почты'
+                __METHOD__ . ': Не передан объект почтовой очереди'
             );
         }
     }
