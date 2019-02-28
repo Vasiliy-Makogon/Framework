@@ -118,6 +118,21 @@ final class Application
     }
 
     /**
+     * Возвращает Anchor-объект модуля $moduleName.
+     * @param $moduleName
+     * @return Anchor
+     */
+    final public static function getAnchor($moduleName)
+    {
+        $anchor = 'Krugozor\\Framework\\Module\\' . ucfirst(strtolower($moduleName)) . '\\Anchor';
+        if (!class_exists($anchor)) {
+            throw new \RuntimeException("Not found Anchor-file at path `$anchor`");
+        }
+
+        return new $anchor;
+    }
+
+    /**
      * Принимает массив допустимых маршрутов URL.
      *
      * @param array $routes
