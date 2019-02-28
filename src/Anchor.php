@@ -5,6 +5,7 @@ namespace Krugozor\Framework;
 abstract class Anchor
 {
     /**
+     * Дополняет физический путь к модулю строкой $path.
      * @param string|null $path
      * @return string
      */
