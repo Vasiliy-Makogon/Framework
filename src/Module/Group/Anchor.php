@@ -2,10 +2,10 @@
 
 namespace Krugozor\Framework\Module\Group;
 
-class Anchor
+class Anchor extends \Krugozor\Framework\Anchor
 {
-    public static function getPath()
+    public static function getPath(string $path = null)
     {
-        return dirname(__FILE__);
+        return dirname(__FILE__) . self::addPath($path);
     }
 }
