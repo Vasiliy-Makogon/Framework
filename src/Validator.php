@@ -43,13 +43,8 @@ final class Validator
         foreach ($args as $arg) {
             list($module, $file) = explode('/', $arg);
 
-            $anchor = 'Krugozor\\Framework\\Module\\' . ucfirst($module) . '\\Anchor';
-            if (!class_exists($anchor)) {
-                throw new \RuntimeException("Not found Anchor-file at `$anchor`");
-            }
-
             $path = implode(DIRECTORY_SEPARATOR,
-                    [$anchor::getPath(), 'i18n',
+                    [Application::getAnchor($module)::getPath(), 'i18n',
                         Registry::getInstance()->LOCALIZATION['LANG'], 'validator', strtolower($file)
                     ]) . '.php';
 

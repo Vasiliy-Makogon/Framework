@@ -2,6 +2,7 @@
 
 namespace Krugozor\Framework\View;
 
+use Krugozor\Framework\Application;
 use Krugozor\Framework\Context;
 use Krugozor\Cover\CoverArray;
 use Krugozor\Framework\Html\Title;
@@ -29,13 +30,8 @@ class Lang extends CoverArray
             $lang = Context::getInstance()->getRequest()->getRequest('lang', 'string')
                     ?: Registry::getInstance()->LOCALIZATION['LANG'];
 
-            $anchor = 'Krugozor\\Framework\\Module\\' . ucfirst($module) . '\\Anchor';
-            if (!class_exists($anchor)) {
-                throw new \RuntimeException("Not found Anchor-file at `$anchor`");
-            }
-
             $path = implode(DIRECTORY_SEPARATOR, [
-                    $anchor::getPath(), 'i18n', $lang, 'controller', $file
+                    Application::getAnchor($module)::getPath(), 'i18n', $lang, 'controller', $file
                 ]) . '.php';
 
             if (!file_exists($path)) {

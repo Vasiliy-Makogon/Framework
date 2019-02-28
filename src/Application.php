@@ -124,7 +124,7 @@ final class Application
      */
     final public static function getAnchor($moduleName)
     {
-        $anchor = 'Krugozor\\Framework\\Module\\' . ucfirst(strtolower($moduleName)) . '\\Anchor';
+        $anchor = 'Krugozor\\Framework\\Module\\' . Strings::formatToCamelCaseStyle($moduleName) . '\\Anchor';
         if (!class_exists($anchor)) {
             throw new \RuntimeException("Not found Anchor-file at path `$anchor`");
         }

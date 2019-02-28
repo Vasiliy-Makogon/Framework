@@ -2,25 +2,18 @@
 
 namespace Krugozor\Framework\Module\Resource\Controller;
 
+use Krugozor\Framework\Application;
 use Krugozor\Framework\Controller;
 use Krugozor\Framework\Http\Request;
 use Krugozor\Framework\Http\Response;
 use Krugozor\Framework\Module\Resource\Model\ResourceImg;
-use Krugozor\Framework\Statical\Strings;
 
 class Img extends Controller
 {
     public function run()
     {
-        $anchor = 'Krugozor\\Framework\\Module\\' .
-            Strings::formatToCamelCaseStyle($this->getRequest()->getRequest('module')) .
-            '\\Anchor';
-        if (!class_exists($anchor)) {
-            throw new \RuntimeException("Not found Anchor-file at `$anchor`");
-        }
-
         $paths = [
-            $anchor::getPath(),
+            Application::getAnchor($this->getRequest()->getRequest('module'))::getPath(),
             'resources',
             'img',
             $this->getRequest()->getRequest('file')

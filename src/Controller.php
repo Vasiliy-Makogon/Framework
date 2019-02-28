@@ -195,12 +195,7 @@ abstract class Controller
      */
     protected final function getRealLocalTemplatePath(?string $template = null): ?string
     {
-        $anchor = 'Krugozor\\Framework\\Module\\' .
-            $this->getRequest()->getModuleName()->getCamelCaseStyle() .
-            '\\Anchor';
-        if (!class_exists($anchor)) {
-            throw new \RuntimeException("Not found Anchor-file at `$anchor`");
-        }
+        $anchor = Application::getAnchor($this->getRequest()->getModuleName()->getUriStyle());
 
         if ($template === null) {
             $template_file_paths = [

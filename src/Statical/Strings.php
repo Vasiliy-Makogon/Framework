@@ -173,7 +173,6 @@ class Strings
         }
 
         $str = '';
-
         foreach ($parts as $part) {
             $str .= ucfirst($part);
         }
