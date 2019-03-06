@@ -23,7 +23,7 @@
 <? include $this->getRealTemplatePath('Local/BackendNotification') ?>
 <? include $this->getRealTemplatePath('Local/BackendMenu') ?>
 
-<table class="datatable">
+<table class="datatable menu">
     <tr>
         <td>
             <a href="/module/edit-module/?id=<?= $this->controller->getModule()->getId() ?>"><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($this->controller->getModule()->getName()) ?></a>
