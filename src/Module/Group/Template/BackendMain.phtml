@@ -79,7 +79,7 @@
             <tr>
                 <td class="center"><?= $group->getId() ?></td>
                 <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($group->getName(), 'decode', 'hsc') ?></td>
-                <td class="center<? if (!$group->getActive()): ?> lighttext"<?php endif; ?>>
+                <td class="center<? if (!$group->getActive()): ?> lighttext<?php endif; ?>">
                     <span>
                         <? if ($group->getActive()): ?>
                             <?= $this->getLang()['content']['yes'] ?>
