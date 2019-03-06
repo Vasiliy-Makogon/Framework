@@ -24,7 +24,7 @@
 <? include $this->getRealTemplatePath('Local/BackendNotification') ?>
 <? include $this->getRealTemplatePath('Local/BackendMenu') ?>
 
-<table class="datatable">
+<table class="datatable menu">
     <tr>
         <td>
             <a class="add_element" href="/group/backend-edit/">
@@ -42,7 +42,7 @@
         <tr>
             <th colspan="5"><?= $this->getLang()['content']['list_of_groups'] ?></th>
         </tr>
-        <tr class="head_params">
+        <tr>
             <td>
                 <?php
                 $linker = $this->getHelper('\Krugozor\Framework\Helper\SortLink')
@@ -76,10 +76,10 @@
         </tr>
 
         <? foreach ($this->groupList->getList() as $group): ?>
-            <tr class="center color_hover">
-                <td><?= $group->getId() ?></td>
+            <tr>
+                <td class="center"><?= $group->getId() ?></td>
                 <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($group->getName(), 'decode', 'hsc') ?></td>
-                <td<? if (!$group->getActive()): ?> class="lighttext"<?php endif; ?>>
+                <td class="center<? if (!$group->getActive()): ?> lighttext"<?php endif; ?>>
                     <span>
                         <? if ($group->getActive()): ?>
                             <?= $this->getLang()['content']['yes'] ?>

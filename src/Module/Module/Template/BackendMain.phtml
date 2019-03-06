@@ -24,7 +24,7 @@
 <? include $this->getRealTemplatePath('Local/BackendNotification') ?>
 <? include $this->getRealTemplatePath('Local/BackendMenu') ?>
 
-<table class="datatable">
+<table class="datatable menu">
     <tr>
         <td>
             <a class="add_element" href="/module/edit-module/"><?= $this->getLang()['content']['add_module'] ?></a>
@@ -40,7 +40,7 @@
         <tr>
             <th colspan="6"><?= $this->getLang()['content']['list_of_modules'] ?></th>
         </tr>
-        <tr class="head_params">
+        <tr>
             <td>
                 <?php
                 $linker = $this->getHelper('\Krugozor\Framework\Helper\SortLink')
@@ -71,8 +71,8 @@
         </tr>
 
         <? foreach ($this->modulesList->getList() as $module): ?>
-            <tr class="center color_hover">
-                <td><?= $module->getId() ?></td>
+            <tr>
+                <td class="center"><?= $module->getId() ?></td>
                 <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($module->getName()) ?></td>
                 <td><?= $module->getKey() ?></td>
                 <td>
