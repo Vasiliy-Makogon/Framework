@@ -41,7 +41,7 @@
             <th colspan="6"><?= $this->getLang()['content']['list_of_modules'] ?></th>
         </tr>
         <tr>
-            <td>
+            <th>
                 <?php
                 $linker = $this->getHelper('\Krugozor\Framework\Helper\SortLink')
                     ->setFieldName('id')
@@ -53,21 +53,21 @@
 
                 echo $linker->getHtml();
                 ?>
-            </td>
-            <td>
+            </th>
+            <th>
                 <?php
                 echo $linker->setFieldName('name')
                     ->setAnchor($this->getLang()['content']['module_name'])
                     ->getHtml(); ?>
-            </td>
-            <td>
+            </th>
+            <th>
                 <?php
                 echo $linker->setFieldName('key')
                     ->setAnchor($this->getLang()['content']['module_key'])
                     ->getHtml(); ?>
-            </td>
-            <td><?= $this->getLang()['content']['controllers_count'] ?></td>
-            <td colspan="2"><?= $this->getLang()['content']['actions'] ?></td>
+            </th>
+            <th><?= $this->getLang()['content']['controllers_count'] ?></th>
+            <th colspan="2"><?= $this->getLang()['content']['actions'] ?></th>
         </tr>
 
         <? foreach ($this->modulesList->getList() as $module): ?>

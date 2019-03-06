@@ -43,7 +43,7 @@
             <th colspan="5"><?= $this->getLang()['content']['list_of_groups'] ?></th>
         </tr>
         <tr>
-            <td>
+            <th>
                 <?php
                 $linker = $this->getHelper('\Krugozor\Framework\Helper\SortLink')
                     ->setFieldName('id')
@@ -59,20 +59,20 @@
 
                 echo $linker->getHtml();
                 ?>
-            </td>
-            <td>
+            </th>
+            <th>
                 <?php
                 echo $linker->setFieldName('name')
                     ->setAnchor($this->getLang()['content']['group_name'])
                     ->getHtml(); ?>
-            </td>
-            <td>
+            </th>
+            <th>
                 <?php
                 echo $linker->setFieldName('active')
                     ->setAnchor($this->getLang()['content']['group_active'])
                     ->getHtml(); ?>
-            </td>
-            <td colspan="2"><?= $this->getLang()['content']['actions'] ?></td>
+            </th>
+            <th colspan="2"><?= $this->getLang()['content']['actions'] ?></th>
         </tr>
 
         <? foreach ($this->groupList->getList() as $group): ?>
