@@ -78,7 +78,11 @@
         <? foreach ($this->groupList->getList() as $group): ?>
             <tr>
                 <td class="center"><?= $group->getId() ?></td>
-                <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($group->getName(), 'decode', 'hsc') ?></td>
+                <td>
+                    <a href="/group/backend-edit/?id=<?= $group->getId() ?>">
+                        <?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($group->getName(), 'decode', 'hsc') ?>
+                    </a>
+                </td>
                 <td class="center<? if (!$group->getActive()): ?> lighttext<?php endif; ?>">
                     <span>
                         <? if ($group->getActive()): ?>
