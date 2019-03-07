@@ -106,9 +106,8 @@
             <td colspan="2">
                 <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputHidden('module[id]', $this->module->getId())->getHtml() ?>
                 <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputSubmit('submit', $this->getLang()['content']['save_changes'])->getHtml() ?>
-                &nbsp;&nbsp;&nbsp;
                 <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->inputFullCheckbox('return_on_page', 1, 0, $this->return_on_page, array('id' => 'label_return_on_page')) ?>
-                &nbsp;<?= $this->getHelper('\Krugozor\Framework\Helper\Form')->Label($this->getLang()['content']['return_to_this_page'], 'label_return_on_page')->getHtml() ?>
+                <?= $this->getHelper('\Krugozor\Framework\Helper\Form')->Label($this->getLang()['content']['return_to_this_page'], 'label_return_on_page')->getHtml() ?>
             </td>
         </tr>
     </table>
