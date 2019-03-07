@@ -73,7 +73,11 @@
         <? foreach ($this->modulesList->getList() as $module): ?>
             <tr>
                 <td class="center"><?= $module->getId() ?></td>
-                <td><?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($module->getName()) ?></td>
+                <td>
+                    <a href="/module/edit-module/?id=<?= $module->getId() ?>">
+                        <?= $this->getHelper('\Krugozor\Framework\Helper\Format')->run($module->getName()) ?>
+                    </a>
+                </td>
                 <td><?= $module->getKey() ?></td>
                 <td>
                     <? if ($module->getControllers()): ?>
