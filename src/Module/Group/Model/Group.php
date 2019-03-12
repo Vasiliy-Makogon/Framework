@@ -9,10 +9,22 @@ use Krugozor\Framework\Module\Group\Service\DenormalizedAccesses;
 class Group extends Model
 {
     /**
-     * ID группы пользователи в СУБД.
+     * ID группы `администраторы` в СУБД.
      * @var int
      */
-    const ID_GROUP_USERS = 2;
+    const ID_GROUP_ADMINISTRATOR = 1;
+
+    /**
+     * ID группы `пользователи` в СУБД.
+     * @var int
+     */
+    const ID_GROUP_USER = 2;
+
+    /**
+     * ID группы `гости` в СУБД.
+     * @var int
+     */
+    const ID_GROUP_GUEST = 3;
 
     /**
      * @var string
