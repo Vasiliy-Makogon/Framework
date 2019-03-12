@@ -8,8 +8,20 @@ use Krugozor\Framework\Module\Group\Service\DenormalizedAccesses;
 
 class Group extends Model
 {
+    /**
+     * ID группы пользователи в СУБД.
+     * @var int
+     */
+    const ID_GROUP_USERS = 2;
+
+    /**
+     * @var string
+     */
     protected static $db_field_prefix = 'group';
 
+    /**
+     * @var array
+     */
     protected static $model_attributes = array
     (
         'id' => array(
