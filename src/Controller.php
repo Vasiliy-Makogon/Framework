@@ -215,7 +215,7 @@ abstract class Controller
 
         // Тут шаблон явно указан и файл не найден - это ошибка.
         if ($template !== null) {
-            throw new Exception(__CLASS__ . ': Не найден шаблон ' . $template . '.*');
+            throw new \RuntimeException(__CLASS__ . ': Не найден шаблон ' . $template . '.*');
         }
 
         // Тут шаблон не указан и не найден - представление не нуждается в шаблоне.
