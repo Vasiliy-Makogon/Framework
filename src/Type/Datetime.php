@@ -40,9 +40,6 @@ class Datetime extends \DateTime
     }
 
     /**
-     * При наследовании от него все методы, которые возвращают новый инстанс DateTime,
-     * возвращают именно DateTime, а не объект данного типа.
-     *
      * @param string $format
      * @param string $time
      * @param null $timezone
@@ -51,8 +48,11 @@ class Datetime extends \DateTime
     public static function createFromFormat($format, $time, $timezone = null): self
     {
         $datetime = parent::createFromFormat($format, $time, $timezone);
-        $this_instance = new self();
-        return $this_instance->setTimestamp($datetime->getTimestamp());
+        if ($datetime) {
+            return (new self())->setTimestamp($datetime->getTimestamp());
+        }
+
+        throw new \RuntimeException('Date is incorrect');
     }
 
     /**
