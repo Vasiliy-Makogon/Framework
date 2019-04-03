@@ -219,8 +219,8 @@ final class Application
         }
 
         $first_element = Arrays::array_kshift($params);
-
-        list($module, $controller) = each($first_element);
+        $module = key($first_element);
+        $controller = current($first_element);
 
         if (class_exists($this->getControllerClassName(
             Strings::formatToCamelCaseStyle($module),
