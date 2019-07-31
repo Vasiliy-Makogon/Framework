@@ -199,8 +199,12 @@ class View
     /**
      * @return string
      */
-    public function getOutput(): string
+    public function getOutput($trim = true): string
     {
+        if ($trim) {
+            $this->output = Helper\Format::cleanWhitespace($this->output);
+        }
+
         return $this->output;
     }
 
