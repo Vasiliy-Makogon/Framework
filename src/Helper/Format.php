@@ -148,6 +148,7 @@ class Format
         $in = preg_replace("/(\r?\n)+/", '', $in);
         $in = preg_replace("/(\t)+/", '', $in);
         $in = preg_replace("/ +/", ' ', $in);
+        $in = preg_replace("/> </", '><', $in);
 
         return $in;
     }
