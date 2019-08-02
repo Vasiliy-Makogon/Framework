@@ -260,7 +260,7 @@ class View
             $full_path = "$module/$path";
         }
 
-        return '<script type="text/javascript" src="/js/' . $full_path . '"></script>' . PHP_EOL;
+        return '<script src="/js/' . $full_path . '"></script>' . PHP_EOL;
     }
 
     /**
