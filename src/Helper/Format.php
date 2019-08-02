@@ -145,9 +145,10 @@ class Format
      */
     public static function cleanWhitespace($in)
     {
-        $in = preg_replace("/(\r?\n)+/", PHP_EOL, $in);
+        $in = preg_replace("/(\r?\n)+/", '', $in);
         $in = preg_replace("/(\t)+/", '', $in);
         $in = preg_replace("/ +/", ' ', $in);
+        $in = preg_replace("/> </", '><', $in);
 
         return $in;
     }
