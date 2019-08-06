@@ -165,6 +165,15 @@ class Format
     }
 
     /**
+     * @param string $in
+     * @return null|string|string[]
+     */
+    public static function nl2space($in)
+    {
+        return preg_replace("/(\r?\n)+/", ' ', $in);
+    }
+
+    /**
      * Формирование значений для JavaScript-переменных, которые попадают, напрмиер, в alert() или confirm().
      *
      * @param string строка, возможно с параметрами как у Strings::createMessageFromParams
