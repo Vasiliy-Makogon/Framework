@@ -88,7 +88,11 @@ final class Application
             case $result instanceof View:
                 $result->run();
                 $this->context->getResponse()->sendCookie()->sendHeaders();
-                $trimmer = !(!empty($this->context->getRequest()->getRequest('aaa') || Registry::getInstance()->DEBUG['ENABLED_DEBUG_INFO']));
+                $debugKey = Registry::getInstance()->DEBUG['QS_DEBUG_KEY'];
+                $trimmer = !(
+                    !empty($debugKey) && $this->context->getRequest()->getRequest($debugKey) ||
+                    Registry::getInstance()->DEBUG['ENABLED_DEBUG_INFO']
+                );
                 echo $result->getOutput($trimmer);
                 break;
 
