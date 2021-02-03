@@ -16,7 +16,7 @@
   },
   "license": "Apache-2.0",
   "require": {
-    "krugozor/database": "^1.0",
+    "krugozor/database": "dev-master",
     "krugozor/pagination": "dev-master",
     "krugozor/cover": "dev-master",
     "krugozor/framework": "dev-master"
