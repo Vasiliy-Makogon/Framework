@@ -3,6 +3,7 @@
 namespace Krugozor\Framework\Mapper;
 
 use Krugozor\Cover\CoverArray;
+use Krugozor\Database\Mysql\Statement;
 use Krugozor\Framework\Statical\Arrays;
 use Krugozor\Framework\Statical\Numeric;
 
@@ -32,7 +33,7 @@ class Tree extends CommonMapper
 
         $sql = 'SELECT ' . $params['what'] . '
                 FROM `' . $this->getTableName() . '` ' .
-                $params['where'] . '
+            $params['where'] . '
                 ORDER BY `order` DESC';
 
         array_unshift($params['args'], $sql);
@@ -159,6 +160,19 @@ class Tree extends CommonMapper
     }
 
     /**
+     * @param $sql
+     * @return CoverArray
+     */
+    public function loadTreeBySQL(Statement $statement): CoverArray
+    {
+        $marray = $this->result2medium($statement);
+        // Получаем ID самого верхнего родителя, что бы начать с него построение дерева.
+        $key = $marray ? min(array_keys($marray)) : 0;
+        return $this->medium2objectTree($marray, $key);
+    }
+
+
+    /**
      * Возвращает многомерный массив вида:
      *
      * [0] => Array
@@ -199,14 +213,26 @@ class Tree extends CommonMapper
 
         $res = call_user_func_array(array($this->getDb(), 'query'), $params['args']);
 
+        return $this->result2medium($res);
+    }
+
+    /**
+     * @param Statement $statement
+     * @return array
+     */
+    protected function result2medium(Statement $statement)
+    {
         $data = array();
 
-        while ($temp = $res->fetch_assoc()) {
-            if (!isset($data[$temp['pid']])) {
-                $data[$temp['pid']] = array();
-            }
+        if ($statement->getNumRows())
+        {
+            while ($temp = $statement->fetch_assoc()) {
+                if (!isset($data[$temp['pid']])) {
+                    $data[$temp['pid']] = array();
+                }
 
-            $data[$temp['pid']][] = $temp;
+                $data[$temp['pid']][] = $temp;
+            }
         }
 
         return $data;
