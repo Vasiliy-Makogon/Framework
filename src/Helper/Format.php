@@ -264,6 +264,16 @@ class Format
     }
 
     /**
+     * Формирование числа разделенного пробелом для приятной визуализации.
+     * @param $value
+     * @return string
+     */
+    public static function prettyNumber($value)
+    {
+        return number_format($value,0,"."," ");
+    }
+
+    /**
      * Обрабатывает переменную $in функцией $fun.
      * Переменная $in может быть многомерным массивом
      * любого уровня вложенности или строкой.
