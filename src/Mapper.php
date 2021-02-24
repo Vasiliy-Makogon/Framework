@@ -108,9 +108,9 @@ abstract class Mapper
      * Данный метод - сокращеная запись получения объекта СУБД, что бы не писать
      * каждый раз $this->getMapperManager()->getDb().
      *
-     * @return \Krugozor\Database\Mysql\Mysql
+     * @return \Krugozor\Database\Mysql
      */
-    protected final function getDb(): \Krugozor\Database\Mysql\Mysql
+    protected final function getDb(): \Krugozor\Database\Mysql
     {
         return $this->getMapperManager()->getDb();
     }

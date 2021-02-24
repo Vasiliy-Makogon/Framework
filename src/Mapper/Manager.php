@@ -38,14 +38,14 @@ class Manager
     private static $mappers = array();
 
     /**
-     * @var \Krugozor\Database\Mysql\Mysql
+     * @var \Krugozor\Database\Mysql
      */
     private $db;
 
     /**
-     * @param \Krugozor\Database\Mysql\Mysql $db
+     * @param \Krugozor\Database\Mysql $db
      */
-    public function __construct(\Krugozor\Database\Mysql\Mysql $db)
+    public function __construct(\Krugozor\Database\Mysql $db)
     {
         $this->db = $db;
     }
@@ -78,9 +78,9 @@ class Manager
     /**
      * Возвращает объект базы данных.
      *
-     * @return \Krugozor\Database\Mysql\Mysql
+     * @return \Krugozor\Database\Mysql
      */
-    public final function getDb(): \Krugozor\Database\Mysql\Mysql
+    public final function getDb(): \Krugozor\Database\Mysql
     {
         return $this->db;
     }

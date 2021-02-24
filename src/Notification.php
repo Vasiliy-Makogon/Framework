@@ -2,7 +2,6 @@
 
 namespace Krugozor\Framework;
 
-use Krugozor\Framework\Helper\Format;
 use Krugozor\Framework\Statical\Strings;
 
 /**
@@ -28,7 +27,7 @@ class Notification
     const TYPE_WARNING = 'warning';
 
     /**
-     * @var \Krugozor\Database\Mysql\Mysql
+     * @var \Krugozor\Database\Mysql
      */
     private $db;
 
@@ -93,9 +92,9 @@ class Notification
     private $notification_remove = true;
 
     /**
-     * @param \Krugozor\Database\Mysql\Mysql $db
+     * @param \Krugozor\Database\Mysql $db
      */
-    public function __construct(\Krugozor\Database\Mysql\Mysql $db)
+    public function __construct(\Krugozor\Database\Mysql $db)
     {
         $this->db = $db;
     }

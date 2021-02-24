@@ -26,7 +26,7 @@ final class Context implements Singleton
     protected $response;
 
     /**
-     * @var \Krugozor\Database\Mysql\Mysql
+     * @var \Krugozor\Database\Mysql
      */
     protected $db;
 
@@ -95,9 +95,9 @@ final class Context implements Singleton
     /**
      * Возвращает объект СУБД.
      *
-     * @return \Krugozor\Database\Mysql\Mysql
+     * @return \Krugozor\Database\Mysql
      */
-    final public function getDatabase(): \Krugozor\Database\Mysql\Mysql
+    final public function getDatabase(): \Krugozor\Database\Mysql
     {
         return $this->db;
     }
@@ -105,10 +105,10 @@ final class Context implements Singleton
     /**
      * Принимает объект СУБД.
      *
-     * @param \Krugozor\Database\Mysql\Mysql $db
+     * @param \Krugozor\Database\Mysql $db
      * @return Context
      */
-    final public function setDatabase(\Krugozor\Database\Mysql\Mysql $db): self
+    final public function setDatabase(\Krugozor\Database\Mysql $db): self
     {
         if ($this->db === null) {
             $this->db = $db;
