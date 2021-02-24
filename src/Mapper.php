@@ -264,7 +264,7 @@ abstract class Mapper
 
         $fielsd = $statement->getResult()->fetch_fields();
 
-        while ($row = $statement->fetch_row()) {
+        while ($row = $statement->fetchRow()) {
             $temp = array();
 
             for ($i = 0; $i < count($fielsd); $i++) {
@@ -363,7 +363,7 @@ abstract class Mapper
 
         $res = call_user_func_array(array($this->getDb(), 'query'), func_get_args());
 
-        $object = $this->createModelFromDatabaseResult(is_object($res) && $res->getNumRows() ? $res->fetch_assoc() : array());
+        $object = $this->createModelFromDatabaseResult(is_object($res) && $res->getNumRows() ? $res->fetchAssoc() : array());
 
         if ($object->getId()) {
             self::$collection[$this->getModuleName()][$this->getModelName()][$object->getId()] = $object;
@@ -396,7 +396,7 @@ abstract class Mapper
         $res = call_user_func_array(array($this->getDb(), 'query'), func_get_args());
 
         if (is_object($res) && $res->getNumRows()) {
-            while ($row = $res->fetch_assoc()) {
+            while ($row = $res->fetchAssoc()) {
                 $object = $this->createModelFromDatabaseResult($row);
 
                 self::$collection[$this->getModuleName()][$this->getModelName()][$object->id] = $object;

@@ -103,7 +103,7 @@ class Access extends CommonMapper
 
         $accesses = new CoverArray();
 
-        while ($data = $res->fetch_assoc()) {
+        while ($data = $res->fetchAssoc()) {
             if (!isset($accesses[$data['module_key']])) {
                 $accesses[$data['module_key']] = array();
             }

@@ -315,7 +315,7 @@ class Notification
           WHERE `id_notification` = ?i
           LIMIT 0, 1', $id);
 
-        if ($data = $res->fetch_assoc()) {
+        if ($data = $res->fetchAssoc()) {
             $this->id_notification = $id;
             $this->notification_remove = (bool)$data['notification_remove'];
             $this->is_hidden = (bool)$data['notification_hidden'];

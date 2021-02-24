@@ -74,7 +74,7 @@ class CommonMapper extends Mapper
     {
         $res = parent::createQuerySelect($params);
 
-        $object = $this->createModelFromDatabaseResult( is_object($res) && $res->getNumRows() ? $res->fetch_assoc() : array() );
+        $object = $this->createModelFromDatabaseResult( is_object($res) && $res->getNumRows() ? $res->fetchAssoc() : array() );
 
         if ($object->getId()) {
             self::$collection[$this->getModuleName()][$this->getModelName()][$object->getId()] = $object;
@@ -97,7 +97,7 @@ class CommonMapper extends Mapper
         $res = parent::createQuerySelect($params);
 
         if (is_object($res) && $res->getNumRows()) {
-            while ($row = $res->fetch_assoc()) {
+            while ($row = $res->fetchAssoc()) {
                 $object = $this->createModelFromDatabaseResult($row);
 
                 self::$collection[$this->getModuleName()][$this->getModelName()][$object->id] = $object;

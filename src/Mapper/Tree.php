@@ -46,7 +46,7 @@ class Tree extends CommonMapper
             return $data;
         }
 
-        while ($row = $res->fetch_assoc()) {
+        while ($row = $res->fetchAssoc()) {
             $object = parent::createModelFromDatabaseResult($row);
 
             if ($object->id) {
@@ -90,7 +90,7 @@ class Tree extends CommonMapper
 
         $subtree = new CoverArray();
 
-        while ($row = $res->fetch_assoc()) {
+        while ($row = $res->fetchAssoc()) {
             $object = parent::createModelFromDatabaseResult($row);
             //$object->setIndent($level);
             $object->setTree($this->loadSubtree($object->getId(), $params, $level + 1));
@@ -226,7 +226,7 @@ class Tree extends CommonMapper
 
         if ($statement->getNumRows())
         {
-            while ($temp = $statement->fetch_assoc()) {
+            while ($temp = $statement->fetchAssoc()) {
                 if (!isset($data[$temp['pid']])) {
                     $data[$temp['pid']] = array();
                 }
