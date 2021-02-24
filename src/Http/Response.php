@@ -22,6 +22,31 @@ class Response implements Singleton
     const HEADER_CONTENT_TYPE = 'Content-type';
 
     /**
+     * @var string
+     */
+    const HEADER_CONTENT_LANGUAGE = 'Content-Language';
+
+    /**
+     * @var string
+     */
+    const HEADER_EXPIRES = 'Expires';
+
+    /**
+     * @var string
+     */
+    const HEADER_LAST_MODIFIED = 'Last-Modified';
+
+    /**
+     * @var string
+     */
+    const HEADER_CACHE_CONTROL = 'Cache-Control';
+
+    /**
+     * @var string
+     */
+    const HEADER_PRAGMA = 'Pragma';
+
+    /**
      * Код состояния HTTP,
      * например: HTTP/1.1 404 Not Found
      *
