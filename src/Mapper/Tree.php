@@ -3,7 +3,7 @@
 namespace Krugozor\Framework\Mapper;
 
 use Krugozor\Cover\CoverArray;
-use Krugozor\Database\Mysql\Statement;
+use Krugozor\Database\Statement;
 use Krugozor\Framework\Statical\Arrays;
 use Krugozor\Framework\Statical\Numeric;
 

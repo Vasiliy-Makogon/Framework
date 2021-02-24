@@ -251,14 +251,14 @@ abstract class Mapper
     }
 
     /**
-     * Принимает результат выполнения SQL-запроса в виде ресурса \Krugozor\Database\Mysql\Statement
+     * Принимает результат выполнения SQL-запроса в виде ресурса \Krugozor\Database\Statement
      * и возвращает массив объектов моделей, созданых на основе результата выборки.
      * Основной метод для получения списка объектов на основе JOIN-запроса.
      *
-     * @param \Krugozor\Database\Mysql\Statement $statement
+     * @param \Krugozor\Database\Statement $statement
      * @return CoverArray
      */
-    protected final function result2objects(\Krugozor\Database\Mysql\Statement $statement): CoverArray
+    protected final function result2objects(\Krugozor\Database\Statement $statement): CoverArray
     {
         $result = new CoverArray();
 
@@ -325,13 +325,13 @@ abstract class Mapper
 
     /**
      * Исполняет простой SELECT-запрос к текущей таблице на основании параметров
-     * $params и возвращает объект результата \Krugozor\Database\Mysql\Statement.
+     * $params и возвращает объект результата \Krugozor\Database\Statement.
      *
      * @param array
-     * @return \Krugozor\Database\Mysql\Statement
+     * @return \Krugozor\Database\Statement
      * @final
      */
-    protected final function createQuerySelect(array $params): \Krugozor\Database\Mysql\Statement
+    protected final function createQuerySelect(array $params): \Krugozor\Database\Statement
     {
         $params = self::makeSqlFromParams($params);
 
@@ -409,10 +409,10 @@ abstract class Mapper
     }
 
     /**
-     * Исполняет DELETE-запрос и возвращает объект результата \Krugozor\Database\Mysql\Statement.
+     * Исполняет DELETE-запрос и возвращает объект результата \Krugozor\Database\Statement.
      *
      * @param array $params параметры выборки
-     * @return \Krugozor\Database\Mysql\Statement|bool
+     * @return \Krugozor\Database\Statement|bool
      * @final
      */
     protected final function createQueryDelete(array $params)
