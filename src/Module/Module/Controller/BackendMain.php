@@ -30,6 +30,7 @@ class BackendMain extends Controller
         );
 
         $this->getView()->modulesList = $list->findList();
+        $this->getView()->current_user = $this->getCurrentUser();
 
         return $this->getView();
     }

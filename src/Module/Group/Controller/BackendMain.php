@@ -29,6 +29,7 @@ class BackendMain extends BackendCommon
         );
 
         $this->getView()->groupList = $list->findList();
+        $this->getView()->current_user = $this->getCurrentUser();
 
         return $this->getView();
     }

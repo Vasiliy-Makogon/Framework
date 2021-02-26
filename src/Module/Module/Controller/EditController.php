@@ -38,6 +38,7 @@ class EditController extends CommonController
 
         $this->getView()->modules = $this->getMapper('Module/Module')->findModelListByParams();
         $this->getView()->controller = $this->controller;
+        $this->getView()->current_user = $this->getCurrentUser();
 
         return $this->getView();
     }

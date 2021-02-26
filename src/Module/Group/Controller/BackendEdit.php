@@ -37,6 +37,7 @@ class BackendEdit extends BackendCommon
         $this->getView()->group = $this->group;
         $this->getView()->modules = $this->getMapper('Module/Module')->findModelListByParams();
         $this->getView()->return_on_page = $this->getRequest()->getRequest('return_on_page');
+        $this->getView()->current_user = $this->getCurrentUser();
 
         return $this->getView();
     }

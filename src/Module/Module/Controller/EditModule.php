@@ -37,6 +37,7 @@ class EditModule extends CommonModule
         }
 
         $this->getView()->module = $this->module;
+        $this->getView()->current_user = $this->getCurrentUser();
 
         return $this->getView();
     }
