@@ -82,15 +82,27 @@ class Authorization
         $user = $this->mapper->findByLoginPassword($login, $password);
 
         if ($user->getId() > 0) {
-            $days = (int)$days;
+            $days = (int) $days;
             $time = $days ? time() + 60 * 60 * 24 * $days : 0;
 
-            $this->response->setcookie(self::ID_COOKIE_NAME, $user->getId(), $time, '/');
+            $this->response->setcookie(
+                self::ID_COOKIE_NAME,
+                $user->getId(),
+                $time,
+                '/',
+                null,
+                true,
+                true
+            );
+
             $this->response->setcookie(
                 self::HASH_COOKIE_NAME,
                 md5($user->getLogin() . $user->getPassword() . Registry::getInstance()->SECURITY['AUTHORIZATION_SALT']),
                 $time,
-                '/'
+                '/',
+                null,
+                true,
+                true
             );
 
             return true;
@@ -111,7 +123,10 @@ class Authorization
                 User::UNIQUE_USER_COOKIE_ID_NAME,
                 $user->getUniqueCookieId(),
                 $user->getUniqueUserCookieIdLifetime(),
-                '/'
+                '/',
+                null,
+                true,
+                true
             );
         } else {
             $user->setUniqueCookieId(
@@ -138,7 +153,10 @@ class Authorization
                     User::UNIQUE_USER_COOKIE_ID_NAME,
                     $user->getUniqueCookieId(),
                     $user->getUniqueUserCookieIdLifetime(),
-                    '/'
+                    '/',
+                    null,
+                    true,
+                    true
                 );
 
                 $user->setVisitdate(new Datetime());
@@ -161,7 +179,24 @@ class Authorization
     {
         $time = time() - 60 * 60 * 24 * 31;
 
-        $this->response->setCookie(self::ID_COOKIE_NAME, '', $time, '/');
-        $this->response->setCookie(self::HASH_COOKIE_NAME, '', $time, '/');
+        $this->response->setCookie(
+            self::ID_COOKIE_NAME,
+            '',
+            $time,
+            '/',
+            null,
+            true,
+            true
+        );
+
+        $this->response->setCookie(
+            self::HASH_COOKIE_NAME,
+            '',
+            $time,
+            '/',
+            null,
+            true,
+            true
+        );
     }
 }
