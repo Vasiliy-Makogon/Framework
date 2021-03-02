@@ -623,7 +623,7 @@ abstract class Mapper
      * @param string $module имя модуля
      * @param string $model имя модели
      */
-    private final function getModelClassNameByParts(string $module, string $model): string
+    private function getModelClassNameByParts(string $module, string $model): string
     {
         return 'Krugozor\\Framework\\Module\\' .
             Strings::formatToCamelCaseStyle($module) .
@@ -633,7 +633,7 @@ abstract class Mapper
     /**
      * Записывает во внутреннее представление объекта имя модуля и модели.
      */
-    private final function injectModelInfo()
+    private function injectModelInfo()
     {
         list(, , , $this->module_name, , $this->model_name) = explode('\\', get_class($this));
     }
