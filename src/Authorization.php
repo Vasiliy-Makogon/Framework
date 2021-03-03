@@ -85,22 +85,22 @@ class Authorization
             $days = (int) $days;
             $time = $days ? time() + 60 * 60 * 24 * $days : 0;
 
-            $this->response->setcookie(
+            $this->response->setCookie(
                 self::ID_COOKIE_NAME,
                 $user->getId(),
                 $time,
                 '/',
-                null,
+                '',
                 true,
                 true
             );
 
-            $this->response->setcookie(
+            $this->response->setCookie(
                 self::HASH_COOKIE_NAME,
                 md5($user->getLogin() . $user->getPassword() . Registry::getInstance()->SECURITY['AUTHORIZATION_SALT']),
                 $time,
                 '/',
-                null,
+                '',
                 true,
                 true
             );
@@ -124,7 +124,7 @@ class Authorization
                 $user->getUniqueCookieId(),
                 $user->getUniqueUserCookieIdLifetime(),
                 '/',
-                null,
+                '',
                 true,
                 true
             );
@@ -154,7 +154,7 @@ class Authorization
                     $user->getUniqueCookieId(),
                     $user->getUniqueUserCookieIdLifetime(),
                     '/',
-                    null,
+                    '',
                     true,
                     true
                 );
@@ -184,7 +184,7 @@ class Authorization
             '',
             $time,
             '/',
-            null,
+            '',
             true,
             true
         );
@@ -194,7 +194,7 @@ class Authorization
             '',
             $time,
             '/',
-            null,
+            '',
             true,
             true
         );
