@@ -183,7 +183,7 @@ class Format
     public static function js($str, $params = array())
     {
         $str = html_entity_decode($str, ENT_QUOTES, 'UTF-8');
-        $str = htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+        $str = addslashes($str);
 
         if ($params) {
             array_walk($params, function (&$item, $key) {
