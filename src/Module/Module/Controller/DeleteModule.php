@@ -2,10 +2,13 @@
 
 namespace Krugozor\Framework\Module\Module\Controller;
 
+use Krugozor\Framework\Controller;
 use Krugozor\Framework\Notification;
 
-class DeleteModule extends CommonModule
+class DeleteModule extends Controller
 {
+    use BackendModuleIdValidator;
+
     public function run()
     {
         $this->getView()->getLang()->loadI18n('Common/BackendGeneral');

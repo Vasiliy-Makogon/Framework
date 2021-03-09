@@ -2,12 +2,10 @@
 
 namespace Krugozor\Framework\Module\Group\Controller;
 
-use Krugozor\Framework\Controller;
-use Krugozor\Framework\Module\Group\Model\Group;
 use Krugozor\Framework\Notification;
 use Krugozor\Framework\Statical\Numeric;
 
-abstract class BackendCommon extends Controller
+trait BackendIdValidator
 {
     /**
      * @var Group

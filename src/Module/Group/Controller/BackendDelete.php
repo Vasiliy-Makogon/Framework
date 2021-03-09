@@ -2,14 +2,18 @@
 
 namespace Krugozor\Framework\Module\Group\Controller;
 
+use Krugozor\Framework\Controller;
 use Krugozor\Framework\Notification;
 
-class BackendDelete extends BackendCommon
+class BackendDelete extends Controller
 {
+    use BackendIdValidator;
+
     public function run()
     {
         $this->getView()->getLang()->loadI18n(
-            'Common/BackendGeneral', 'Group/BackendCommon'
+            'Common/BackendGeneral',
+            'Group/BackendCommon'
         );
 
         if (!$this->checkAccess()) {

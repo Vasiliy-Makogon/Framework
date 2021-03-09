@@ -2,18 +2,22 @@
 
 namespace Krugozor\Framework\Module\Module\Controller;
 
+use Krugozor\Framework\Controller;
 use Krugozor\Framework\Http\Request;
 use Krugozor\Framework\Module\Module\Validator\ModuleKeyExists;
 use Krugozor\Framework\Module\Module\Validator\ModuleNameExists;
 use Krugozor\Framework\Notification;
 use Krugozor\Framework\Validator;
 
-class EditModule extends CommonModule
+class EditModule extends Controller
 {
+    use BackendModuleIdValidator;
+
     public function run()
     {
         $this->getView()->getLang()->loadI18n(
-            'Common/BackendGeneral', $this->getRequest()->getVirtualControllerPath()
+            'Common/BackendGeneral',
+            $this->getRequest()->getVirtualControllerPath()
         )->addTitle();
 
         if (!$this->checkAccess()) {

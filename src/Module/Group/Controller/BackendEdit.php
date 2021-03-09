@@ -2,16 +2,21 @@
 
 namespace Krugozor\Framework\Module\Group\Controller;
 
+use Krugozor\Framework\Controller;
 use Krugozor\Framework\Http\Request;
 use Krugozor\Framework\Notification;
 use Krugozor\Framework\Validator;
 
-class BackendEdit extends BackendCommon
+class BackendEdit extends Controller
 {
+    use BackendIdValidator;
+
     public function run()
     {
         $this->getView()->getLang()->loadI18n(
-            'Common/BackendGeneral', 'Group/BackendCommon', $this->getRequest()->getVirtualControllerPath()
+            'Common/BackendGeneral',
+            'Group/BackendCommon',
+            $this->getRequest()->getVirtualControllerPath()
         )->addTitle();
 
         if (!$this->checkAccess()) {

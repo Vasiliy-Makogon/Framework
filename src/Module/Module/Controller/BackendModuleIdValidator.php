@@ -2,15 +2,14 @@
 
 namespace Krugozor\Framework\Module\Module\Controller;
 
-use Krugozor\Framework\Controller;
-use Krugozor\Framework\Module\Module\Model\Module as ModuleModel;
+use Krugozor\Framework\Module\Module\Model\Module;
 use Krugozor\Framework\Notification;
 use Krugozor\Framework\Statical\Numeric;
 
-abstract class CommonModule extends Controller
+trait BackendModuleIdValidator
 {
     /**
-     * @var ModuleModel
+     * @var Module
      */
     protected $module;
 

@@ -12,7 +12,8 @@ class BackendMain extends Controller
     public function run()
     {
         $this->getView()->getLang()->loadI18n(
-            'Common/BackendGeneral', $this->getRequest()->getVirtualControllerPath()
+            'Common/BackendGeneral',
+            $this->getRequest()->getVirtualControllerPath()
         )->addTitle();
 
         if (!$this->checkAccess()) {
