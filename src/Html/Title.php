@@ -27,9 +27,9 @@ class Title extends HelperAbstract
     /**
      * Составные части тега title.
      *
-     * @var array
+     * @var CoverArray
      */
-    private $data = array();
+    private $data;
 
     /**
      * @var Title
@@ -61,6 +61,7 @@ class Title extends HelperAbstract
     private function __construct($separator)
     {
         $this->separator = $separator;
+        $this->data = new CoverArray();
     }
 
     /**
@@ -70,7 +71,7 @@ class Title extends HelperAbstract
      */
     public function getCountElements()
     {
-        return count($this->data);
+        return $this->data->count();
     }
 
     /**
@@ -81,11 +82,7 @@ class Title extends HelperAbstract
     public function add()
     {
         foreach (func_get_args() as $value) {
-            if (is_object($value) && $value instanceof CoverArray) {
-                $value = $value->getData();
-            }
-
-            if (is_array($value)) {
+            if (!is_scalar($value)) {
                 foreach ($value as $element) {
                     if ($element = strip_tags($element)) {
                         $this->data[] = $element;
@@ -109,15 +106,15 @@ class Title extends HelperAbstract
      */
     public function addPostfixInLastElement($postfix)
     {
-        $lastElementIndex = $this->getCountElements() ? $this->getCountElements() - 1 : null;
-        if (is_null($lastElementIndex)) {
+        $last_element_value = $this->data->getLast();
+        if (is_null($last_element_value)) {
             return $this;
         }
 
         $postfix = ' ' . trim($postfix);
-        $lastElementValue = rtrim($this->data[$lastElementIndex], '.,!?:;');
+        $last_element_value = rtrim($last_element_value, '.,!?:;');
 
-        $this->data[$lastElementIndex] = $lastElementValue . $postfix;
+        $this->data[$this->data->count() -1] = $last_element_value . $postfix;
 
         return $this;
     }
@@ -125,25 +122,27 @@ class Title extends HelperAbstract
     /**
      * Возвращает последний элемент в коллекции title.
      *
-     * @return string
+     * @param bool $escape
+     * @return mixed|string
      */
-    public function getLastElement()
+    public function getLastElement($escape = false)
     {
-        return $this->getCountElements()
-            ? $this->data[$this->getCountElements() - 1]
-            : null;
+        return $escape
+            ? $this->escape($this->data->getLast())
+            : $this->data->getLast();
     }
 
     /**
      * Возвращает первый элемент в коллекции title.
      *
-     * @return string
+     * @param bool $escape
+     * @return mixed|string
      */
-    public function getFirstElement()
+    public function getFirstElement($escape = false)
     {
-        return $this->getCountElements()
-            ? $this->data[0]
-            : null;
+        return $escape
+            ? $this->escape($this->data->getFirst())
+            : $this->data->getFirst();
     }
 
     /**
@@ -159,14 +158,15 @@ class Title extends HelperAbstract
     /**
      * Возвращает элемент составных частей тега title под индексом $index.
      *
-     * @param int
-     * @return string
+     * @param int $index
+     * @param bool $escape
+     * @return mixed|null
      */
-    public function getByIndex($index)
+    public function getByIndex($index, $escape = false)
     {
-        return isset($this->data[$index])
-            ? $this->data[$index]
-            : null;
+        $value = $this->data->item($index);
+
+        return $value && $escape ? $this->escape($value) : $value;
     }
 
     /**
@@ -176,9 +176,9 @@ class Title extends HelperAbstract
      */
     public function getTitle()
     {
-        $title = implode(" $this->separator ", array_reverse($this->data));
+        $title = implode(" $this->separator ", $this->data->reverse());
 
-        return htmlspecialchars($title,  ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
+        return $this->escape($title);
     }
 
     /**
@@ -188,7 +188,7 @@ class Title extends HelperAbstract
      */
     public function getHtml(): string
     {
-        return '<title>' . $this->getTitle() . '</title>';
+        return '<title>' . $this->getTitle() . '</title>' . PHP_EOL;
     }
 
     /**
@@ -198,6 +198,15 @@ class Title extends HelperAbstract
      */
     public function getOgHtml(): string
     {
-        return '<meta property="og:title" content="' . $this->getTitle() . '" />';
+        return '<meta property="og:title" content="' . $this->getTitle() . '" />' . PHP_EOL;
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    private function escape($value)
+    {
+        return htmlspecialchars((string)$value,ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
     }
 }
