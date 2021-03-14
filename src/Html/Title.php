@@ -102,16 +102,22 @@ class Title extends HelperAbstract
     }
 
     /**
-     * Добавляет постфикс к первому элементу тега title
+     * Добавляет постфикс к последнему элементу тега title
      *
      * @param string $postfix
      * @return $this
      */
     public function addPostfixInLastElement($postfix)
     {
-        $this->data[$this->getCountElements() - 1] =
-            rtrim($this->data[$this->getCountElements() - 1], '.,!?:;') .
-            $postfix;
+        $lastElementIndex = $this->getCountElements() ? $this->getCountElements() - 1 : null;
+        if (is_null($lastElementIndex)) {
+            return $this;
+        }
+
+        $postfix = ' ' . trim($postfix);
+        $lastElementValue = rtrim($this->data[$lastElementIndex], '.,!?:;');
+
+        $this->data[$lastElementIndex] = $lastElementValue . $postfix;
 
         return $this;
     }
@@ -123,7 +129,9 @@ class Title extends HelperAbstract
      */
     public function getLastElement()
     {
-        return $this->data[$this->getCountElements() - 1];
+        return $this->getCountElements()
+            ? $this->data[$this->getCountElements() - 1]
+            : null;
     }
 
     /**
@@ -133,7 +141,9 @@ class Title extends HelperAbstract
      */
     public function getFirstElement()
     {
-        return $this->getCountElements() ? $this->data[0] : null;
+        return $this->getCountElements()
+            ? $this->data[0]
+            : null;
     }
 
     /**
@@ -154,7 +164,9 @@ class Title extends HelperAbstract
      */
     public function getByIndex($index)
     {
-        return isset($this->data[$index]) ? $this->data[$index] : null;
+        return isset($this->data[$index])
+            ? $this->data[$index]
+            : null;
     }
 
     /**
@@ -164,7 +176,9 @@ class Title extends HelperAbstract
      */
     public function getTitle()
     {
-        return htmlspecialchars(implode(" $this->separator ", array_reverse($this->data)), ENT_QUOTES);
+        $title = implode(" $this->separator ", array_reverse($this->data));
+
+        return htmlspecialchars($title,  ENT_QUOTES | ENT_HTML5, 'UTF-8', false);
     }
 
     /**
@@ -184,6 +198,6 @@ class Title extends HelperAbstract
      */
     public function getOgHtml(): string
     {
-        return '<meta property="og:title" content="' . $this->getTitle() . '"/>';
+        return '<meta property="og:title" content="' . $this->getTitle() . '" />';
     }
 }
