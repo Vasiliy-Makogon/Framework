@@ -19,7 +19,7 @@
   "require": {
     "krugozor/database": "v2.0",
     "krugozor/pagination": "v1.0",
-    "krugozor/cover": "v1.0"
+    "krugozor/cover": "v1.0.*"
   },
   "vendor-dir": "vendor"
 }
