@@ -8,11 +8,13 @@ use Krugozor\Framework\Helper\HelperAbstract;
 class Title extends HelperAbstract
 {
     /**
-     * Типы сепараторов разделения составных частей тега title.
-     *
      * @var string
      */
     const SEPARATOR_VERTICAL_LINE = '|';
+
+    /**
+     * @var string
+     */
     const SEPARATOR_FORWARD_SLASH = '/';
 
     /**
@@ -35,14 +37,15 @@ class Title extends HelperAbstract
     private static $instance;
 
     /**
-     * @param string сепаратор
+     * @param string $separator
+     * @return Title
      */
     public static function getInstance($separator = self::SEPARATOR_VERTICAL_LINE)
     {
         if (!self::$instance) {
             $separator = trim($separator);
 
-            if ($separator === '') {
+            if (empty($separator)) {
                 throw new \DomainException(__METHOD__ . ': Не задан сепаратор');
             }
 
@@ -57,7 +60,7 @@ class Title extends HelperAbstract
      */
     private function __construct($separator)
     {
-        $this->separator = " $separator ";
+        $this->separator = $separator;
     }
 
     /**
@@ -73,7 +76,7 @@ class Title extends HelperAbstract
     /**
      * Добавляет элемент хлебных крошек title
      *
-     * @param mixed
+     * @return $this
      */
     public function add()
     {
@@ -106,7 +109,9 @@ class Title extends HelperAbstract
      */
     public function addPostfixInLastElement($postfix)
     {
-        $this->data[$this->getCountElements() - 1] = rtrim($this->data[$this->getCountElements() - 1], '.,!?:;') . $postfix;
+        $this->data[$this->getCountElements() - 1] =
+            rtrim($this->data[$this->getCountElements() - 1], '.,!?:;') .
+            $postfix;
 
         return $this;
     }
@@ -149,7 +154,7 @@ class Title extends HelperAbstract
      */
     public function getTitle()
     {
-        return htmlspecialchars(implode($this->separator, array_reverse($this->data)), ENT_QUOTES);
+        return htmlspecialchars(implode(" $this->separator ", array_reverse($this->data)), ENT_QUOTES);
     }
 
     /**
@@ -160,5 +165,15 @@ class Title extends HelperAbstract
     public function getHtml(): string
     {
         return '<title>' . $this->getTitle() . '</title>';
+    }
+
+    /**
+     * Возвращает html-код тега title для Open Graph.
+     *
+     * @return string
+     */
+    public function getOgHtml(): string
+    {
+        return '<meta property="og:title" content="' . $this->getTitle() . '"/>';
     }
 }
