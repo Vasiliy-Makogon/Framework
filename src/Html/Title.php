@@ -127,6 +127,16 @@ class Title extends HelperAbstract
     }
 
     /**
+     * Возвращает первый элемент в коллекции title.
+     *
+     * @return string
+     */
+    public function getFirstElement()
+    {
+        return $this->getCountElements() ? $this->data[0] : null;
+    }
+
+    /**
      * Удаляет элемент составных частей тега title под индексом $index.
      *
      * @param int
